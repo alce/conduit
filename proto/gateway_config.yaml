@@ -1,0 +1,10 @@
+type: google.api.Service
+config_version: 3
+
+apis:
+  - name: pb.ArticleService
+
+http:
+  rules:
+    - selector: realworld.ArticleService.ListArticles
+      get: /articles

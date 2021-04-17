@@ -1,0 +1,22 @@
+[package]
+name = "conduit_server"
+version = "0.1.0"
+authors = ["Juan Alvarez <j@yabit.io>"]
+edition = "2018"
+publish = false
+
+[workspace]
+members = [
+    ".",
+    "conduit",
+]
+
+[dependencies]
+prost = "0.7.0"
+prost-types = "0.7.0"
+sqlx = { version = "0.5", features = [ "runtime-tokio-rustls", "postgres", "macros" ] }
+tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
+#tonic = "0.4.1"
+conduit = { path = "conduit" }
+tonic = { git = "https://github.com/alce/tonic.git", features = ["tls"], branch = "grpc-web" }
+tonic-web = { git = "https://github.com/alce/tonic.git", branch = "grpc-web" }

@@ -1,0 +1,16 @@
+name: conduit_client
+description: conduit grpc client
+version: 0.1.0
+publish_to: none
+
+environment:
+  sdk: '>=2.13.0-0 <3.0.0'
+
+dependencies:
+  equatable: ^2.0.0
+  grpc: ^3.0.0
+  meta: ^1.3.0
+  protobuf: ^2.0.0
+
+dev_dependencies:
+  test: ^1.16.8

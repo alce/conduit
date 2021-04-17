@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package realworld;
+
+import "google/api/field_behavior.proto";
+import "realworld/common.proto";
+
+option go_package = "conduit/pb/realworld";
+option java_package = "com.realworld";
+option java_outer_classname = "UserServiceProto";
+option java_multiple_files = true;
+
+service UserService {
+  rpc GetCurrentUser (GetCurrentUserRequest) returns (User) {}
+  rpc UpdateUser (UpdateUserRequest) returns (User) {}
+  rpc ToggleFollowUser (ToggleFollowUserRequest) returns (Profile) {}
+  rpc GetProfile (GetProfileRequest) returns (Profile) {}
+}
+
+message GetCurrentUserRequest {}
+
+message UpdateUserRequest {
+  User user = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+message GetProfileRequest {
+  string username = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+message ToggleFollowUserRequest {
+  string username = 1 [(google.api.field_behavior) = REQUIRED];
+}

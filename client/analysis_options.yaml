@@ -1,0 +1,21 @@
+include: ../lint_rules.yaml
+
+analyzer:
+  language:
+    strict-inference: true
+    strict-raw-types: true
+  strong-mode:
+    implicit-casts: false
+    implicit-dynamic: false
+  exclude: [lib/src/generated/**]
+  errors:
+    included_file_warning: ignore
+linter:
+  rules:
+    prefer_double_quotes: false
+    always_specify_types: false
+    unnecessary_final: false
+    public_member_api_docs: false
+    always_use_package_imports: false
+    flutter_style_todos: false
+    prefer_expression_function_bodies: false
