@@ -17,9 +17,11 @@ pub struct Users;
 impl UserService for Users {
     async fn get_current_user(
         &self,
-        _req: Request<GetCurrentUserRequest>,
+        req: Request<GetCurrentUserRequest>,
     ) -> Result<Response<User>, Status> {
-        todo!()
+        dbg!(&req);
+        let user = conduit::users::current().await.unwrap();
+        Ok(Response::new(user.into()))
     }
 
     async fn update_user(

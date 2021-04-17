@@ -19,6 +19,8 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ArticleServiceClient interface {
+	// Returns most recent articles globally by default, provide tag, author or
+	// favorited query parameter to filter results
 	ListArticles(ctx context.Context, in *ListArticlesRequest, opts ...grpc.CallOption) (*ArticleList, error)
 	GetArticleFeed(ctx context.Context, in *GetArticleFeedRequest, opts ...grpc.CallOption) (*ArticleList, error)
 	GetArticle(ctx context.Context, in *GetArticleRequest, opts ...grpc.CallOption) (*Article, error)
@@ -133,6 +135,8 @@ func (c *articleServiceClient) ListTags(ctx context.Context, in *ListTagsRequest
 // All implementations must embed UnimplementedArticleServiceServer
 // for forward compatibility
 type ArticleServiceServer interface {
+	// Returns most recent articles globally by default, provide tag, author or
+	// favorited query parameter to filter results
 	ListArticles(context.Context, *ListArticlesRequest) (*ArticleList, error)
 	GetArticleFeed(context.Context, *GetArticleFeedRequest) (*ArticleList, error)
 	GetArticle(context.Context, *GetArticleRequest) (*Article, error)

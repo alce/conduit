@@ -3,6 +3,7 @@ syntax = "proto3";
 package realworld;
 
 import "google/api/field_behavior.proto";
+import "google/api/annotations.proto";
 import "realworld/common.proto";
 
 option go_package = "conduit/pb/realworld";
@@ -11,9 +12,19 @@ option java_outer_classname = "UserServiceProto";
 option java_multiple_files = true;
 
 service UserService {
-  rpc GetCurrentUser (GetCurrentUserRequest) returns (User) {}
+  // Authentication required, returns a User that's the current user
+  rpc GetCurrentUser (GetCurrentUserRequest) returns (User) {
+    option (google.api.http) = {
+      get: "/user"
+    };
+  }
+
+  // Authentication required, returns the User
+  // Accepted fields: email, username, password, image, bio
   rpc UpdateUser (UpdateUserRequest) returns (User) {}
+
   rpc ToggleFollowUser (ToggleFollowUserRequest) returns (Profile) {}
+
   rpc GetProfile (GetProfileRequest) returns (Profile) {}
 }
 

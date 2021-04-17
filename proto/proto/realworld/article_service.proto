@@ -5,6 +5,7 @@ package realworld;
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/empty.proto";
 import "google/api/field_behavior.proto";
+import "google/api/annotations.proto";
 import "realworld/common.proto";
 
 option go_package = "conduit/pb/realworld";
@@ -13,7 +14,14 @@ option java_outer_classname = "ArticleServiceProto";
 option java_multiple_files = true;
 
 service ArticleService {
-  rpc ListArticles (ListArticlesRequest) returns (ArticleList) {}
+  // Returns most recent articles globally by default, provide tag, author or
+  // favorited query parameter to filter results
+  rpc ListArticles (ListArticlesRequest) returns (ArticleList) {
+    option (google.api.http) = {
+      get: "/articles"
+    };
+  }
+
   rpc GetArticleFeed (GetArticleFeedRequest) returns (ArticleList) {}
   rpc GetArticle (GetArticleRequest) returns (Article) {}
   rpc CreateArticle (CreateArticleRequest) returns (Article) {}

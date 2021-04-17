@@ -17,7 +17,18 @@ func main() {
 	cx := context.Background()
 	mux := runtime.NewServeMux()
 	opts := []grpc.DialOption{grpc.WithInsecure()}
+
 	err := pb.RegisterArticleServiceHandlerFromEndpoint(cx, mux, grpcServer, opts)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	err = pb.RegisterAuthServiceHandlerFromEndpoint(cx, mux, grpcServer, opts)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	err = pb.RegisterUserServiceHandlerFromEndpoint(cx, mux, grpcServer, opts)
 	if err != nil {
 		log.Fatal(err)
 	}
