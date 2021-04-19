@@ -11,10 +11,12 @@ members = [
     "conduit",
 ]
 
+[lib]
+doctest = false
+
 [dependencies]
 prost = "0.7.0"
 prost-types = "0.7.0"
-sqlx = { version = "0.5", features = [ "runtime-tokio-rustls", "postgres", "macros" ] }
 tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
 #tonic = "0.4.1"
 conduit = { path = "conduit" }

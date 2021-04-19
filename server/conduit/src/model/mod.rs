@@ -1,6 +1,7 @@
 mod article;
 mod comment;
-mod error;
+
+pub mod error;
 
 mod primitives;
 pub use primitives::*;
@@ -8,4 +9,4 @@ pub use primitives::*;
 mod profile;
 
 mod user;
-pub use user::User;
+pub use user::{Profile, User};
