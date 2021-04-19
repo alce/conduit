@@ -9,17 +9,17 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import '../protobuf/duration.pb.dart' as $6;
+import '../protobuf/duration.pb.dart' as $5;
 
 class RetryInfo extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'RetryInfo', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'google.rpc'), createEmptyInstance: create)
-    ..aOM<$6.Duration>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'retryDelay', subBuilder: $6.Duration.create)
+    ..aOM<$5.Duration>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'retryDelay', subBuilder: $5.Duration.create)
     ..hasRequiredFields = false
   ;
 
   RetryInfo._() : super();
   factory RetryInfo({
-    $6.Duration? retryDelay,
+    $5.Duration? retryDelay,
   }) {
     final _result = create();
     if (retryDelay != null) {
@@ -49,15 +49,15 @@ class RetryInfo extends $pb.GeneratedMessage {
   static RetryInfo? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $6.Duration get retryDelay => $_getN(0);
+  $5.Duration get retryDelay => $_getN(0);
   @$pb.TagNumber(1)
-  set retryDelay($6.Duration v) { setField(1, v); }
+  set retryDelay($5.Duration v) { setField(1, v); }
   @$pb.TagNumber(1)
   $core.bool hasRetryDelay() => $_has(0);
   @$pb.TagNumber(1)
   void clearRetryDelay() => clearField(1);
   @$pb.TagNumber(1)
-  $6.Duration ensureRetryDelay() => $_ensure(0);
+  $5.Duration ensureRetryDelay() => $_ensure(0);
 }
 
 class DebugInfo extends $pb.GeneratedMessage {

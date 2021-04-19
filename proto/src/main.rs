@@ -2,8 +2,8 @@ fn main() {
     let protos = &[
         "proto/google/rpc/error_details.proto",
         "proto/google/rpc/status.proto",
+        "proto/google/rpc/code.proto",
         "proto/realworld/article_service.proto",
-        "proto/realworld/auth_service.proto",
         "proto/realworld/user_service.proto",
     ];
 

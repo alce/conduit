@@ -12,11 +12,3 @@ message Profile {
   string image = 3;
   bool following = 4;
 }
-
-message User {
-  string token = 1;
-  string username = 2;
-  string email = 3;
-  string bio = 4;
-  string image = 5;
-}

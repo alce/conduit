@@ -15,41 +15,34 @@ import '../google/protobuf/empty.pb.dart' as $1;
 export 'article_service.pb.dart';
 
 class ArticleServiceClient extends $grpc.Client {
-  static final _$listArticles =
+  static final _$list =
       $grpc.ClientMethod<$0.ListArticlesRequest, $0.ArticleList>(
-          '/realworld.ArticleService/ListArticles',
+          '/realworld.ArticleService/List',
           ($0.ListArticlesRequest value) => value.writeToBuffer(),
           ($core.List<$core.int> value) => $0.ArticleList.fromBuffer(value));
-  static final _$getArticleFeed =
-      $grpc.ClientMethod<$0.GetArticleFeedRequest, $0.ArticleList>(
-          '/realworld.ArticleService/GetArticleFeed',
-          ($0.GetArticleFeedRequest value) => value.writeToBuffer(),
+  static final _$getFeed =
+      $grpc.ClientMethod<$0.GetFeedRequest, $0.ArticleList>(
+          '/realworld.ArticleService/GetFeed',
+          ($0.GetFeedRequest value) => value.writeToBuffer(),
           ($core.List<$core.int> value) => $0.ArticleList.fromBuffer(value));
-  static final _$getArticle =
-      $grpc.ClientMethod<$0.GetArticleRequest, $0.Article>(
-          '/realworld.ArticleService/GetArticle',
-          ($0.GetArticleRequest value) => value.writeToBuffer(),
-          ($core.List<$core.int> value) => $0.Article.fromBuffer(value));
-  static final _$createArticle =
+  static final _$get = $grpc.ClientMethod<$0.GetArticleRequest, $0.Article>(
+      '/realworld.ArticleService/Get',
+      ($0.GetArticleRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $0.Article.fromBuffer(value));
+  static final _$create =
       $grpc.ClientMethod<$0.CreateArticleRequest, $0.Article>(
-          '/realworld.ArticleService/CreateArticle',
+          '/realworld.ArticleService/Create',
           ($0.CreateArticleRequest value) => value.writeToBuffer(),
           ($core.List<$core.int> value) => $0.Article.fromBuffer(value));
-  static final _$updateArticle =
+  static final _$update =
       $grpc.ClientMethod<$0.UpdateArticleRequest, $0.Article>(
-          '/realworld.ArticleService/UpdateArticle',
+          '/realworld.ArticleService/Update',
           ($0.UpdateArticleRequest value) => value.writeToBuffer(),
           ($core.List<$core.int> value) => $0.Article.fromBuffer(value));
-  static final _$deleteArticle =
-      $grpc.ClientMethod<$0.DeleteArticleRequest, $1.Empty>(
-          '/realworld.ArticleService/DeleteArticle',
-          ($0.DeleteArticleRequest value) => value.writeToBuffer(),
-          ($core.List<$core.int> value) => $1.Empty.fromBuffer(value));
-  static final _$toggleFavoriteArticle =
-      $grpc.ClientMethod<$0.ToggleFavoriteArticleRequest, $0.Article>(
-          '/realworld.ArticleService/ToggleFavoriteArticle',
-          ($0.ToggleFavoriteArticleRequest value) => value.writeToBuffer(),
-          ($core.List<$core.int> value) => $0.Article.fromBuffer(value));
+  static final _$delete = $grpc.ClientMethod<$0.DeleteArticleRequest, $1.Empty>(
+      '/realworld.ArticleService/Delete',
+      ($0.DeleteArticleRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $1.Empty.fromBuffer(value));
   static final _$createComment =
       $grpc.ClientMethod<$0.CreateCommentRequest, $0.Comment>(
           '/realworld.ArticleService/CreateComment',
@@ -60,6 +53,21 @@ class ArticleServiceClient extends $grpc.Client {
           '/realworld.ArticleService/ListComments',
           ($0.ListCommentsRequest value) => value.writeToBuffer(),
           ($core.List<$core.int> value) => $0.CommentList.fromBuffer(value));
+  static final _$deleteComment =
+      $grpc.ClientMethod<$0.DeleteCommentRequest, $1.Empty>(
+          '/realworld.ArticleService/DeleteComment',
+          ($0.DeleteCommentRequest value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) => $1.Empty.fromBuffer(value));
+  static final _$favoriteArticle =
+      $grpc.ClientMethod<$0.FavoriteArticleRequest, $0.Article>(
+          '/realworld.ArticleService/FavoriteArticle',
+          ($0.FavoriteArticleRequest value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) => $0.Article.fromBuffer(value));
+  static final _$unFavoriteArticle =
+      $grpc.ClientMethod<$0.FavoriteArticleRequest, $0.Article>(
+          '/realworld.ArticleService/UnFavoriteArticle',
+          ($0.FavoriteArticleRequest value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) => $0.Article.fromBuffer(value));
   static final _$listTags = $grpc.ClientMethod<$0.ListTagsRequest, $0.TagList>(
       '/realworld.ArticleService/ListTags',
       ($0.ListTagsRequest value) => value.writeToBuffer(),
@@ -70,44 +78,34 @@ class ArticleServiceClient extends $grpc.Client {
       $core.Iterable<$grpc.ClientInterceptor>? interceptors})
       : super(channel, options: options, interceptors: interceptors);
 
-  $grpc.ResponseFuture<$0.ArticleList> listArticles(
-      $0.ListArticlesRequest request,
+  $grpc.ResponseFuture<$0.ArticleList> list($0.ListArticlesRequest request,
       {$grpc.CallOptions? options}) {
-    return $createUnaryCall(_$listArticles, request, options: options);
+    return $createUnaryCall(_$list, request, options: options);
   }
 
-  $grpc.ResponseFuture<$0.ArticleList> getArticleFeed(
-      $0.GetArticleFeedRequest request,
+  $grpc.ResponseFuture<$0.ArticleList> getFeed($0.GetFeedRequest request,
       {$grpc.CallOptions? options}) {
-    return $createUnaryCall(_$getArticleFeed, request, options: options);
+    return $createUnaryCall(_$getFeed, request, options: options);
   }
 
-  $grpc.ResponseFuture<$0.Article> getArticle($0.GetArticleRequest request,
+  $grpc.ResponseFuture<$0.Article> get($0.GetArticleRequest request,
       {$grpc.CallOptions? options}) {
-    return $createUnaryCall(_$getArticle, request, options: options);
+    return $createUnaryCall(_$get, request, options: options);
   }
 
-  $grpc.ResponseFuture<$0.Article> createArticle(
-      $0.CreateArticleRequest request,
+  $grpc.ResponseFuture<$0.Article> create($0.CreateArticleRequest request,
       {$grpc.CallOptions? options}) {
-    return $createUnaryCall(_$createArticle, request, options: options);
+    return $createUnaryCall(_$create, request, options: options);
   }
 
-  $grpc.ResponseFuture<$0.Article> updateArticle(
-      $0.UpdateArticleRequest request,
+  $grpc.ResponseFuture<$0.Article> update($0.UpdateArticleRequest request,
       {$grpc.CallOptions? options}) {
-    return $createUnaryCall(_$updateArticle, request, options: options);
+    return $createUnaryCall(_$update, request, options: options);
   }
 
-  $grpc.ResponseFuture<$1.Empty> deleteArticle($0.DeleteArticleRequest request,
+  $grpc.ResponseFuture<$1.Empty> delete($0.DeleteArticleRequest request,
       {$grpc.CallOptions? options}) {
-    return $createUnaryCall(_$deleteArticle, request, options: options);
-  }
-
-  $grpc.ResponseFuture<$0.Article> toggleFavoriteArticle(
-      $0.ToggleFavoriteArticleRequest request,
-      {$grpc.CallOptions? options}) {
-    return $createUnaryCall(_$toggleFavoriteArticle, request, options: options);
+    return $createUnaryCall(_$delete, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.Comment> createComment(
@@ -122,6 +120,23 @@ class ArticleServiceClient extends $grpc.Client {
     return $createUnaryCall(_$listComments, request, options: options);
   }
 
+  $grpc.ResponseFuture<$1.Empty> deleteComment($0.DeleteCommentRequest request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$deleteComment, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.Article> favoriteArticle(
+      $0.FavoriteArticleRequest request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$favoriteArticle, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.Article> unFavoriteArticle(
+      $0.FavoriteArticleRequest request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$unFavoriteArticle, request, options: options);
+  }
+
   $grpc.ResponseFuture<$0.TagList> listTags($0.ListTagsRequest request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$listTags, request, options: options);
@@ -133,60 +148,51 @@ abstract class ArticleServiceBase extends $grpc.Service {
 
   ArticleServiceBase() {
     $addMethod($grpc.ServiceMethod<$0.ListArticlesRequest, $0.ArticleList>(
-        'ListArticles',
-        listArticles_Pre,
+        'List',
+        list_Pre,
         false,
         false,
         ($core.List<$core.int> value) =>
             $0.ListArticlesRequest.fromBuffer(value),
         ($0.ArticleList value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$0.GetArticleFeedRequest, $0.ArticleList>(
-        'GetArticleFeed',
-        getArticleFeed_Pre,
+    $addMethod($grpc.ServiceMethod<$0.GetFeedRequest, $0.ArticleList>(
+        'GetFeed',
+        getFeed_Pre,
         false,
         false,
-        ($core.List<$core.int> value) =>
-            $0.GetArticleFeedRequest.fromBuffer(value),
+        ($core.List<$core.int> value) => $0.GetFeedRequest.fromBuffer(value),
         ($0.ArticleList value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.GetArticleRequest, $0.Article>(
-        'GetArticle',
-        getArticle_Pre,
+        'Get',
+        get_Pre,
         false,
         false,
         ($core.List<$core.int> value) => $0.GetArticleRequest.fromBuffer(value),
         ($0.Article value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.CreateArticleRequest, $0.Article>(
-        'CreateArticle',
-        createArticle_Pre,
+        'Create',
+        create_Pre,
         false,
         false,
         ($core.List<$core.int> value) =>
             $0.CreateArticleRequest.fromBuffer(value),
         ($0.Article value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.UpdateArticleRequest, $0.Article>(
-        'UpdateArticle',
-        updateArticle_Pre,
+        'Update',
+        update_Pre,
         false,
         false,
         ($core.List<$core.int> value) =>
             $0.UpdateArticleRequest.fromBuffer(value),
         ($0.Article value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.DeleteArticleRequest, $1.Empty>(
-        'DeleteArticle',
-        deleteArticle_Pre,
+        'Delete',
+        delete_Pre,
         false,
         false,
         ($core.List<$core.int> value) =>
             $0.DeleteArticleRequest.fromBuffer(value),
         ($1.Empty value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$0.ToggleFavoriteArticleRequest, $0.Article>(
-        'ToggleFavoriteArticle',
-        toggleFavoriteArticle_Pre,
-        false,
-        false,
-        ($core.List<$core.int> value) =>
-            $0.ToggleFavoriteArticleRequest.fromBuffer(value),
-        ($0.Article value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.CreateCommentRequest, $0.Comment>(
         'CreateComment',
         createComment_Pre,
@@ -203,6 +209,30 @@ abstract class ArticleServiceBase extends $grpc.Service {
         ($core.List<$core.int> value) =>
             $0.ListCommentsRequest.fromBuffer(value),
         ($0.CommentList value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.DeleteCommentRequest, $1.Empty>(
+        'DeleteComment',
+        deleteComment_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) =>
+            $0.DeleteCommentRequest.fromBuffer(value),
+        ($1.Empty value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.FavoriteArticleRequest, $0.Article>(
+        'FavoriteArticle',
+        favoriteArticle_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) =>
+            $0.FavoriteArticleRequest.fromBuffer(value),
+        ($0.Article value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.FavoriteArticleRequest, $0.Article>(
+        'UnFavoriteArticle',
+        unFavoriteArticle_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) =>
+            $0.FavoriteArticleRequest.fromBuffer(value),
+        ($0.Article value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.ListTagsRequest, $0.TagList>(
         'ListTags',
         listTags_Pre,
@@ -212,39 +242,34 @@ abstract class ArticleServiceBase extends $grpc.Service {
         ($0.TagList value) => value.writeToBuffer()));
   }
 
-  $async.Future<$0.ArticleList> listArticles_Pre($grpc.ServiceCall call,
+  $async.Future<$0.ArticleList> list_Pre($grpc.ServiceCall call,
       $async.Future<$0.ListArticlesRequest> request) async {
-    return listArticles(call, await request);
+    return list(call, await request);
   }
 
-  $async.Future<$0.ArticleList> getArticleFeed_Pre($grpc.ServiceCall call,
-      $async.Future<$0.GetArticleFeedRequest> request) async {
-    return getArticleFeed(call, await request);
+  $async.Future<$0.ArticleList> getFeed_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.GetFeedRequest> request) async {
+    return getFeed(call, await request);
   }
 
-  $async.Future<$0.Article> getArticle_Pre($grpc.ServiceCall call,
+  $async.Future<$0.Article> get_Pre($grpc.ServiceCall call,
       $async.Future<$0.GetArticleRequest> request) async {
-    return getArticle(call, await request);
+    return get(call, await request);
   }
 
-  $async.Future<$0.Article> createArticle_Pre($grpc.ServiceCall call,
+  $async.Future<$0.Article> create_Pre($grpc.ServiceCall call,
       $async.Future<$0.CreateArticleRequest> request) async {
-    return createArticle(call, await request);
+    return create(call, await request);
   }
 
-  $async.Future<$0.Article> updateArticle_Pre($grpc.ServiceCall call,
+  $async.Future<$0.Article> update_Pre($grpc.ServiceCall call,
       $async.Future<$0.UpdateArticleRequest> request) async {
-    return updateArticle(call, await request);
+    return update(call, await request);
   }
 
-  $async.Future<$1.Empty> deleteArticle_Pre($grpc.ServiceCall call,
+  $async.Future<$1.Empty> delete_Pre($grpc.ServiceCall call,
       $async.Future<$0.DeleteArticleRequest> request) async {
-    return deleteArticle(call, await request);
-  }
-
-  $async.Future<$0.Article> toggleFavoriteArticle_Pre($grpc.ServiceCall call,
-      $async.Future<$0.ToggleFavoriteArticleRequest> request) async {
-    return toggleFavoriteArticle(call, await request);
+    return delete(call, await request);
   }
 
   $async.Future<$0.Comment> createComment_Pre($grpc.ServiceCall call,
@@ -257,29 +282,48 @@ abstract class ArticleServiceBase extends $grpc.Service {
     return listComments(call, await request);
   }
 
+  $async.Future<$1.Empty> deleteComment_Pre($grpc.ServiceCall call,
+      $async.Future<$0.DeleteCommentRequest> request) async {
+    return deleteComment(call, await request);
+  }
+
+  $async.Future<$0.Article> favoriteArticle_Pre($grpc.ServiceCall call,
+      $async.Future<$0.FavoriteArticleRequest> request) async {
+    return favoriteArticle(call, await request);
+  }
+
+  $async.Future<$0.Article> unFavoriteArticle_Pre($grpc.ServiceCall call,
+      $async.Future<$0.FavoriteArticleRequest> request) async {
+    return unFavoriteArticle(call, await request);
+  }
+
   $async.Future<$0.TagList> listTags_Pre(
       $grpc.ServiceCall call, $async.Future<$0.ListTagsRequest> request) async {
     return listTags(call, await request);
   }
 
-  $async.Future<$0.ArticleList> listArticles(
+  $async.Future<$0.ArticleList> list(
       $grpc.ServiceCall call, $0.ListArticlesRequest request);
-  $async.Future<$0.ArticleList> getArticleFeed(
-      $grpc.ServiceCall call, $0.GetArticleFeedRequest request);
-  $async.Future<$0.Article> getArticle(
+  $async.Future<$0.ArticleList> getFeed(
+      $grpc.ServiceCall call, $0.GetFeedRequest request);
+  $async.Future<$0.Article> get(
       $grpc.ServiceCall call, $0.GetArticleRequest request);
-  $async.Future<$0.Article> createArticle(
+  $async.Future<$0.Article> create(
       $grpc.ServiceCall call, $0.CreateArticleRequest request);
-  $async.Future<$0.Article> updateArticle(
+  $async.Future<$0.Article> update(
       $grpc.ServiceCall call, $0.UpdateArticleRequest request);
-  $async.Future<$1.Empty> deleteArticle(
+  $async.Future<$1.Empty> delete(
       $grpc.ServiceCall call, $0.DeleteArticleRequest request);
-  $async.Future<$0.Article> toggleFavoriteArticle(
-      $grpc.ServiceCall call, $0.ToggleFavoriteArticleRequest request);
   $async.Future<$0.Comment> createComment(
       $grpc.ServiceCall call, $0.CreateCommentRequest request);
   $async.Future<$0.CommentList> listComments(
       $grpc.ServiceCall call, $0.ListCommentsRequest request);
+  $async.Future<$1.Empty> deleteComment(
+      $grpc.ServiceCall call, $0.DeleteCommentRequest request);
+  $async.Future<$0.Article> favoriteArticle(
+      $grpc.ServiceCall call, $0.FavoriteArticleRequest request);
+  $async.Future<$0.Article> unFavoriteArticle(
+      $grpc.ServiceCall call, $0.FavoriteArticleRequest request);
   $async.Future<$0.TagList> listTags(
       $grpc.ServiceCall call, $0.ListTagsRequest request);
 }

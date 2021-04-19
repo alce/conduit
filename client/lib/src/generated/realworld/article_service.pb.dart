@@ -9,7 +9,7 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import '../google/protobuf/timestamp.pb.dart' as $5;
+import '../google/protobuf/timestamp.pb.dart' as $4;
 import 'common.pb.dart' as $3;
 
 class Article extends $pb.GeneratedMessage {
@@ -20,8 +20,8 @@ class Article extends $pb.GeneratedMessage {
     ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'body')
     ..pPS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'tagList')
     ..aOB(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'favorited')
-    ..aOM<$5.Timestamp>(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createTime', subBuilder: $5.Timestamp.create)
-    ..aOM<$5.Timestamp>(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'updateTime', subBuilder: $5.Timestamp.create)
+    ..aOM<$4.Timestamp>(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createTime', subBuilder: $4.Timestamp.create)
+    ..aOM<$4.Timestamp>(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'updateTime', subBuilder: $4.Timestamp.create)
     ..a<$core.int>(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'favoritesCount', $pb.PbFieldType.O3)
     ..aOM<$3.Profile>(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'author', subBuilder: $3.Profile.create)
     ..hasRequiredFields = false
@@ -35,8 +35,8 @@ class Article extends $pb.GeneratedMessage {
     $core.String? body,
     $core.Iterable<$core.String>? tagList,
     $core.bool? favorited,
-    $5.Timestamp? createTime,
-    $5.Timestamp? updateTime,
+    $4.Timestamp? createTime,
+    $4.Timestamp? updateTime,
     $core.int? favoritesCount,
     $3.Profile? author,
   }) {
@@ -143,26 +143,26 @@ class Article extends $pb.GeneratedMessage {
   void clearFavorited() => clearField(6);
 
   @$pb.TagNumber(7)
-  $5.Timestamp get createTime => $_getN(6);
+  $4.Timestamp get createTime => $_getN(6);
   @$pb.TagNumber(7)
-  set createTime($5.Timestamp v) { setField(7, v); }
+  set createTime($4.Timestamp v) { setField(7, v); }
   @$pb.TagNumber(7)
   $core.bool hasCreateTime() => $_has(6);
   @$pb.TagNumber(7)
   void clearCreateTime() => clearField(7);
   @$pb.TagNumber(7)
-  $5.Timestamp ensureCreateTime() => $_ensure(6);
+  $4.Timestamp ensureCreateTime() => $_ensure(6);
 
   @$pb.TagNumber(8)
-  $5.Timestamp get updateTime => $_getN(7);
+  $4.Timestamp get updateTime => $_getN(7);
   @$pb.TagNumber(8)
-  set updateTime($5.Timestamp v) { setField(8, v); }
+  set updateTime($4.Timestamp v) { setField(8, v); }
   @$pb.TagNumber(8)
   $core.bool hasUpdateTime() => $_has(7);
   @$pb.TagNumber(8)
   void clearUpdateTime() => clearField(8);
   @$pb.TagNumber(8)
-  $5.Timestamp ensureUpdateTime() => $_ensure(7);
+  $4.Timestamp ensureUpdateTime() => $_ensure(7);
 
   @$pb.TagNumber(9)
   $core.int get favoritesCount => $_getIZ(8);
@@ -185,22 +185,105 @@ class Article extends $pb.GeneratedMessage {
   $3.Profile ensureAuthor() => $_ensure(9);
 }
 
+class ArticleArgs extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ArticleArgs', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'realworld'), createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'title')
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'description')
+    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'body')
+    ..pPS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'tagList')
+    ..hasRequiredFields = false
+  ;
+
+  ArticleArgs._() : super();
+  factory ArticleArgs({
+    $core.String? title,
+    $core.String? description,
+    $core.String? body,
+    $core.Iterable<$core.String>? tagList,
+  }) {
+    final _result = create();
+    if (title != null) {
+      _result.title = title;
+    }
+    if (description != null) {
+      _result.description = description;
+    }
+    if (body != null) {
+      _result.body = body;
+    }
+    if (tagList != null) {
+      _result.tagList.addAll(tagList);
+    }
+    return _result;
+  }
+  factory ArticleArgs.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory ArticleArgs.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  ArticleArgs clone() => ArticleArgs()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  ArticleArgs copyWith(void Function(ArticleArgs) updates) => super.copyWith((message) => updates(message as ArticleArgs)) as ArticleArgs; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static ArticleArgs create() => ArticleArgs._();
+  ArticleArgs createEmptyInstance() => create();
+  static $pb.PbList<ArticleArgs> createRepeated() => $pb.PbList<ArticleArgs>();
+  @$core.pragma('dart2js:noInline')
+  static ArticleArgs getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ArticleArgs>(create);
+  static ArticleArgs? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get title => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set title($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasTitle() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearTitle() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get description => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set description($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasDescription() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearDescription() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get body => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set body($core.String v) { $_setString(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasBody() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearBody() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.List<$core.String> get tagList => $_getList(3);
+}
+
 class Comment extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Comment', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'realworld'), createEmptyInstance: create)
-    ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id', $pb.PbFieldType.O3)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'body')
-    ..aOM<$5.Timestamp>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createTime', subBuilder: $5.Timestamp.create)
-    ..aOM<$5.Timestamp>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'updateTime', subBuilder: $5.Timestamp.create)
+    ..aOM<$4.Timestamp>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createTime', subBuilder: $4.Timestamp.create)
+    ..aOM<$4.Timestamp>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'updateTime', subBuilder: $4.Timestamp.create)
     ..aOM<$3.Profile>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'author', subBuilder: $3.Profile.create)
     ..hasRequiredFields = false
   ;
 
   Comment._() : super();
   factory Comment({
-    $core.int? id,
+    $core.String? id,
     $core.String? body,
-    $5.Timestamp? createTime,
-    $5.Timestamp? updateTime,
+    $4.Timestamp? createTime,
+    $4.Timestamp? updateTime,
     $3.Profile? author,
   }) {
     final _result = create();
@@ -243,9 +326,9 @@ class Comment extends $pb.GeneratedMessage {
   static Comment? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.int get id => $_getIZ(0);
+  $core.String get id => $_getSZ(0);
   @$pb.TagNumber(1)
-  set id($core.int v) { $_setSignedInt32(0, v); }
+  set id($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasId() => $_has(0);
   @$pb.TagNumber(1)
@@ -261,26 +344,26 @@ class Comment extends $pb.GeneratedMessage {
   void clearBody() => clearField(2);
 
   @$pb.TagNumber(3)
-  $5.Timestamp get createTime => $_getN(2);
+  $4.Timestamp get createTime => $_getN(2);
   @$pb.TagNumber(3)
-  set createTime($5.Timestamp v) { setField(3, v); }
+  set createTime($4.Timestamp v) { setField(3, v); }
   @$pb.TagNumber(3)
   $core.bool hasCreateTime() => $_has(2);
   @$pb.TagNumber(3)
   void clearCreateTime() => clearField(3);
   @$pb.TagNumber(3)
-  $5.Timestamp ensureCreateTime() => $_ensure(2);
+  $4.Timestamp ensureCreateTime() => $_ensure(2);
 
   @$pb.TagNumber(4)
-  $5.Timestamp get updateTime => $_getN(3);
+  $4.Timestamp get updateTime => $_getN(3);
   @$pb.TagNumber(4)
-  set updateTime($5.Timestamp v) { setField(4, v); }
+  set updateTime($4.Timestamp v) { setField(4, v); }
   @$pb.TagNumber(4)
   $core.bool hasUpdateTime() => $_has(3);
   @$pb.TagNumber(4)
   void clearUpdateTime() => clearField(4);
   @$pb.TagNumber(4)
-  $5.Timestamp ensureUpdateTime() => $_ensure(3);
+  $4.Timestamp ensureUpdateTime() => $_ensure(3);
 
   @$pb.TagNumber(5)
   $3.Profile get author => $_getN(4);
@@ -355,15 +438,15 @@ class ListArticlesRequest extends $pb.GeneratedMessage {
   void clearOffset() => clearField(2);
 }
 
-class GetArticleFeedRequest extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetArticleFeedRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'realworld'), createEmptyInstance: create)
-    ..a<$core.int>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'limit', $pb.PbFieldType.O3)
-    ..a<$core.int>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'offset', $pb.PbFieldType.O3)
+class GetFeedRequest extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetFeedRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'realworld'), createEmptyInstance: create)
+    ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'limit', $pb.PbFieldType.O3)
+    ..a<$core.int>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'offset', $pb.PbFieldType.O3)
     ..hasRequiredFields = false
   ;
 
-  GetArticleFeedRequest._() : super();
-  factory GetArticleFeedRequest({
+  GetFeedRequest._() : super();
+  factory GetFeedRequest({
     $core.int? limit,
     $core.int? offset,
   }) {
@@ -376,44 +459,44 @@ class GetArticleFeedRequest extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory GetArticleFeedRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory GetArticleFeedRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  factory GetFeedRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetFeedRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
   'Will be removed in next major version')
-  GetArticleFeedRequest clone() => GetArticleFeedRequest()..mergeFromMessage(this);
+  GetFeedRequest clone() => GetFeedRequest()..mergeFromMessage(this);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  GetArticleFeedRequest copyWith(void Function(GetArticleFeedRequest) updates) => super.copyWith((message) => updates(message as GetArticleFeedRequest)) as GetArticleFeedRequest; // ignore: deprecated_member_use
+  GetFeedRequest copyWith(void Function(GetFeedRequest) updates) => super.copyWith((message) => updates(message as GetFeedRequest)) as GetFeedRequest; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
-  static GetArticleFeedRequest create() => GetArticleFeedRequest._();
-  GetArticleFeedRequest createEmptyInstance() => create();
-  static $pb.PbList<GetArticleFeedRequest> createRepeated() => $pb.PbList<GetArticleFeedRequest>();
+  static GetFeedRequest create() => GetFeedRequest._();
+  GetFeedRequest createEmptyInstance() => create();
+  static $pb.PbList<GetFeedRequest> createRepeated() => $pb.PbList<GetFeedRequest>();
   @$core.pragma('dart2js:noInline')
-  static GetArticleFeedRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetArticleFeedRequest>(create);
-  static GetArticleFeedRequest? _defaultInstance;
+  static GetFeedRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetFeedRequest>(create);
+  static GetFeedRequest? _defaultInstance;
 
-  @$pb.TagNumber(2)
+  @$pb.TagNumber(1)
   $core.int get limit => $_getIZ(0);
-  @$pb.TagNumber(2)
+  @$pb.TagNumber(1)
   set limit($core.int v) { $_setSignedInt32(0, v); }
-  @$pb.TagNumber(2)
+  @$pb.TagNumber(1)
   $core.bool hasLimit() => $_has(0);
-  @$pb.TagNumber(2)
-  void clearLimit() => clearField(2);
+  @$pb.TagNumber(1)
+  void clearLimit() => clearField(1);
 
-  @$pb.TagNumber(3)
+  @$pb.TagNumber(2)
   $core.int get offset => $_getIZ(1);
-  @$pb.TagNumber(3)
+  @$pb.TagNumber(2)
   set offset($core.int v) { $_setSignedInt32(1, v); }
-  @$pb.TagNumber(3)
+  @$pb.TagNumber(2)
   $core.bool hasOffset() => $_has(1);
-  @$pb.TagNumber(3)
-  void clearOffset() => clearField(3);
+  @$pb.TagNumber(2)
+  void clearOffset() => clearField(2);
 }
 
 class ArticleList extends $pb.GeneratedMessage {
@@ -473,13 +556,13 @@ class ArticleList extends $pb.GeneratedMessage {
 
 class CreateArticleRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'CreateArticleRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'realworld'), createEmptyInstance: create)
-    ..aOM<Article>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'article', subBuilder: Article.create)
+    ..aOM<ArticleArgs>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'article', subBuilder: ArticleArgs.create)
     ..hasRequiredFields = false
   ;
 
   CreateArticleRequest._() : super();
   factory CreateArticleRequest({
-    Article? article,
+    ArticleArgs? article,
   }) {
     final _result = create();
     if (article != null) {
@@ -508,16 +591,16 @@ class CreateArticleRequest extends $pb.GeneratedMessage {
   static CreateArticleRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CreateArticleRequest>(create);
   static CreateArticleRequest? _defaultInstance;
 
-  @$pb.TagNumber(2)
-  Article get article => $_getN(0);
-  @$pb.TagNumber(2)
-  set article(Article v) { setField(2, v); }
-  @$pb.TagNumber(2)
+  @$pb.TagNumber(1)
+  ArticleArgs get article => $_getN(0);
+  @$pb.TagNumber(1)
+  set article(ArticleArgs v) { setField(1, v); }
+  @$pb.TagNumber(1)
   $core.bool hasArticle() => $_has(0);
-  @$pb.TagNumber(2)
-  void clearArticle() => clearField(2);
-  @$pb.TagNumber(2)
-  Article ensureArticle() => $_ensure(0);
+  @$pb.TagNumber(1)
+  void clearArticle() => clearField(1);
+  @$pb.TagNumber(1)
+  ArticleArgs ensureArticle() => $_ensure(0);
 }
 
 class DeleteArticleRequest extends $pb.GeneratedMessage {
@@ -614,64 +697,22 @@ class GetArticleRequest extends $pb.GeneratedMessage {
   void clearSlug() => clearField(1);
 }
 
-class ToggleFavoriteArticleRequest extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ToggleFavoriteArticleRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'realworld'), createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'slug')
-    ..hasRequiredFields = false
-  ;
-
-  ToggleFavoriteArticleRequest._() : super();
-  factory ToggleFavoriteArticleRequest({
-    $core.String? slug,
-  }) {
-    final _result = create();
-    if (slug != null) {
-      _result.slug = slug;
-    }
-    return _result;
-  }
-  factory ToggleFavoriteArticleRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory ToggleFavoriteArticleRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
-  ToggleFavoriteArticleRequest clone() => ToggleFavoriteArticleRequest()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
-  ToggleFavoriteArticleRequest copyWith(void Function(ToggleFavoriteArticleRequest) updates) => super.copyWith((message) => updates(message as ToggleFavoriteArticleRequest)) as ToggleFavoriteArticleRequest; // ignore: deprecated_member_use
-  $pb.BuilderInfo get info_ => _i;
-  @$core.pragma('dart2js:noInline')
-  static ToggleFavoriteArticleRequest create() => ToggleFavoriteArticleRequest._();
-  ToggleFavoriteArticleRequest createEmptyInstance() => create();
-  static $pb.PbList<ToggleFavoriteArticleRequest> createRepeated() => $pb.PbList<ToggleFavoriteArticleRequest>();
-  @$core.pragma('dart2js:noInline')
-  static ToggleFavoriteArticleRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ToggleFavoriteArticleRequest>(create);
-  static ToggleFavoriteArticleRequest? _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.String get slug => $_getSZ(0);
-  @$pb.TagNumber(1)
-  set slug($core.String v) { $_setString(0, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasSlug() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearSlug() => clearField(1);
-}
-
 class UpdateArticleRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'UpdateArticleRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'realworld'), createEmptyInstance: create)
-    ..aOM<Article>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'article', subBuilder: Article.create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'slug')
+    ..aOM<ArticleArgs>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'article', subBuilder: ArticleArgs.create)
     ..hasRequiredFields = false
   ;
 
   UpdateArticleRequest._() : super();
   factory UpdateArticleRequest({
-    Article? article,
+    $core.String? slug,
+    ArticleArgs? article,
   }) {
     final _result = create();
+    if (slug != null) {
+      _result.slug = slug;
+    }
     if (article != null) {
       _result.article = article;
     }
@@ -699,15 +740,71 @@ class UpdateArticleRequest extends $pb.GeneratedMessage {
   static UpdateArticleRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  Article get article => $_getN(0);
+  $core.String get slug => $_getSZ(0);
   @$pb.TagNumber(1)
-  set article(Article v) { setField(1, v); }
+  set slug($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
-  $core.bool hasArticle() => $_has(0);
+  $core.bool hasSlug() => $_has(0);
   @$pb.TagNumber(1)
-  void clearArticle() => clearField(1);
+  void clearSlug() => clearField(1);
+
+  @$pb.TagNumber(2)
+  ArticleArgs get article => $_getN(1);
+  @$pb.TagNumber(2)
+  set article(ArticleArgs v) { setField(2, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasArticle() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearArticle() => clearField(2);
+  @$pb.TagNumber(2)
+  ArticleArgs ensureArticle() => $_ensure(1);
+}
+
+class FavoriteArticleRequest extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'FavoriteArticleRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'realworld'), createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'slug')
+    ..hasRequiredFields = false
+  ;
+
+  FavoriteArticleRequest._() : super();
+  factory FavoriteArticleRequest({
+    $core.String? slug,
+  }) {
+    final _result = create();
+    if (slug != null) {
+      _result.slug = slug;
+    }
+    return _result;
+  }
+  factory FavoriteArticleRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory FavoriteArticleRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  FavoriteArticleRequest clone() => FavoriteArticleRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  FavoriteArticleRequest copyWith(void Function(FavoriteArticleRequest) updates) => super.copyWith((message) => updates(message as FavoriteArticleRequest)) as FavoriteArticleRequest; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static FavoriteArticleRequest create() => FavoriteArticleRequest._();
+  FavoriteArticleRequest createEmptyInstance() => create();
+  static $pb.PbList<FavoriteArticleRequest> createRepeated() => $pb.PbList<FavoriteArticleRequest>();
+  @$core.pragma('dart2js:noInline')
+  static FavoriteArticleRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FavoriteArticleRequest>(create);
+  static FavoriteArticleRequest? _defaultInstance;
+
   @$pb.TagNumber(1)
-  Article ensureArticle() => $_ensure(0);
+  $core.String get slug => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set slug($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasSlug() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearSlug() => clearField(1);
 }
 
 class ListCommentsRequest extends $pb.GeneratedMessage {
@@ -862,14 +959,14 @@ class CreateCommentRequest extends $pb.GeneratedMessage {
 class DeleteCommentRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'DeleteCommentRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'realworld'), createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'slug')
-    ..a<$core.int>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id', $pb.PbFieldType.O3)
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
     ..hasRequiredFields = false
   ;
 
   DeleteCommentRequest._() : super();
   factory DeleteCommentRequest({
     $core.String? slug,
-    $core.int? id,
+    $core.String? id,
   }) {
     final _result = create();
     if (slug != null) {
@@ -911,9 +1008,9 @@ class DeleteCommentRequest extends $pb.GeneratedMessage {
   void clearSlug() => clearField(1);
 
   @$pb.TagNumber(2)
-  $core.int get id => $_getIZ(1);
+  $core.String get id => $_getSZ(1);
   @$pb.TagNumber(2)
-  set id($core.int v) { $_setSignedInt32(1, v); }
+  set id($core.String v) { $_setString(1, v); }
   @$pb.TagNumber(2)
   $core.bool hasId() => $_has(1);
   @$pb.TagNumber(2)

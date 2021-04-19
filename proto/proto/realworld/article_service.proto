@@ -14,44 +14,103 @@ option java_outer_classname = "ArticleServiceProto";
 option java_multiple_files = true;
 
 service ArticleService {
-  // Returns most recent articles globally by default, provide tag, author or
-  // favorited query parameter to filter results
-  rpc ListArticles (ListArticlesRequest) returns (ArticleList) {
+  rpc List (ListArticlesRequest) returns (ArticleList) {
     option (google.api.http) = {
       get: "/articles"
     };
   }
 
-  rpc GetArticleFeed (GetArticleFeedRequest) returns (ArticleList) {}
-  rpc GetArticle (GetArticleRequest) returns (Article) {}
-  rpc CreateArticle (CreateArticleRequest) returns (Article) {}
-  rpc UpdateArticle (UpdateArticleRequest) returns (Article) {}
-  rpc DeleteArticle (DeleteArticleRequest) returns (google.protobuf.Empty) {}
-  rpc ToggleFavoriteArticle (ToggleFavoriteArticleRequest) returns (Article) {}
+  rpc GetFeed (GetFeedRequest) returns (ArticleList) {
+    option (google.api.http) = {
+      get: "/articles/feed"
+    };
+  }
 
-  rpc CreateComment (CreateCommentRequest) returns (Comment) {}
-  rpc ListComments (ListCommentsRequest) returns (CommentList) {}
+  rpc Get (GetArticleRequest) returns (Article) {
+    option (google.api.http) = {
+      get: "/articles/{slug}"
+    };
+  }
 
-  rpc ListTags (ListTagsRequest) returns (TagList) {}
+  rpc Create (CreateArticleRequest) returns (Article) {
+    option (google.api.http) = {
+      post: "/articles"
+      body: "article"
+    };
+  }
+
+  rpc Update (UpdateArticleRequest) returns (Article) {
+    option (google.api.http) = {
+      put: "/articles/{slug}"
+      body: "article"
+    };
+  }
+
+  rpc Delete (DeleteArticleRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/articles/{slug}"
+    };
+  }
+
+  rpc CreateComment (CreateCommentRequest) returns (Comment) {
+    option (google.api.http) = {
+      post: "/articles/{slug}/comments"
+    };
+  }
+
+  rpc ListComments (ListCommentsRequest) returns (CommentList) {
+    option (google.api.http) = {
+      get: "/articles/{slug}/comments"
+    };
+  }
+
+  rpc DeleteComment (DeleteCommentRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/articles/{slug}/comments/{id}"
+    };
+  }
+
+  rpc FavoriteArticle (FavoriteArticleRequest) returns (Article) {
+    option (google.api.http) = {
+      post: "/articles/{slug}/favorite"
+    };
+  }
+
+  rpc UnFavoriteArticle (FavoriteArticleRequest) returns (Article) {
+    option (google.api.http) = {
+      delete: "/articles/{slug}/favorite"
+    };
+  }
+
+  rpc ListTags (ListTagsRequest) returns (TagList) {
+    option (google.api.http) = {
+      get: "/tags"
+    };
+  }
 }
 
 message Article {
-  string slug = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
-
+  string slug = 1;
   string title = 2;
   string description = 3;
   string body = 4;
   repeated string tag_list = 5;
-
   bool favorited = 6;
-  google.protobuf.Timestamp create_time = 7 [(google.api.field_behavior) = OUTPUT_ONLY];
-  google.protobuf.Timestamp update_time = 8 [(google.api.field_behavior) = OUTPUT_ONLY];
-  int32 favorites_count = 9 [(google.api.field_behavior) = OUTPUT_ONLY];
-  Profile author = 10 [(google.api.field_behavior) = OUTPUT_ONLY];
+  google.protobuf.Timestamp create_time = 7;
+  google.protobuf.Timestamp update_time = 8;
+  int32 favorites_count = 9;
+  Profile author = 10;
+}
+
+message ArticleArgs {
+  string title = 1 [(google.api.field_behavior) = REQUIRED];
+  string description = 2 [(google.api.field_behavior) = REQUIRED];
+  string body = 3 [(google.api.field_behavior) = REQUIRED];
+  repeated string tag_list = 4;
 }
 
 message Comment {
-  int32 id = 1;
+  string id = 1;
   string body = 2;
   google.protobuf.Timestamp create_time = 3;
   google.protobuf.Timestamp update_time = 4;
@@ -63,9 +122,9 @@ message ListArticlesRequest {
   int32 offset = 2;
 }
 
-message GetArticleFeedRequest {
-  int32 limit = 2;
-  int32 offset = 3;
+message GetFeedRequest {
+  int32 limit = 1;
+  int32 offset = 2;
 }
 
 message ArticleList {
@@ -74,7 +133,7 @@ message ArticleList {
 }
 
 message CreateArticleRequest {
-  Article article = 2 [(google.api.field_behavior) = REQUIRED];
+  ArticleArgs article = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 message DeleteArticleRequest {
@@ -85,12 +144,13 @@ message GetArticleRequest {
   string slug = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
-message ToggleFavoriteArticleRequest {
-  string slug = 1;
+message UpdateArticleRequest {
+  string slug = 1 [(google.api.field_behavior) = REQUIRED];
+  ArticleArgs article = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
-message UpdateArticleRequest {
-  Article article = 1 [(google.api.field_behavior) = REQUIRED];
+message FavoriteArticleRequest {
+  string slug = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 message ListCommentsRequest {
@@ -107,8 +167,8 @@ message CreateCommentRequest {
 }
 
 message DeleteCommentRequest {
-  string slug = 1;
-  int32 id = 2;
+  string slug = 1 [(google.api.field_behavior) = REQUIRED];
+  string id = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 message ListTagsRequest {}

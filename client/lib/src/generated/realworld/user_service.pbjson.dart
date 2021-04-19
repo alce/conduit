@@ -8,6 +8,43 @@
 import 'dart:core' as $core;
 import 'dart:convert' as $convert;
 import 'dart:typed_data' as $typed_data;
+@$core.Deprecated('Use userDescriptor instead')
+const User$json = const {
+  '1': 'User',
+  '2': const [
+    const {'1': 'token', '3': 1, '4': 1, '5': 9, '10': 'token'},
+    const {'1': 'username', '3': 2, '4': 1, '5': 9, '10': 'username'},
+    const {'1': 'email', '3': 3, '4': 1, '5': 9, '10': 'email'},
+    const {'1': 'bio', '3': 4, '4': 1, '5': 9, '10': 'bio'},
+    const {'1': 'image', '3': 5, '4': 1, '5': 9, '10': 'image'},
+  ],
+};
+
+/// Descriptor for `User`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List userDescriptor = $convert.base64Decode('CgRVc2VyEhQKBXRva2VuGAEgASgJUgV0b2tlbhIaCgh1c2VybmFtZRgCIAEoCVIIdXNlcm5hbWUSFAoFZW1haWwYAyABKAlSBWVtYWlsEhAKA2JpbxgEIAEoCVIDYmlvEhQKBWltYWdlGAUgASgJUgVpbWFnZQ==');
+@$core.Deprecated('Use loginRequestDescriptor instead')
+const LoginRequest$json = const {
+  '1': 'LoginRequest',
+  '2': const [
+    const {'1': 'email', '3': 1, '4': 1, '5': 9, '8': const {}, '10': 'email'},
+    const {'1': 'password', '3': 2, '4': 1, '5': 9, '8': const {}, '10': 'password'},
+  ],
+};
+
+/// Descriptor for `LoginRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List loginRequestDescriptor = $convert.base64Decode('CgxMb2dpblJlcXVlc3QSGQoFZW1haWwYASABKAlCA+BBAlIFZW1haWwSHwoIcGFzc3dvcmQYAiABKAlCA+BBAlIIcGFzc3dvcmQ=');
+@$core.Deprecated('Use createUserRequestDescriptor instead')
+const CreateUserRequest$json = const {
+  '1': 'CreateUserRequest',
+  '2': const [
+    const {'1': 'email', '3': 1, '4': 1, '5': 9, '8': const {}, '10': 'email'},
+    const {'1': 'username', '3': 2, '4': 1, '5': 9, '8': const {}, '10': 'username'},
+    const {'1': 'password', '3': 3, '4': 1, '5': 9, '8': const {}, '10': 'password'},
+  ],
+};
+
+/// Descriptor for `CreateUserRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List createUserRequestDescriptor = $convert.base64Decode('ChFDcmVhdGVVc2VyUmVxdWVzdBIZCgVlbWFpbBgBIAEoCUID4EECUgVlbWFpbBIfCgh1c2VybmFtZRgCIAEoCUID4EECUgh1c2VybmFtZRIfCghwYXNzd29yZBgDIAEoCUID4EECUghwYXNzd29yZA==');
 @$core.Deprecated('Use getCurrentUserRequestDescriptor instead')
 const GetCurrentUserRequest$json = const {
   '1': 'GetCurrentUserRequest',
@@ -35,13 +72,33 @@ const GetProfileRequest$json = const {
 
 /// Descriptor for `GetProfileRequest`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List getProfileRequestDescriptor = $convert.base64Decode('ChFHZXRQcm9maWxlUmVxdWVzdBIfCgh1c2VybmFtZRgBIAEoCUID4EECUgh1c2VybmFtZQ==');
-@$core.Deprecated('Use toggleFollowUserRequestDescriptor instead')
-const ToggleFollowUserRequest$json = const {
-  '1': 'ToggleFollowUserRequest',
+@$core.Deprecated('Use followUserRequestDescriptor instead')
+const FollowUserRequest$json = const {
+  '1': 'FollowUserRequest',
   '2': const [
     const {'1': 'username', '3': 1, '4': 1, '5': 9, '8': const {}, '10': 'username'},
   ],
 };
 
-/// Descriptor for `ToggleFollowUserRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List toggleFollowUserRequestDescriptor = $convert.base64Decode('ChdUb2dnbGVGb2xsb3dVc2VyUmVxdWVzdBIfCgh1c2VybmFtZRgBIAEoCUID4EECUgh1c2VybmFtZQ==');
+/// Descriptor for `FollowUserRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List followUserRequestDescriptor = $convert.base64Decode('ChFGb2xsb3dVc2VyUmVxdWVzdBIfCgh1c2VybmFtZRgBIAEoCUID4EECUgh1c2VybmFtZQ==');
+@$core.Deprecated('Use deleteUserRequestDescriptor instead')
+const DeleteUserRequest$json = const {
+  '1': 'DeleteUserRequest',
+  '2': const [
+    const {'1': 'username', '3': 1, '4': 1, '5': 9, '10': 'username'},
+  ],
+};
+
+/// Descriptor for `DeleteUserRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List deleteUserRequestDescriptor = $convert.base64Decode('ChFEZWxldGVVc2VyUmVxdWVzdBIaCgh1c2VybmFtZRgBIAEoCVIIdXNlcm5hbWU=');
+@$core.Deprecated('Use userResponseDescriptor instead')
+const UserResponse$json = const {
+  '1': 'UserResponse',
+  '2': const [
+    const {'1': 'user', '3': 1, '4': 1, '5': 11, '6': '.realworld.User', '10': 'user'},
+  ],
+};
+
+/// Descriptor for `UserResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List userResponseDescriptor = $convert.base64Decode('CgxVc2VyUmVzcG9uc2USIwoEdXNlchgBIAEoCzIPLnJlYWx3b3JsZC5Vc2VyUgR1c2Vy');

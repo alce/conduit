@@ -12,26 +12,39 @@ import 'dart:typed_data' as $typed_data;
 const Article$json = const {
   '1': 'Article',
   '2': const [
-    const {'1': 'slug', '3': 1, '4': 1, '5': 9, '8': const {}, '10': 'slug'},
+    const {'1': 'slug', '3': 1, '4': 1, '5': 9, '10': 'slug'},
     const {'1': 'title', '3': 2, '4': 1, '5': 9, '10': 'title'},
     const {'1': 'description', '3': 3, '4': 1, '5': 9, '10': 'description'},
     const {'1': 'body', '3': 4, '4': 1, '5': 9, '10': 'body'},
     const {'1': 'tag_list', '3': 5, '4': 3, '5': 9, '10': 'tagList'},
     const {'1': 'favorited', '3': 6, '4': 1, '5': 8, '10': 'favorited'},
-    const {'1': 'create_time', '3': 7, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '8': const {}, '10': 'createTime'},
-    const {'1': 'update_time', '3': 8, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '8': const {}, '10': 'updateTime'},
-    const {'1': 'favorites_count', '3': 9, '4': 1, '5': 5, '8': const {}, '10': 'favoritesCount'},
-    const {'1': 'author', '3': 10, '4': 1, '5': 11, '6': '.realworld.Profile', '8': const {}, '10': 'author'},
+    const {'1': 'create_time', '3': 7, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'createTime'},
+    const {'1': 'update_time', '3': 8, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'updateTime'},
+    const {'1': 'favorites_count', '3': 9, '4': 1, '5': 5, '10': 'favoritesCount'},
+    const {'1': 'author', '3': 10, '4': 1, '5': 11, '6': '.realworld.Profile', '10': 'author'},
   ],
 };
 
 /// Descriptor for `Article`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List articleDescriptor = $convert.base64Decode('CgdBcnRpY2xlEhcKBHNsdWcYASABKAlCA+BBA1IEc2x1ZxIUCgV0aXRsZRgCIAEoCVIFdGl0bGUSIAoLZGVzY3JpcHRpb24YAyABKAlSC2Rlc2NyaXB0aW9uEhIKBGJvZHkYBCABKAlSBGJvZHkSGQoIdGFnX2xpc3QYBSADKAlSB3RhZ0xpc3QSHAoJZmF2b3JpdGVkGAYgASgIUglmYXZvcml0ZWQSQAoLY3JlYXRlX3RpbWUYByABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wQgPgQQNSCmNyZWF0ZVRpbWUSQAoLdXBkYXRlX3RpbWUYCCABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wQgPgQQNSCnVwZGF0ZVRpbWUSLAoPZmF2b3JpdGVzX2NvdW50GAkgASgFQgPgQQNSDmZhdm9yaXRlc0NvdW50Ei8KBmF1dGhvchgKIAEoCzISLnJlYWx3b3JsZC5Qcm9maWxlQgPgQQNSBmF1dGhvcg==');
+final $typed_data.Uint8List articleDescriptor = $convert.base64Decode('CgdBcnRpY2xlEhIKBHNsdWcYASABKAlSBHNsdWcSFAoFdGl0bGUYAiABKAlSBXRpdGxlEiAKC2Rlc2NyaXB0aW9uGAMgASgJUgtkZXNjcmlwdGlvbhISCgRib2R5GAQgASgJUgRib2R5EhkKCHRhZ19saXN0GAUgAygJUgd0YWdMaXN0EhwKCWZhdm9yaXRlZBgGIAEoCFIJZmF2b3JpdGVkEjsKC2NyZWF0ZV90aW1lGAcgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcFIKY3JlYXRlVGltZRI7Cgt1cGRhdGVfdGltZRgIIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXBSCnVwZGF0ZVRpbWUSJwoPZmF2b3JpdGVzX2NvdW50GAkgASgFUg5mYXZvcml0ZXNDb3VudBIqCgZhdXRob3IYCiABKAsyEi5yZWFsd29ybGQuUHJvZmlsZVIGYXV0aG9y');
+@$core.Deprecated('Use articleArgsDescriptor instead')
+const ArticleArgs$json = const {
+  '1': 'ArticleArgs',
+  '2': const [
+    const {'1': 'title', '3': 1, '4': 1, '5': 9, '8': const {}, '10': 'title'},
+    const {'1': 'description', '3': 2, '4': 1, '5': 9, '8': const {}, '10': 'description'},
+    const {'1': 'body', '3': 3, '4': 1, '5': 9, '8': const {}, '10': 'body'},
+    const {'1': 'tag_list', '3': 4, '4': 3, '5': 9, '10': 'tagList'},
+  ],
+};
+
+/// Descriptor for `ArticleArgs`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List articleArgsDescriptor = $convert.base64Decode('CgtBcnRpY2xlQXJncxIZCgV0aXRsZRgBIAEoCUID4EECUgV0aXRsZRIlCgtkZXNjcmlwdGlvbhgCIAEoCUID4EECUgtkZXNjcmlwdGlvbhIXCgRib2R5GAMgASgJQgPgQQJSBGJvZHkSGQoIdGFnX2xpc3QYBCADKAlSB3RhZ0xpc3Q=');
 @$core.Deprecated('Use commentDescriptor instead')
 const Comment$json = const {
   '1': 'Comment',
   '2': const [
-    const {'1': 'id', '3': 1, '4': 1, '5': 5, '10': 'id'},
+    const {'1': 'id', '3': 1, '4': 1, '5': 9, '10': 'id'},
     const {'1': 'body', '3': 2, '4': 1, '5': 9, '10': 'body'},
     const {'1': 'create_time', '3': 3, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'createTime'},
     const {'1': 'update_time', '3': 4, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'updateTime'},
@@ -40,7 +53,7 @@ const Comment$json = const {
 };
 
 /// Descriptor for `Comment`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List commentDescriptor = $convert.base64Decode('CgdDb21tZW50Eg4KAmlkGAEgASgFUgJpZBISCgRib2R5GAIgASgJUgRib2R5EjsKC2NyZWF0ZV90aW1lGAMgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcFIKY3JlYXRlVGltZRI7Cgt1cGRhdGVfdGltZRgEIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXBSCnVwZGF0ZVRpbWUSKgoGYXV0aG9yGAUgASgLMhIucmVhbHdvcmxkLlByb2ZpbGVSBmF1dGhvcg==');
+final $typed_data.Uint8List commentDescriptor = $convert.base64Decode('CgdDb21tZW50Eg4KAmlkGAEgASgJUgJpZBISCgRib2R5GAIgASgJUgRib2R5EjsKC2NyZWF0ZV90aW1lGAMgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcFIKY3JlYXRlVGltZRI7Cgt1cGRhdGVfdGltZRgEIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXBSCnVwZGF0ZVRpbWUSKgoGYXV0aG9yGAUgASgLMhIucmVhbHdvcmxkLlByb2ZpbGVSBmF1dGhvcg==');
 @$core.Deprecated('Use listArticlesRequestDescriptor instead')
 const ListArticlesRequest$json = const {
   '1': 'ListArticlesRequest',
@@ -52,17 +65,17 @@ const ListArticlesRequest$json = const {
 
 /// Descriptor for `ListArticlesRequest`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List listArticlesRequestDescriptor = $convert.base64Decode('ChNMaXN0QXJ0aWNsZXNSZXF1ZXN0EhQKBWxpbWl0GAEgASgFUgVsaW1pdBIWCgZvZmZzZXQYAiABKAVSBm9mZnNldA==');
-@$core.Deprecated('Use getArticleFeedRequestDescriptor instead')
-const GetArticleFeedRequest$json = const {
-  '1': 'GetArticleFeedRequest',
+@$core.Deprecated('Use getFeedRequestDescriptor instead')
+const GetFeedRequest$json = const {
+  '1': 'GetFeedRequest',
   '2': const [
-    const {'1': 'limit', '3': 2, '4': 1, '5': 5, '10': 'limit'},
-    const {'1': 'offset', '3': 3, '4': 1, '5': 5, '10': 'offset'},
+    const {'1': 'limit', '3': 1, '4': 1, '5': 5, '10': 'limit'},
+    const {'1': 'offset', '3': 2, '4': 1, '5': 5, '10': 'offset'},
   ],
 };
 
-/// Descriptor for `GetArticleFeedRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List getArticleFeedRequestDescriptor = $convert.base64Decode('ChVHZXRBcnRpY2xlRmVlZFJlcXVlc3QSFAoFbGltaXQYAiABKAVSBWxpbWl0EhYKBm9mZnNldBgDIAEoBVIGb2Zmc2V0');
+/// Descriptor for `GetFeedRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List getFeedRequestDescriptor = $convert.base64Decode('Cg5HZXRGZWVkUmVxdWVzdBIUCgVsaW1pdBgBIAEoBVIFbGltaXQSFgoGb2Zmc2V0GAIgASgFUgZvZmZzZXQ=');
 @$core.Deprecated('Use articleListDescriptor instead')
 const ArticleList$json = const {
   '1': 'ArticleList',
@@ -78,12 +91,12 @@ final $typed_data.Uint8List articleListDescriptor = $convert.base64Decode('CgtBc
 const CreateArticleRequest$json = const {
   '1': 'CreateArticleRequest',
   '2': const [
-    const {'1': 'article', '3': 2, '4': 1, '5': 11, '6': '.realworld.Article', '8': const {}, '10': 'article'},
+    const {'1': 'article', '3': 1, '4': 1, '5': 11, '6': '.realworld.ArticleArgs', '8': const {}, '10': 'article'},
   ],
 };
 
 /// Descriptor for `CreateArticleRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List createArticleRequestDescriptor = $convert.base64Decode('ChRDcmVhdGVBcnRpY2xlUmVxdWVzdBIxCgdhcnRpY2xlGAIgASgLMhIucmVhbHdvcmxkLkFydGljbGVCA+BBAlIHYXJ0aWNsZQ==');
+final $typed_data.Uint8List createArticleRequestDescriptor = $convert.base64Decode('ChRDcmVhdGVBcnRpY2xlUmVxdWVzdBI1CgdhcnRpY2xlGAEgASgLMhYucmVhbHdvcmxkLkFydGljbGVBcmdzQgPgQQJSB2FydGljbGU=');
 @$core.Deprecated('Use deleteArticleRequestDescriptor instead')
 const DeleteArticleRequest$json = const {
   '1': 'DeleteArticleRequest',
@@ -104,26 +117,27 @@ const GetArticleRequest$json = const {
 
 /// Descriptor for `GetArticleRequest`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List getArticleRequestDescriptor = $convert.base64Decode('ChFHZXRBcnRpY2xlUmVxdWVzdBIXCgRzbHVnGAEgASgJQgPgQQJSBHNsdWc=');
-@$core.Deprecated('Use toggleFavoriteArticleRequestDescriptor instead')
-const ToggleFavoriteArticleRequest$json = const {
-  '1': 'ToggleFavoriteArticleRequest',
-  '2': const [
-    const {'1': 'slug', '3': 1, '4': 1, '5': 9, '10': 'slug'},
-  ],
-};
-
-/// Descriptor for `ToggleFavoriteArticleRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List toggleFavoriteArticleRequestDescriptor = $convert.base64Decode('ChxUb2dnbGVGYXZvcml0ZUFydGljbGVSZXF1ZXN0EhIKBHNsdWcYASABKAlSBHNsdWc=');
 @$core.Deprecated('Use updateArticleRequestDescriptor instead')
 const UpdateArticleRequest$json = const {
   '1': 'UpdateArticleRequest',
   '2': const [
-    const {'1': 'article', '3': 1, '4': 1, '5': 11, '6': '.realworld.Article', '8': const {}, '10': 'article'},
+    const {'1': 'slug', '3': 1, '4': 1, '5': 9, '8': const {}, '10': 'slug'},
+    const {'1': 'article', '3': 2, '4': 1, '5': 11, '6': '.realworld.ArticleArgs', '8': const {}, '10': 'article'},
   ],
 };
 
 /// Descriptor for `UpdateArticleRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List updateArticleRequestDescriptor = $convert.base64Decode('ChRVcGRhdGVBcnRpY2xlUmVxdWVzdBIxCgdhcnRpY2xlGAEgASgLMhIucmVhbHdvcmxkLkFydGljbGVCA+BBAlIHYXJ0aWNsZQ==');
+final $typed_data.Uint8List updateArticleRequestDescriptor = $convert.base64Decode('ChRVcGRhdGVBcnRpY2xlUmVxdWVzdBIXCgRzbHVnGAEgASgJQgPgQQJSBHNsdWcSNQoHYXJ0aWNsZRgCIAEoCzIWLnJlYWx3b3JsZC5BcnRpY2xlQXJnc0ID4EECUgdhcnRpY2xl');
+@$core.Deprecated('Use favoriteArticleRequestDescriptor instead')
+const FavoriteArticleRequest$json = const {
+  '1': 'FavoriteArticleRequest',
+  '2': const [
+    const {'1': 'slug', '3': 1, '4': 1, '5': 9, '8': const {}, '10': 'slug'},
+  ],
+};
+
+/// Descriptor for `FavoriteArticleRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List favoriteArticleRequestDescriptor = $convert.base64Decode('ChZGYXZvcml0ZUFydGljbGVSZXF1ZXN0EhcKBHNsdWcYASABKAlCA+BBAlIEc2x1Zw==');
 @$core.Deprecated('Use listCommentsRequestDescriptor instead')
 const ListCommentsRequest$json = const {
   '1': 'ListCommentsRequest',
@@ -159,13 +173,13 @@ final $typed_data.Uint8List createCommentRequestDescriptor = $convert.base64Deco
 const DeleteCommentRequest$json = const {
   '1': 'DeleteCommentRequest',
   '2': const [
-    const {'1': 'slug', '3': 1, '4': 1, '5': 9, '10': 'slug'},
-    const {'1': 'id', '3': 2, '4': 1, '5': 5, '10': 'id'},
+    const {'1': 'slug', '3': 1, '4': 1, '5': 9, '8': const {}, '10': 'slug'},
+    const {'1': 'id', '3': 2, '4': 1, '5': 9, '8': const {}, '10': 'id'},
   ],
 };
 
 /// Descriptor for `DeleteCommentRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List deleteCommentRequestDescriptor = $convert.base64Decode('ChREZWxldGVDb21tZW50UmVxdWVzdBISCgRzbHVnGAEgASgJUgRzbHVnEg4KAmlkGAIgASgFUgJpZA==');
+final $typed_data.Uint8List deleteCommentRequestDescriptor = $convert.base64Decode('ChREZWxldGVDb21tZW50UmVxdWVzdBIXCgRzbHVnGAEgASgJQgPgQQJSBHNsdWcSEwoCaWQYAiABKAlCA+BBAlICaWQ=');
 @$core.Deprecated('Use listTagsRequestDescriptor instead')
 const ListTagsRequest$json = const {
   '1': 'ListTagsRequest',

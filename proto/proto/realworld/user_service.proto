@@ -4,6 +4,7 @@ package realworld;
 
 import "google/api/field_behavior.proto";
 import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
 import "realworld/common.proto";
 
 option go_package = "conduit/pb/realworld";
@@ -12,20 +13,71 @@ option java_outer_classname = "UserServiceProto";
 option java_multiple_files = true;
 
 service UserService {
-  // Authentication required, returns a User that's the current user
-  rpc GetCurrentUser (GetCurrentUserRequest) returns (User) {
+  rpc Login (LoginRequest) returns (UserResponse) {
+    option (google.api.http) = {
+      post: "/users/login"
+      body: "*"
+    };
+  }
+
+  rpc Create (CreateUserRequest) returns (UserResponse) {
+    option (google.api.http) = {
+      post: "/users"
+      body: "*"
+    };
+  }
+
+  rpc GetCurrent (GetCurrentUserRequest) returns (UserResponse) {
     option (google.api.http) = {
       get: "/user"
     };
   }
 
-  // Authentication required, returns the User
-  // Accepted fields: email, username, password, image, bio
-  rpc UpdateUser (UpdateUserRequest) returns (User) {}
+  rpc Update (UpdateUserRequest) returns (UserResponse) {
+    option (google.api.http) = {
+      put: "/user"
+      body: "*"
+    };
+  }
 
-  rpc ToggleFollowUser (ToggleFollowUserRequest) returns (Profile) {}
+  rpc GetProfile (GetProfileRequest) returns (Profile) {
+    option (google.api.http) = {
+      get: "/profiles/{username}"
+    };
+  }
 
-  rpc GetProfile (GetProfileRequest) returns (Profile) {}
+  rpc FollowUser (FollowUserRequest) returns (Profile) {
+    option (google.api.http) = {
+      post: "/profiles/{username}/follow"
+    };
+  }
+
+  rpc UnfollowUser (FollowUserRequest) returns (Profile) {
+    option (google.api.http) = {
+      delete: "/profiles/{username}/follow"
+    };
+  }
+
+  rpc DeleteUser (DeleteUserRequest) returns (google.protobuf.Empty) {}
+}
+
+message User {
+  string token = 1;
+  string username = 2;
+  string email = 3;
+  string bio = 4;
+  string image = 5;
+}
+
+message LoginRequest {
+  string email = 1 [(google.api.field_behavior) = REQUIRED];
+  string password = 2 [(google.api.field_behavior) = REQUIRED];
+}
+
+message CreateUserRequest {
+  string email = 1 [(google.api.field_behavior) = REQUIRED];
+  string username = 2 [(google.api.field_behavior) = REQUIRED];
+  string password = 3 [(google.api.field_behavior) = REQUIRED];
 }
 
 message GetCurrentUserRequest {}
@@ -38,6 +90,14 @@ message GetProfileRequest {
   string username = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
-message ToggleFollowUserRequest {
+message FollowUserRequest {
   string username = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+message DeleteUserRequest {
+  string username = 1;
+}
+
+message UserResponse {
+  User user = 1;
 }

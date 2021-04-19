@@ -10,19 +10,6 @@ pub struct Profile {
     pub following: bool,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct User {
-    #[prost(string, tag = "1")]
-    pub token: ::prost::alloc::string::String,
-    #[prost(string, tag = "2")]
-    pub username: ::prost::alloc::string::String,
-    #[prost(string, tag = "3")]
-    pub email: ::prost::alloc::string::String,
-    #[prost(string, tag = "4")]
-    pub bio: ::prost::alloc::string::String,
-    #[prost(string, tag = "5")]
-    pub image: ::prost::alloc::string::String,
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Article {
     #[prost(string, tag = "1")]
     pub slug: ::prost::alloc::string::String,
@@ -46,9 +33,20 @@ pub struct Article {
     pub author: ::core::option::Option<Profile>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ArticleArgs {
+    #[prost(string, tag = "1")]
+    pub title: ::prost::alloc::string::String,
+    #[prost(string, tag = "2")]
+    pub description: ::prost::alloc::string::String,
+    #[prost(string, tag = "3")]
+    pub body: ::prost::alloc::string::String,
+    #[prost(string, repeated, tag = "4")]
+    pub tag_list: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Comment {
-    #[prost(int32, tag = "1")]
-    pub id: i32,
+    #[prost(string, tag = "1")]
+    pub id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
     pub body: ::prost::alloc::string::String,
     #[prost(message, optional, tag = "3")]
@@ -66,10 +64,10 @@ pub struct ListArticlesRequest {
     pub offset: i32,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetArticleFeedRequest {
-    #[prost(int32, tag = "2")]
+pub struct GetFeedRequest {
+    #[prost(int32, tag = "1")]
     pub limit: i32,
-    #[prost(int32, tag = "3")]
+    #[prost(int32, tag = "2")]
     pub offset: i32,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -81,8 +79,8 @@ pub struct ArticleList {
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateArticleRequest {
-    #[prost(message, optional, tag = "2")]
-    pub article: ::core::option::Option<Article>,
+    #[prost(message, optional, tag = "1")]
+    pub article: ::core::option::Option<ArticleArgs>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DeleteArticleRequest {
@@ -95,14 +93,16 @@ pub struct GetArticleRequest {
     pub slug: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ToggleFavoriteArticleRequest {
+pub struct UpdateArticleRequest {
     #[prost(string, tag = "1")]
     pub slug: ::prost::alloc::string::String,
+    #[prost(message, optional, tag = "2")]
+    pub article: ::core::option::Option<ArticleArgs>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct UpdateArticleRequest {
-    #[prost(message, optional, tag = "1")]
-    pub article: ::core::option::Option<Article>,
+pub struct FavoriteArticleRequest {
+    #[prost(string, tag = "1")]
+    pub slug: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListCommentsRequest {
@@ -125,8 +125,8 @@ pub struct CreateCommentRequest {
 pub struct DeleteCommentRequest {
     #[prost(string, tag = "1")]
     pub slug: ::prost::alloc::string::String,
-    #[prost(int32, tag = "2")]
-    pub id: i32,
+    #[prost(string, tag = "2")]
+    pub id: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListTagsRequest {}
@@ -142,34 +142,30 @@ pub mod article_service_server {
     #[doc = "Generated trait containing gRPC methods that should be implemented for use with ArticleServiceServer."]
     #[async_trait]
     pub trait ArticleService: Send + Sync + 'static {
-        async fn list_articles(
+        async fn list(
             &self,
             request: tonic::Request<super::ListArticlesRequest>,
         ) -> Result<tonic::Response<super::ArticleList>, tonic::Status>;
-        async fn get_article_feed(
+        async fn get_feed(
             &self,
-            request: tonic::Request<super::GetArticleFeedRequest>,
+            request: tonic::Request<super::GetFeedRequest>,
         ) -> Result<tonic::Response<super::ArticleList>, tonic::Status>;
-        async fn get_article(
+        async fn get(
             &self,
             request: tonic::Request<super::GetArticleRequest>,
         ) -> Result<tonic::Response<super::Article>, tonic::Status>;
-        async fn create_article(
+        async fn create(
             &self,
             request: tonic::Request<super::CreateArticleRequest>,
         ) -> Result<tonic::Response<super::Article>, tonic::Status>;
-        async fn update_article(
+        async fn update(
             &self,
             request: tonic::Request<super::UpdateArticleRequest>,
         ) -> Result<tonic::Response<super::Article>, tonic::Status>;
-        async fn delete_article(
+        async fn delete(
             &self,
             request: tonic::Request<super::DeleteArticleRequest>,
         ) -> Result<tonic::Response<()>, tonic::Status>;
-        async fn toggle_favorite_article(
-            &self,
-            request: tonic::Request<super::ToggleFavoriteArticleRequest>,
-        ) -> Result<tonic::Response<super::Article>, tonic::Status>;
         async fn create_comment(
             &self,
             request: tonic::Request<super::CreateCommentRequest>,
@@ -178,6 +174,18 @@ pub mod article_service_server {
             &self,
             request: tonic::Request<super::ListCommentsRequest>,
         ) -> Result<tonic::Response<super::CommentList>, tonic::Status>;
+        async fn delete_comment(
+            &self,
+            request: tonic::Request<super::DeleteCommentRequest>,
+        ) -> Result<tonic::Response<()>, tonic::Status>;
+        async fn favorite_article(
+            &self,
+            request: tonic::Request<super::FavoriteArticleRequest>,
+        ) -> Result<tonic::Response<super::Article>, tonic::Status>;
+        async fn un_favorite_article(
+            &self,
+            request: tonic::Request<super::FavoriteArticleRequest>,
+        ) -> Result<tonic::Response<super::Article>, tonic::Status>;
         async fn list_tags(
             &self,
             request: tonic::Request<super::ListTagsRequest>,
@@ -215,12 +223,10 @@ pub mod article_service_server {
         fn call(&mut self, req: http::Request<B>) -> Self::Future {
             let inner = self.inner.clone();
             match req.uri().path() {
-                "/realworld.ArticleService/ListArticles" => {
+                "/realworld.ArticleService/List" => {
                     #[allow(non_camel_case_types)]
-                    struct ListArticlesSvc<T: ArticleService>(pub Arc<T>);
-                    impl<T: ArticleService> tonic::server::UnaryService<super::ListArticlesRequest>
-                        for ListArticlesSvc<T>
-                    {
+                    struct ListSvc<T: ArticleService>(pub Arc<T>);
+                    impl<T: ArticleService> tonic::server::UnaryService<super::ListArticlesRequest> for ListSvc<T> {
                         type Response = super::ArticleList;
                         type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
                         fn call(
@@ -228,7 +234,7 @@ pub mod article_service_server {
                             request: tonic::Request<super::ListArticlesRequest>,
                         ) -> Self::Future {
                             let inner = self.0.clone();
-                            let fut = async move { (*inner).list_articles(request).await };
+                            let fut = async move { (*inner).list(request).await };
                             Box::pin(fut)
                         }
                     }
@@ -236,7 +242,7 @@ pub mod article_service_server {
                     let fut = async move {
                         let interceptor = inner.1.clone();
                         let inner = inner.0;
-                        let method = ListArticlesSvc(inner);
+                        let method = ListSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = if let Some(interceptor) = interceptor {
                             tonic::server::Grpc::with_interceptor(codec, interceptor)
@@ -248,21 +254,18 @@ pub mod article_service_server {
                     };
                     Box::pin(fut)
                 }
-                "/realworld.ArticleService/GetArticleFeed" => {
+                "/realworld.ArticleService/GetFeed" => {
                     #[allow(non_camel_case_types)]
-                    struct GetArticleFeedSvc<T: ArticleService>(pub Arc<T>);
-                    impl<T: ArticleService>
-                        tonic::server::UnaryService<super::GetArticleFeedRequest>
-                        for GetArticleFeedSvc<T>
-                    {
+                    struct GetFeedSvc<T: ArticleService>(pub Arc<T>);
+                    impl<T: ArticleService> tonic::server::UnaryService<super::GetFeedRequest> for GetFeedSvc<T> {
                         type Response = super::ArticleList;
                         type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
                         fn call(
                             &mut self,
-                            request: tonic::Request<super::GetArticleFeedRequest>,
+                            request: tonic::Request<super::GetFeedRequest>,
                         ) -> Self::Future {
                             let inner = self.0.clone();
-                            let fut = async move { (*inner).get_article_feed(request).await };
+                            let fut = async move { (*inner).get_feed(request).await };
                             Box::pin(fut)
                         }
                     }
@@ -270,7 +273,7 @@ pub mod article_service_server {
                     let fut = async move {
                         let interceptor = inner.1.clone();
                         let inner = inner.0;
-                        let method = GetArticleFeedSvc(inner);
+                        let method = GetFeedSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = if let Some(interceptor) = interceptor {
                             tonic::server::Grpc::with_interceptor(codec, interceptor)
@@ -282,10 +285,10 @@ pub mod article_service_server {
                     };
                     Box::pin(fut)
                 }
-                "/realworld.ArticleService/GetArticle" => {
+                "/realworld.ArticleService/Get" => {
                     #[allow(non_camel_case_types)]
-                    struct GetArticleSvc<T: ArticleService>(pub Arc<T>);
-                    impl<T: ArticleService> tonic::server::UnaryService<super::GetArticleRequest> for GetArticleSvc<T> {
+                    struct GetSvc<T: ArticleService>(pub Arc<T>);
+                    impl<T: ArticleService> tonic::server::UnaryService<super::GetArticleRequest> for GetSvc<T> {
                         type Response = super::Article;
                         type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
                         fn call(
@@ -293,7 +296,7 @@ pub mod article_service_server {
                             request: tonic::Request<super::GetArticleRequest>,
                         ) -> Self::Future {
                             let inner = self.0.clone();
-                            let fut = async move { (*inner).get_article(request).await };
+                            let fut = async move { (*inner).get(request).await };
                             Box::pin(fut)
                         }
                     }
@@ -301,7 +304,7 @@ pub mod article_service_server {
                     let fut = async move {
                         let interceptor = inner.1.clone();
                         let inner = inner.0;
-                        let method = GetArticleSvc(inner);
+                        let method = GetSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = if let Some(interceptor) = interceptor {
                             tonic::server::Grpc::with_interceptor(codec, interceptor)
@@ -313,12 +316,10 @@ pub mod article_service_server {
                     };
                     Box::pin(fut)
                 }
-                "/realworld.ArticleService/CreateArticle" => {
+                "/realworld.ArticleService/Create" => {
                     #[allow(non_camel_case_types)]
-                    struct CreateArticleSvc<T: ArticleService>(pub Arc<T>);
-                    impl<T: ArticleService> tonic::server::UnaryService<super::CreateArticleRequest>
-                        for CreateArticleSvc<T>
-                    {
+                    struct CreateSvc<T: ArticleService>(pub Arc<T>);
+                    impl<T: ArticleService> tonic::server::UnaryService<super::CreateArticleRequest> for CreateSvc<T> {
                         type Response = super::Article;
                         type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
                         fn call(
@@ -326,7 +327,7 @@ pub mod article_service_server {
                             request: tonic::Request<super::CreateArticleRequest>,
                         ) -> Self::Future {
                             let inner = self.0.clone();
-                            let fut = async move { (*inner).create_article(request).await };
+                            let fut = async move { (*inner).create(request).await };
                             Box::pin(fut)
                         }
                     }
@@ -334,7 +335,7 @@ pub mod article_service_server {
                     let fut = async move {
                         let interceptor = inner.1.clone();
                         let inner = inner.0;
-                        let method = CreateArticleSvc(inner);
+                        let method = CreateSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = if let Some(interceptor) = interceptor {
                             tonic::server::Grpc::with_interceptor(codec, interceptor)
@@ -346,12 +347,10 @@ pub mod article_service_server {
                     };
                     Box::pin(fut)
                 }
-                "/realworld.ArticleService/UpdateArticle" => {
+                "/realworld.ArticleService/Update" => {
                     #[allow(non_camel_case_types)]
-                    struct UpdateArticleSvc<T: ArticleService>(pub Arc<T>);
-                    impl<T: ArticleService> tonic::server::UnaryService<super::UpdateArticleRequest>
-                        for UpdateArticleSvc<T>
-                    {
+                    struct UpdateSvc<T: ArticleService>(pub Arc<T>);
+                    impl<T: ArticleService> tonic::server::UnaryService<super::UpdateArticleRequest> for UpdateSvc<T> {
                         type Response = super::Article;
                         type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
                         fn call(
@@ -359,7 +358,7 @@ pub mod article_service_server {
                             request: tonic::Request<super::UpdateArticleRequest>,
                         ) -> Self::Future {
                             let inner = self.0.clone();
-                            let fut = async move { (*inner).update_article(request).await };
+                            let fut = async move { (*inner).update(request).await };
                             Box::pin(fut)
                         }
                     }
@@ -367,7 +366,7 @@ pub mod article_service_server {
                     let fut = async move {
                         let interceptor = inner.1.clone();
                         let inner = inner.0;
-                        let method = UpdateArticleSvc(inner);
+                        let method = UpdateSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = if let Some(interceptor) = interceptor {
                             tonic::server::Grpc::with_interceptor(codec, interceptor)
@@ -379,12 +378,10 @@ pub mod article_service_server {
                     };
                     Box::pin(fut)
                 }
-                "/realworld.ArticleService/DeleteArticle" => {
+                "/realworld.ArticleService/Delete" => {
                     #[allow(non_camel_case_types)]
-                    struct DeleteArticleSvc<T: ArticleService>(pub Arc<T>);
-                    impl<T: ArticleService> tonic::server::UnaryService<super::DeleteArticleRequest>
-                        for DeleteArticleSvc<T>
-                    {
+                    struct DeleteSvc<T: ArticleService>(pub Arc<T>);
+                    impl<T: ArticleService> tonic::server::UnaryService<super::DeleteArticleRequest> for DeleteSvc<T> {
                         type Response = ();
                         type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
                         fn call(
@@ -392,7 +389,7 @@ pub mod article_service_server {
                             request: tonic::Request<super::DeleteArticleRequest>,
                         ) -> Self::Future {
                             let inner = self.0.clone();
-                            let fut = async move { (*inner).delete_article(request).await };
+                            let fut = async move { (*inner).delete(request).await };
                             Box::pin(fut)
                         }
                     }
@@ -400,42 +397,7 @@ pub mod article_service_server {
                     let fut = async move {
                         let interceptor = inner.1.clone();
                         let inner = inner.0;
-                        let method = DeleteArticleSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
-                        let mut grpc = if let Some(interceptor) = interceptor {
-                            tonic::server::Grpc::with_interceptor(codec, interceptor)
-                        } else {
-                            tonic::server::Grpc::new(codec)
-                        };
-                        let res = grpc.unary(method, req).await;
-                        Ok(res)
-                    };
-                    Box::pin(fut)
-                }
-                "/realworld.ArticleService/ToggleFavoriteArticle" => {
-                    #[allow(non_camel_case_types)]
-                    struct ToggleFavoriteArticleSvc<T: ArticleService>(pub Arc<T>);
-                    impl<T: ArticleService>
-                        tonic::server::UnaryService<super::ToggleFavoriteArticleRequest>
-                        for ToggleFavoriteArticleSvc<T>
-                    {
-                        type Response = super::Article;
-                        type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
-                        fn call(
-                            &mut self,
-                            request: tonic::Request<super::ToggleFavoriteArticleRequest>,
-                        ) -> Self::Future {
-                            let inner = self.0.clone();
-                            let fut =
-                                async move { (*inner).toggle_favorite_article(request).await };
-                            Box::pin(fut)
-                        }
-                    }
-                    let inner = self.inner.clone();
-                    let fut = async move {
-                        let interceptor = inner.1.clone();
-                        let inner = inner.0;
-                        let method = ToggleFavoriteArticleSvc(inner);
+                        let method = DeleteSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = if let Some(interceptor) = interceptor {
                             tonic::server::Grpc::with_interceptor(codec, interceptor)
@@ -513,6 +475,107 @@ pub mod article_service_server {
                     };
                     Box::pin(fut)
                 }
+                "/realworld.ArticleService/DeleteComment" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteCommentSvc<T: ArticleService>(pub Arc<T>);
+                    impl<T: ArticleService> tonic::server::UnaryService<super::DeleteCommentRequest>
+                        for DeleteCommentSvc<T>
+                    {
+                        type Response = ();
+                        type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteCommentRequest>,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move { (*inner).delete_comment(request).await };
+                            Box::pin(fut)
+                        }
+                    }
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let interceptor = inner.1.clone();
+                        let inner = inner.0;
+                        let method = DeleteCommentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = if let Some(interceptor) = interceptor {
+                            tonic::server::Grpc::with_interceptor(codec, interceptor)
+                        } else {
+                            tonic::server::Grpc::new(codec)
+                        };
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/realworld.ArticleService/FavoriteArticle" => {
+                    #[allow(non_camel_case_types)]
+                    struct FavoriteArticleSvc<T: ArticleService>(pub Arc<T>);
+                    impl<T: ArticleService>
+                        tonic::server::UnaryService<super::FavoriteArticleRequest>
+                        for FavoriteArticleSvc<T>
+                    {
+                        type Response = super::Article;
+                        type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::FavoriteArticleRequest>,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move { (*inner).favorite_article(request).await };
+                            Box::pin(fut)
+                        }
+                    }
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let interceptor = inner.1.clone();
+                        let inner = inner.0;
+                        let method = FavoriteArticleSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = if let Some(interceptor) = interceptor {
+                            tonic::server::Grpc::with_interceptor(codec, interceptor)
+                        } else {
+                            tonic::server::Grpc::new(codec)
+                        };
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/realworld.ArticleService/UnFavoriteArticle" => {
+                    #[allow(non_camel_case_types)]
+                    struct UnFavoriteArticleSvc<T: ArticleService>(pub Arc<T>);
+                    impl<T: ArticleService>
+                        tonic::server::UnaryService<super::FavoriteArticleRequest>
+                        for UnFavoriteArticleSvc<T>
+                    {
+                        type Response = super::Article;
+                        type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::FavoriteArticleRequest>,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move { (*inner).un_favorite_article(request).await };
+                            Box::pin(fut)
+                        }
+                    }
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let interceptor = inner.1.clone();
+                        let inner = inner.0;
+                        let method = UnFavoriteArticleSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = if let Some(interceptor) = interceptor {
+                            tonic::server::Grpc::with_interceptor(codec, interceptor)
+                        } else {
+                            tonic::server::Grpc::new(codec)
+                        };
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
                 "/realworld.ArticleService/ListTags" => {
                     #[allow(non_camel_case_types)]
                     struct ListTagsSvc<T: ArticleService>(pub Arc<T>);
@@ -576,6 +639,19 @@ pub mod article_service_server {
     }
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
+pub struct User {
+    #[prost(string, tag = "1")]
+    pub token: ::prost::alloc::string::String,
+    #[prost(string, tag = "2")]
+    pub username: ::prost::alloc::string::String,
+    #[prost(string, tag = "3")]
+    pub email: ::prost::alloc::string::String,
+    #[prost(string, tag = "4")]
+    pub bio: ::prost::alloc::string::String,
+    #[prost(string, tag = "5")]
+    pub image: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
 pub struct LoginRequest {
     #[prost(string, tag = "1")]
     pub email: ::prost::alloc::string::String,
@@ -583,154 +659,13 @@ pub struct LoginRequest {
     pub password: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct SignupRequest {
+pub struct CreateUserRequest {
     #[prost(string, tag = "1")]
-    pub username: ::prost::alloc::string::String,
-    #[prost(string, tag = "2")]
     pub email: ::prost::alloc::string::String,
+    #[prost(string, tag = "2")]
+    pub username: ::prost::alloc::string::String,
     #[prost(string, tag = "3")]
     pub password: ::prost::alloc::string::String,
-}
-#[doc = r" Generated server implementations."]
-pub mod auth_service_server {
-    #![allow(unused_variables, dead_code, missing_docs)]
-    use tonic::codegen::*;
-    #[doc = "Generated trait containing gRPC methods that should be implemented for use with AuthServiceServer."]
-    #[async_trait]
-    pub trait AuthService: Send + Sync + 'static {
-        async fn login(
-            &self,
-            request: tonic::Request<super::LoginRequest>,
-        ) -> Result<tonic::Response<super::User>, tonic::Status>;
-        async fn signup(
-            &self,
-            request: tonic::Request<super::SignupRequest>,
-        ) -> Result<tonic::Response<super::User>, tonic::Status>;
-    }
-    #[derive(Debug)]
-    pub struct AuthServiceServer<T: AuthService> {
-        inner: _Inner<T>,
-    }
-    struct _Inner<T>(Arc<T>, Option<tonic::Interceptor>);
-    impl<T: AuthService> AuthServiceServer<T> {
-        pub fn new(inner: T) -> Self {
-            let inner = Arc::new(inner);
-            let inner = _Inner(inner, None);
-            Self { inner }
-        }
-        pub fn with_interceptor(inner: T, interceptor: impl Into<tonic::Interceptor>) -> Self {
-            let inner = Arc::new(inner);
-            let inner = _Inner(inner, Some(interceptor.into()));
-            Self { inner }
-        }
-    }
-    impl<T, B> Service<http::Request<B>> for AuthServiceServer<T>
-    where
-        T: AuthService,
-        B: HttpBody + Send + Sync + 'static,
-        B::Error: Into<StdError> + Send + 'static,
-    {
-        type Response = http::Response<tonic::body::BoxBody>;
-        type Error = Never;
-        type Future = BoxFuture<Self::Response, Self::Error>;
-        fn poll_ready(&mut self, _cx: &mut Context<'_>) -> Poll<Result<(), Self::Error>> {
-            Poll::Ready(Ok(()))
-        }
-        fn call(&mut self, req: http::Request<B>) -> Self::Future {
-            let inner = self.inner.clone();
-            match req.uri().path() {
-                "/realworld.AuthService/Login" => {
-                    #[allow(non_camel_case_types)]
-                    struct LoginSvc<T: AuthService>(pub Arc<T>);
-                    impl<T: AuthService> tonic::server::UnaryService<super::LoginRequest> for LoginSvc<T> {
-                        type Response = super::User;
-                        type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
-                        fn call(
-                            &mut self,
-                            request: tonic::Request<super::LoginRequest>,
-                        ) -> Self::Future {
-                            let inner = self.0.clone();
-                            let fut = async move { (*inner).login(request).await };
-                            Box::pin(fut)
-                        }
-                    }
-                    let inner = self.inner.clone();
-                    let fut = async move {
-                        let interceptor = inner.1.clone();
-                        let inner = inner.0;
-                        let method = LoginSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
-                        let mut grpc = if let Some(interceptor) = interceptor {
-                            tonic::server::Grpc::with_interceptor(codec, interceptor)
-                        } else {
-                            tonic::server::Grpc::new(codec)
-                        };
-                        let res = grpc.unary(method, req).await;
-                        Ok(res)
-                    };
-                    Box::pin(fut)
-                }
-                "/realworld.AuthService/Signup" => {
-                    #[allow(non_camel_case_types)]
-                    struct SignupSvc<T: AuthService>(pub Arc<T>);
-                    impl<T: AuthService> tonic::server::UnaryService<super::SignupRequest> for SignupSvc<T> {
-                        type Response = super::User;
-                        type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
-                        fn call(
-                            &mut self,
-                            request: tonic::Request<super::SignupRequest>,
-                        ) -> Self::Future {
-                            let inner = self.0.clone();
-                            let fut = async move { (*inner).signup(request).await };
-                            Box::pin(fut)
-                        }
-                    }
-                    let inner = self.inner.clone();
-                    let fut = async move {
-                        let interceptor = inner.1.clone();
-                        let inner = inner.0;
-                        let method = SignupSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
-                        let mut grpc = if let Some(interceptor) = interceptor {
-                            tonic::server::Grpc::with_interceptor(codec, interceptor)
-                        } else {
-                            tonic::server::Grpc::new(codec)
-                        };
-                        let res = grpc.unary(method, req).await;
-                        Ok(res)
-                    };
-                    Box::pin(fut)
-                }
-                _ => Box::pin(async move {
-                    Ok(http::Response::builder()
-                        .status(200)
-                        .header("grpc-status", "12")
-                        .header("content-type", "application/grpc")
-                        .body(tonic::body::BoxBody::empty())
-                        .unwrap())
-                }),
-            }
-        }
-    }
-    impl<T: AuthService> Clone for AuthServiceServer<T> {
-        fn clone(&self) -> Self {
-            let inner = self.inner.clone();
-            Self { inner }
-        }
-    }
-    impl<T: AuthService> Clone for _Inner<T> {
-        fn clone(&self) -> Self {
-            Self(self.0.clone(), self.1.clone())
-        }
-    }
-    impl<T: std::fmt::Debug> std::fmt::Debug for _Inner<T> {
-        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-            write!(f, "{:?}", self.0)
-        }
-    }
-    impl<T: AuthService> tonic::transport::NamedService for AuthServiceServer<T> {
-        const NAME: &'static str = "realworld.AuthService";
-    }
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetCurrentUserRequest {}
@@ -745,9 +680,19 @@ pub struct GetProfileRequest {
     pub username: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ToggleFollowUserRequest {
+pub struct FollowUserRequest {
     #[prost(string, tag = "1")]
     pub username: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DeleteUserRequest {
+    #[prost(string, tag = "1")]
+    pub username: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct UserResponse {
+    #[prost(message, optional, tag = "1")]
+    pub user: ::core::option::Option<User>,
 }
 #[doc = r" Generated server implementations."]
 pub mod user_service_server {
@@ -756,22 +701,38 @@ pub mod user_service_server {
     #[doc = "Generated trait containing gRPC methods that should be implemented for use with UserServiceServer."]
     #[async_trait]
     pub trait UserService: Send + Sync + 'static {
-        async fn get_current_user(
+        async fn login(
+            &self,
+            request: tonic::Request<super::LoginRequest>,
+        ) -> Result<tonic::Response<super::UserResponse>, tonic::Status>;
+        async fn create(
+            &self,
+            request: tonic::Request<super::CreateUserRequest>,
+        ) -> Result<tonic::Response<super::UserResponse>, tonic::Status>;
+        async fn get_current(
             &self,
             request: tonic::Request<super::GetCurrentUserRequest>,
-        ) -> Result<tonic::Response<super::User>, tonic::Status>;
-        async fn update_user(
+        ) -> Result<tonic::Response<super::UserResponse>, tonic::Status>;
+        async fn update(
             &self,
             request: tonic::Request<super::UpdateUserRequest>,
-        ) -> Result<tonic::Response<super::User>, tonic::Status>;
-        async fn toggle_follow_user(
-            &self,
-            request: tonic::Request<super::ToggleFollowUserRequest>,
-        ) -> Result<tonic::Response<super::Profile>, tonic::Status>;
+        ) -> Result<tonic::Response<super::UserResponse>, tonic::Status>;
         async fn get_profile(
             &self,
             request: tonic::Request<super::GetProfileRequest>,
         ) -> Result<tonic::Response<super::Profile>, tonic::Status>;
+        async fn follow_user(
+            &self,
+            request: tonic::Request<super::FollowUserRequest>,
+        ) -> Result<tonic::Response<super::Profile>, tonic::Status>;
+        async fn unfollow_user(
+            &self,
+            request: tonic::Request<super::FollowUserRequest>,
+        ) -> Result<tonic::Response<super::Profile>, tonic::Status>;
+        async fn delete_user(
+            &self,
+            request: tonic::Request<super::DeleteUserRequest>,
+        ) -> Result<tonic::Response<()>, tonic::Status>;
     }
     #[derive(Debug)]
     pub struct UserServiceServer<T: UserService> {
@@ -805,20 +766,82 @@ pub mod user_service_server {
         fn call(&mut self, req: http::Request<B>) -> Self::Future {
             let inner = self.inner.clone();
             match req.uri().path() {
-                "/realworld.UserService/GetCurrentUser" => {
+                "/realworld.UserService/Login" => {
                     #[allow(non_camel_case_types)]
-                    struct GetCurrentUserSvc<T: UserService>(pub Arc<T>);
+                    struct LoginSvc<T: UserService>(pub Arc<T>);
+                    impl<T: UserService> tonic::server::UnaryService<super::LoginRequest> for LoginSvc<T> {
+                        type Response = super::UserResponse;
+                        type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::LoginRequest>,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move { (*inner).login(request).await };
+                            Box::pin(fut)
+                        }
+                    }
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let interceptor = inner.1.clone();
+                        let inner = inner.0;
+                        let method = LoginSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = if let Some(interceptor) = interceptor {
+                            tonic::server::Grpc::with_interceptor(codec, interceptor)
+                        } else {
+                            tonic::server::Grpc::new(codec)
+                        };
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/realworld.UserService/Create" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateSvc<T: UserService>(pub Arc<T>);
+                    impl<T: UserService> tonic::server::UnaryService<super::CreateUserRequest> for CreateSvc<T> {
+                        type Response = super::UserResponse;
+                        type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateUserRequest>,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move { (*inner).create(request).await };
+                            Box::pin(fut)
+                        }
+                    }
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let interceptor = inner.1.clone();
+                        let inner = inner.0;
+                        let method = CreateSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = if let Some(interceptor) = interceptor {
+                            tonic::server::Grpc::with_interceptor(codec, interceptor)
+                        } else {
+                            tonic::server::Grpc::new(codec)
+                        };
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/realworld.UserService/GetCurrent" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetCurrentSvc<T: UserService>(pub Arc<T>);
                     impl<T: UserService> tonic::server::UnaryService<super::GetCurrentUserRequest>
-                        for GetCurrentUserSvc<T>
+                        for GetCurrentSvc<T>
                     {
-                        type Response = super::User;
+                        type Response = super::UserResponse;
                         type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
                         fn call(
                             &mut self,
                             request: tonic::Request<super::GetCurrentUserRequest>,
                         ) -> Self::Future {
                             let inner = self.0.clone();
-                            let fut = async move { (*inner).get_current_user(request).await };
+                            let fut = async move { (*inner).get_current(request).await };
                             Box::pin(fut)
                         }
                     }
@@ -826,7 +849,7 @@ pub mod user_service_server {
                     let fut = async move {
                         let interceptor = inner.1.clone();
                         let inner = inner.0;
-                        let method = GetCurrentUserSvc(inner);
+                        let method = GetCurrentSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = if let Some(interceptor) = interceptor {
                             tonic::server::Grpc::with_interceptor(codec, interceptor)
@@ -838,18 +861,18 @@ pub mod user_service_server {
                     };
                     Box::pin(fut)
                 }
-                "/realworld.UserService/UpdateUser" => {
+                "/realworld.UserService/Update" => {
                     #[allow(non_camel_case_types)]
-                    struct UpdateUserSvc<T: UserService>(pub Arc<T>);
-                    impl<T: UserService> tonic::server::UnaryService<super::UpdateUserRequest> for UpdateUserSvc<T> {
-                        type Response = super::User;
+                    struct UpdateSvc<T: UserService>(pub Arc<T>);
+                    impl<T: UserService> tonic::server::UnaryService<super::UpdateUserRequest> for UpdateSvc<T> {
+                        type Response = super::UserResponse;
                         type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
                         fn call(
                             &mut self,
                             request: tonic::Request<super::UpdateUserRequest>,
                         ) -> Self::Future {
                             let inner = self.0.clone();
-                            let fut = async move { (*inner).update_user(request).await };
+                            let fut = async move { (*inner).update(request).await };
                             Box::pin(fut)
                         }
                     }
@@ -857,40 +880,7 @@ pub mod user_service_server {
                     let fut = async move {
                         let interceptor = inner.1.clone();
                         let inner = inner.0;
-                        let method = UpdateUserSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
-                        let mut grpc = if let Some(interceptor) = interceptor {
-                            tonic::server::Grpc::with_interceptor(codec, interceptor)
-                        } else {
-                            tonic::server::Grpc::new(codec)
-                        };
-                        let res = grpc.unary(method, req).await;
-                        Ok(res)
-                    };
-                    Box::pin(fut)
-                }
-                "/realworld.UserService/ToggleFollowUser" => {
-                    #[allow(non_camel_case_types)]
-                    struct ToggleFollowUserSvc<T: UserService>(pub Arc<T>);
-                    impl<T: UserService> tonic::server::UnaryService<super::ToggleFollowUserRequest>
-                        for ToggleFollowUserSvc<T>
-                    {
-                        type Response = super::Profile;
-                        type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
-                        fn call(
-                            &mut self,
-                            request: tonic::Request<super::ToggleFollowUserRequest>,
-                        ) -> Self::Future {
-                            let inner = self.0.clone();
-                            let fut = async move { (*inner).toggle_follow_user(request).await };
-                            Box::pin(fut)
-                        }
-                    }
-                    let inner = self.inner.clone();
-                    let fut = async move {
-                        let interceptor = inner.1.clone();
-                        let inner = inner.0;
-                        let method = ToggleFollowUserSvc(inner);
+                        let method = UpdateSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = if let Some(interceptor) = interceptor {
                             tonic::server::Grpc::with_interceptor(codec, interceptor)
@@ -922,6 +912,99 @@ pub mod user_service_server {
                         let interceptor = inner.1.clone();
                         let inner = inner.0;
                         let method = GetProfileSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = if let Some(interceptor) = interceptor {
+                            tonic::server::Grpc::with_interceptor(codec, interceptor)
+                        } else {
+                            tonic::server::Grpc::new(codec)
+                        };
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/realworld.UserService/FollowUser" => {
+                    #[allow(non_camel_case_types)]
+                    struct FollowUserSvc<T: UserService>(pub Arc<T>);
+                    impl<T: UserService> tonic::server::UnaryService<super::FollowUserRequest> for FollowUserSvc<T> {
+                        type Response = super::Profile;
+                        type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::FollowUserRequest>,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move { (*inner).follow_user(request).await };
+                            Box::pin(fut)
+                        }
+                    }
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let interceptor = inner.1.clone();
+                        let inner = inner.0;
+                        let method = FollowUserSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = if let Some(interceptor) = interceptor {
+                            tonic::server::Grpc::with_interceptor(codec, interceptor)
+                        } else {
+                            tonic::server::Grpc::new(codec)
+                        };
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/realworld.UserService/UnfollowUser" => {
+                    #[allow(non_camel_case_types)]
+                    struct UnfollowUserSvc<T: UserService>(pub Arc<T>);
+                    impl<T: UserService> tonic::server::UnaryService<super::FollowUserRequest> for UnfollowUserSvc<T> {
+                        type Response = super::Profile;
+                        type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::FollowUserRequest>,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move { (*inner).unfollow_user(request).await };
+                            Box::pin(fut)
+                        }
+                    }
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let interceptor = inner.1.clone();
+                        let inner = inner.0;
+                        let method = UnfollowUserSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = if let Some(interceptor) = interceptor {
+                            tonic::server::Grpc::with_interceptor(codec, interceptor)
+                        } else {
+                            tonic::server::Grpc::new(codec)
+                        };
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/realworld.UserService/DeleteUser" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteUserSvc<T: UserService>(pub Arc<T>);
+                    impl<T: UserService> tonic::server::UnaryService<super::DeleteUserRequest> for DeleteUserSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteUserRequest>,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move { (*inner).delete_user(request).await };
+                            Box::pin(fut)
+                        }
+                    }
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let interceptor = inner.1.clone();
+                        let inner = inner.0;
+                        let method = DeleteUserSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = if let Some(interceptor) = interceptor {
                             tonic::server::Grpc::with_interceptor(codec, interceptor)
