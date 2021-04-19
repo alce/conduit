@@ -74,7 +74,7 @@ async fn signup(args: CreateUserArgs, pool: &PgPool) -> Result<User, ConduitErro
     sqlx::query!(
         r#"
         INSERT INTO users (id, email, username, hash)
-        VALUES ($1, $2, $3, $4)
+        VALUES ($1, $2::TEXT::CITEXT, $3::TEXT::CITEXT, $4)
         "#,
         user.id,
         user.email.as_ref(),
@@ -89,7 +89,10 @@ async fn signup(args: CreateUserArgs, pool: &PgPool) -> Result<User, ConduitErro
 
 async fn login(args: LoginArgs, pool: &PgPool) -> Result<User, ConduitError> {
     let rec = sqlx::query!(
-        "SELECT id, email, username, bio, image, hash FROM users WHERE email = $1",
+        r#"
+        SELECT id, email::TEXT, username::TEXT, bio, image, hash 
+        FROM users WHERE email = $1::TEXT::CITEXT
+        "#,
         args.email.as_ref()
     )
     .fetch_one(pool)
@@ -101,8 +104,8 @@ async fn login(args: LoginArgs, pool: &PgPool) -> Result<User, ConduitError> {
     let user = User {
         id: rec.id,
         token,
-        username: Username::try_from(rec.username)?,
-        email: Email::new(rec.email)?,
+        username: Username::try_from(rec.username.unwrap())?,
+        email: Email::new(rec.email.unwrap())?,
         bio: rec.bio,
         image: rec.image,
     };
@@ -121,9 +124,12 @@ async fn current() -> Result<User, ConduitError> {
 }
 
 async fn delete(username: &str, pool: &PgPool) -> Result<(), ConduitError> {
-    sqlx::query!("DELETE FROM users WHERE username = $1", username)
-        .execute(pool)
-        .await?;
+    sqlx::query!(
+        "DELETE FROM users WHERE username = $1::TEXT::CITEXT",
+        username
+    )
+    .execute(pool)
+    .await?;
 
     Ok(())
 }
