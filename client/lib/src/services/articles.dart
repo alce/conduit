@@ -20,7 +20,7 @@ class ArticleService {
       ..limit = limit
       ..offset = offset;
 
-    final list = await _client.listArticles(req);
+    final list = await _client.list(req);
     return ResourceList(list.articles.map(toArticle).toList());
   }
 
@@ -28,17 +28,17 @@ class ArticleService {
     int limit = 20,
     int offset = 0,
   }) async {
-    final req = pb.GetArticleFeedRequest()
+    final req = pb.GetFeedRequest()
       ..limit = limit
       ..offset = offset;
 
-    final list = await _client.getArticleFeed(req);
+    final list = await _client.getFeed(req);
     return ResourceList(list.articles.map(toArticle).toList());
   }
 
   Future<Article> getArticle(String slug) async {
     final req = pb.GetArticleRequest()..slug = slug;
-    final proto = await _client.getArticle(req);
+    final proto = await _client.get(req);
     return proto.toModel();
   }
 
@@ -48,14 +48,14 @@ class ArticleService {
     required String body,
     List<String> tags = const [],
   }) async {
-    final article = pb.Article()
+    final article = pb.ArticleArgs()
       ..title = title
       ..description = description
       ..body = body
       ..tagList.addAll(tags);
 
     final req = pb.CreateArticleRequest()..article = article;
-    final proto = await _client.createArticle(req);
+    final proto = await _client.create(req);
     return proto.toModel();
   }
 
@@ -65,31 +65,31 @@ class ArticleService {
     required String body,
     List<String> tags = const [],
   }) async {
-    final article = pb.Article()
+    final article = pb.ArticleArgs()
       ..title = title
       ..description = description
       ..body = body
       ..tagList.addAll(tags);
 
     final req = pb.UpdateArticleRequest()..article = article;
-    final proto = await _client.updateArticle(req);
+    final proto = await _client.update(req);
     return proto.toModel();
   }
 
   Future<void> deleteArticle(String slug) async {
     final req = pb.DeleteArticleRequest()..slug = slug;
-    await _client.deleteArticle(req);
+    await _client.delete(req);
   }
 
-  Future<Article> favoriteArticle(String slug) async =>
-      _toggleFavoriteArticle(slug);
+  Future<Article> favoriteArticle(String slug) async {
+    final req = pb.FavoriteArticleRequest()..slug = slug;
+    final proto = await _client.favoriteArticle(req);
+    return proto.toModel();
+  }
 
-  Future<Article> unFavoriteArticle(String slug) async =>
-      _toggleFavoriteArticle(slug);
-
-  Future<Article> _toggleFavoriteArticle(String slug) async {
-    final req = pb.ToggleFavoriteArticleRequest()..slug = slug;
-    final proto = await _client.toggleFavoriteArticle(req);
+  Future<Article> unFavoriteArticle(String slug) async {
+    final req = pb.FavoriteArticleRequest()..slug = slug;
+    final proto = await _client.unFavoriteArticle(req);
     return proto.toModel();
   }
 

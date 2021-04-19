@@ -2,6 +2,7 @@ import 'package:grpc/grpc.dart';
 
 import 'generated/realworld/article_service.pb.dart';
 import 'generated/realworld/common.pb.dart';
+import 'generated/realworld/user_service.pbgrpc.dart';
 import 'model/model.dart' as model;
 
 model.Article toArticle(Article a) => a.toModel();

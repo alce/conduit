@@ -12,7 +12,7 @@ class Comment {
     required this.author,
   });
 
-  final int id;
+  final String id;
   final String body;
   final DateTime createTime;
   final DateTime updateTime;

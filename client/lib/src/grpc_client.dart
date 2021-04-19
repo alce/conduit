@@ -2,7 +2,6 @@ import 'package:grpc/grpc_connection_interface.dart';
 
 import 'channel/channel.dart';
 import 'services/articles.dart';
-import 'services/auth.dart';
 import 'services/users.dart';
 
 class ConduitClient {
@@ -11,7 +10,6 @@ class ConduitClient {
   final ClientChannelBase _channel;
 
   UserService get users => UserService(_channel);
-  AuthService get auth => AuthService(_channel);
   ArticleService get articles => ArticleService(_channel);
 
   Future<void> shutdown() async {
