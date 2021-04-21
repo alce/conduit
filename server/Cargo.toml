@@ -22,3 +22,5 @@ tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
 conduit = { path = "conduit" }
 tonic = { git = "https://github.com/alce/tonic.git", features = ["tls"], branch = "grpc-web" }
 tonic-web = { git = "https://github.com/alce/tonic.git", branch = "grpc-web" }
+tokio-stream = { version = "0.1.5", features = ["net"] }
+bytes = "1.0.1"

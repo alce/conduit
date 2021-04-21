@@ -11,8 +11,8 @@ import 'dart:core' as $core;
 
 import 'package:grpc/service_api.dart' as $grpc;
 import 'user_service.pb.dart' as $2;
-import 'common.pb.dart' as $3;
 import '../google/protobuf/empty.pb.dart' as $1;
+import 'common.pb.dart' as $3;
 export 'user_service.pb.dart';
 
 class UserServiceClient extends $grpc.Client {
@@ -30,11 +30,16 @@ class UserServiceClient extends $grpc.Client {
           '/realworld.UserService/GetCurrent',
           ($2.GetCurrentUserRequest value) => value.writeToBuffer(),
           ($core.List<$core.int> value) => $2.UserResponse.fromBuffer(value));
-  static final _$update =
-      $grpc.ClientMethod<$2.UpdateUserRequest, $2.UserResponse>(
-          '/realworld.UserService/Update',
-          ($2.UpdateUserRequest value) => value.writeToBuffer(),
+  static final _$updateProfile =
+      $grpc.ClientMethod<$2.UpdateProfileRequest, $2.UserResponse>(
+          '/realworld.UserService/UpdateProfile',
+          ($2.UpdateProfileRequest value) => value.writeToBuffer(),
           ($core.List<$core.int> value) => $2.UserResponse.fromBuffer(value));
+  static final _$updatePassword =
+      $grpc.ClientMethod<$2.UpdatePasswordRequest, $1.Empty>(
+          '/realworld.UserService/UpdatePassword',
+          ($2.UpdatePasswordRequest value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) => $1.Empty.fromBuffer(value));
   static final _$getProfile =
       $grpc.ClientMethod<$2.GetProfileRequest, $3.Profile>(
           '/realworld.UserService/GetProfile',
@@ -77,9 +82,16 @@ class UserServiceClient extends $grpc.Client {
     return $createUnaryCall(_$getCurrent, request, options: options);
   }
 
-  $grpc.ResponseFuture<$2.UserResponse> update($2.UpdateUserRequest request,
+  $grpc.ResponseFuture<$2.UserResponse> updateProfile(
+      $2.UpdateProfileRequest request,
       {$grpc.CallOptions? options}) {
-    return $createUnaryCall(_$update, request, options: options);
+    return $createUnaryCall(_$updateProfile, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$1.Empty> updatePassword(
+      $2.UpdatePasswordRequest request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$updatePassword, request, options: options);
   }
 
   $grpc.ResponseFuture<$3.Profile> getProfile($2.GetProfileRequest request,
@@ -129,13 +141,22 @@ abstract class UserServiceBase extends $grpc.Service {
         ($core.List<$core.int> value) =>
             $2.GetCurrentUserRequest.fromBuffer(value),
         ($2.UserResponse value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$2.UpdateUserRequest, $2.UserResponse>(
-        'Update',
-        update_Pre,
+    $addMethod($grpc.ServiceMethod<$2.UpdateProfileRequest, $2.UserResponse>(
+        'UpdateProfile',
+        updateProfile_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => $2.UpdateUserRequest.fromBuffer(value),
+        ($core.List<$core.int> value) =>
+            $2.UpdateProfileRequest.fromBuffer(value),
         ($2.UserResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$2.UpdatePasswordRequest, $1.Empty>(
+        'UpdatePassword',
+        updatePassword_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) =>
+            $2.UpdatePasswordRequest.fromBuffer(value),
+        ($1.Empty value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$2.GetProfileRequest, $3.Profile>(
         'GetProfile',
         getProfile_Pre,
@@ -181,9 +202,14 @@ abstract class UserServiceBase extends $grpc.Service {
     return getCurrent(call, await request);
   }
 
-  $async.Future<$2.UserResponse> update_Pre($grpc.ServiceCall call,
-      $async.Future<$2.UpdateUserRequest> request) async {
-    return update(call, await request);
+  $async.Future<$2.UserResponse> updateProfile_Pre($grpc.ServiceCall call,
+      $async.Future<$2.UpdateProfileRequest> request) async {
+    return updateProfile(call, await request);
+  }
+
+  $async.Future<$1.Empty> updatePassword_Pre($grpc.ServiceCall call,
+      $async.Future<$2.UpdatePasswordRequest> request) async {
+    return updatePassword(call, await request);
   }
 
   $async.Future<$3.Profile> getProfile_Pre($grpc.ServiceCall call,
@@ -212,8 +238,10 @@ abstract class UserServiceBase extends $grpc.Service {
       $grpc.ServiceCall call, $2.CreateUserRequest request);
   $async.Future<$2.UserResponse> getCurrent(
       $grpc.ServiceCall call, $2.GetCurrentUserRequest request);
-  $async.Future<$2.UserResponse> update(
-      $grpc.ServiceCall call, $2.UpdateUserRequest request);
+  $async.Future<$2.UserResponse> updateProfile(
+      $grpc.ServiceCall call, $2.UpdateProfileRequest request);
+  $async.Future<$1.Empty> updatePassword(
+      $grpc.ServiceCall call, $2.UpdatePasswordRequest request);
   $async.Future<$3.Profile> getProfile(
       $grpc.ServiceCall call, $2.GetProfileRequest request);
   $async.Future<$3.Profile> followUser(

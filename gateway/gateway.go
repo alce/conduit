@@ -23,11 +23,6 @@ func main() {
 		log.Fatal(err)
 	}
 
-	err = pb.RegisterAuthServiceHandlerFromEndpoint(cx, mux, grpcServer, opts)
-	if err != nil {
-		log.Fatal(err)
-	}
-
 	err = pb.RegisterUserServiceHandlerFromEndpoint(cx, mux, grpcServer, opts)
 	if err != nil {
 		log.Fatal(err)

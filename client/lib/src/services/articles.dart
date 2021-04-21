@@ -47,32 +47,33 @@ class ArticleService {
     required String description,
     required String body,
     List<String> tags = const [],
+    String? token,
   }) async {
-    final article = pb.ArticleArgs()
+    final req = pb.CreateArticleRequest()
       ..title = title
       ..description = description
       ..body = body
       ..tagList.addAll(tags);
 
-    final req = pb.CreateArticleRequest()..article = article;
-    final proto = await _client.create(req);
+    final proto = await _client.create(req, options: _makeOptions(token));
     return proto.toModel();
   }
 
   Future<Article> updateArticle({
-    required String title,
-    required String description,
-    required String body,
-    List<String> tags = const [],
+    required String slug,
+    String? title,
+    String? description,
+    String? body,
+    String? token,
   }) async {
-    final article = pb.ArticleArgs()
-      ..title = title
-      ..description = description
-      ..body = body
-      ..tagList.addAll(tags);
+    final req = pb.UpdateArticleRequest(
+      slug: slug,
+      title: title,
+      description: description,
+      body: body,
+    );
 
-    final req = pb.UpdateArticleRequest()..article = article;
-    final proto = await _client.update(req);
+    final proto = await _client.update(req, options: _makeOptions(token));
     return proto.toModel();
   }
 
@@ -111,5 +112,15 @@ class ArticleService {
   Future<ResourceList<String>> listTags() async {
     final list = await _client.listTags(pb.ListTagsRequest());
     return ResourceList(list.tags);
+  }
+
+  CallOptions? _makeOptions(String? token) {
+    if (token == null) {
+      return null;
+    } else {
+      return CallOptions(metadata: <String, String>{
+        'x-auth-token': token,
+      });
+    }
   }
 }

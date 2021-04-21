@@ -35,14 +35,14 @@ service ArticleService {
   rpc Create (CreateArticleRequest) returns (Article) {
     option (google.api.http) = {
       post: "/articles"
-      body: "article"
+      body: "*"
     };
   }
 
   rpc Update (UpdateArticleRequest) returns (Article) {
     option (google.api.http) = {
       put: "/articles/{slug}"
-      body: "article"
+      body: "*"
     };
   }
 
@@ -96,44 +96,43 @@ message Article {
   string body = 4;
   repeated string tag_list = 5;
   bool favorited = 6;
-  google.protobuf.Timestamp create_time = 7;
-  google.protobuf.Timestamp update_time = 8;
+  google.protobuf.Timestamp created_at = 7;
+  google.protobuf.Timestamp updated_at = 8;
   int32 favorites_count = 9;
   Profile author = 10;
-}
-
-message ArticleArgs {
-  string title = 1 [(google.api.field_behavior) = REQUIRED];
-  string description = 2 [(google.api.field_behavior) = REQUIRED];
-  string body = 3 [(google.api.field_behavior) = REQUIRED];
-  repeated string tag_list = 4;
 }
 
 message Comment {
   string id = 1;
   string body = 2;
-  google.protobuf.Timestamp create_time = 3;
-  google.protobuf.Timestamp update_time = 4;
+  google.protobuf.Timestamp created_at = 3;
+  google.protobuf.Timestamp updated_at = 4;
   Profile author = 5;
 }
 
 message ListArticlesRequest {
-  int32 limit = 1;
-  int32 offset = 2;
+  optional int32 limit = 1;
+  optional int32 offset = 2;
+  optional string tag = 3;
+  optional string author = 4;
+  optional string favorited = 5;
 }
 
 message GetFeedRequest {
-  int32 limit = 1;
-  int32 offset = 2;
+  optional int32 limit = 1;
+  optional int32 offset = 2;
 }
 
 message ArticleList {
   repeated Article articles = 1;
-  int32 article_count = 2;
+  int32 articles_count = 2;
 }
 
 message CreateArticleRequest {
-  ArticleArgs article = 1 [(google.api.field_behavior) = REQUIRED];
+  string title = 1 [(google.api.field_behavior) = REQUIRED];
+  string description = 2 [(google.api.field_behavior) = REQUIRED];
+  string body = 3 [(google.api.field_behavior) = REQUIRED];
+  repeated string tag_list = 4;
 }
 
 message DeleteArticleRequest {
@@ -146,7 +145,9 @@ message GetArticleRequest {
 
 message UpdateArticleRequest {
   string slug = 1 [(google.api.field_behavior) = REQUIRED];
-  ArticleArgs article = 2 [(google.api.field_behavior) = REQUIRED];
+  optional string title = 2;
+  optional string description = 3;
+  optional string body = 4;
 }
 
 message FavoriteArticleRequest {

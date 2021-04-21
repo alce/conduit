@@ -13,11 +13,15 @@ const Profile$json = const {
   '1': 'Profile',
   '2': const [
     const {'1': 'username', '3': 1, '4': 1, '5': 9, '10': 'username'},
-    const {'1': 'bio', '3': 2, '4': 1, '5': 9, '10': 'bio'},
-    const {'1': 'image', '3': 3, '4': 1, '5': 9, '10': 'image'},
+    const {'1': 'bio', '3': 2, '4': 1, '5': 9, '9': 0, '10': 'bio', '17': true},
+    const {'1': 'image', '3': 3, '4': 1, '5': 9, '9': 1, '10': 'image', '17': true},
     const {'1': 'following', '3': 4, '4': 1, '5': 8, '10': 'following'},
+  ],
+  '8': const [
+    const {'1': '_bio'},
+    const {'1': '_image'},
   ],
 };
 
 /// Descriptor for `Profile`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List profileDescriptor = $convert.base64Decode('CgdQcm9maWxlEhoKCHVzZXJuYW1lGAEgASgJUgh1c2VybmFtZRIQCgNiaW8YAiABKAlSA2JpbxIUCgVpbWFnZRgDIAEoCVIFaW1hZ2USHAoJZm9sbG93aW5nGAQgASgIUglmb2xsb3dpbmc=');
+final $typed_data.Uint8List profileDescriptor = $convert.base64Decode('CgdQcm9maWxlEhoKCHVzZXJuYW1lGAEgASgJUgh1c2VybmFtZRIVCgNiaW8YAiABKAlIAFIDYmlviAEBEhkKBWltYWdlGAMgASgJSAFSBWltYWdliAEBEhwKCWZvbGxvd2luZxgEIAEoCFIJZm9sbG93aW5nQgYKBF9iaW9CCAoGX2ltYWdl');

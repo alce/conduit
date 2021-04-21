@@ -33,9 +33,16 @@ service UserService {
     };
   }
 
-  rpc Update (UpdateUserRequest) returns (UserResponse) {
+  rpc UpdateProfile (UpdateProfileRequest) returns (UserResponse) {
     option (google.api.http) = {
       put: "/user"
+      body: "*"
+    };
+  }
+
+  rpc UpdatePassword (UpdatePasswordRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      put: "/user/password"
       body: "*"
     };
   }
@@ -65,8 +72,8 @@ message User {
   string token = 1;
   string username = 2;
   string email = 3;
-  string bio = 4;
-  string image = 5;
+  optional string bio = 4;
+  optional string image = 5;
 }
 
 message LoginRequest {
@@ -82,8 +89,15 @@ message CreateUserRequest {
 
 message GetCurrentUserRequest {}
 
-message UpdateUserRequest {
-  User user = 1 [(google.api.field_behavior) = REQUIRED];
+message UpdateProfileRequest {
+  optional string username = 2;
+  optional string email = 3;
+  optional string bio = 4;
+  optional string image = 5;
+}
+
+message UpdatePasswordRequest {
+  optional string password = 1;
 }
 
 message GetProfileRequest {
@@ -95,7 +109,7 @@ message FollowUserRequest {
 }
 
 message DeleteUserRequest {
-  string username = 1;
+  string username = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 message UserResponse {

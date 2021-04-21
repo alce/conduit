@@ -22,7 +22,8 @@ type UserServiceClient interface {
 	Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*UserResponse, error)
 	Create(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*UserResponse, error)
 	GetCurrent(ctx context.Context, in *GetCurrentUserRequest, opts ...grpc.CallOption) (*UserResponse, error)
-	Update(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*UserResponse, error)
+	UpdateProfile(ctx context.Context, in *UpdateProfileRequest, opts ...grpc.CallOption) (*UserResponse, error)
+	UpdatePassword(ctx context.Context, in *UpdatePasswordRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	GetProfile(ctx context.Context, in *GetProfileRequest, opts ...grpc.CallOption) (*Profile, error)
 	FollowUser(ctx context.Context, in *FollowUserRequest, opts ...grpc.CallOption) (*Profile, error)
 	UnfollowUser(ctx context.Context, in *FollowUserRequest, opts ...grpc.CallOption) (*Profile, error)
@@ -64,9 +65,18 @@ func (c *userServiceClient) GetCurrent(ctx context.Context, in *GetCurrentUserRe
 	return out, nil
 }
 
-func (c *userServiceClient) Update(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*UserResponse, error) {
+func (c *userServiceClient) UpdateProfile(ctx context.Context, in *UpdateProfileRequest, opts ...grpc.CallOption) (*UserResponse, error) {
 	out := new(UserResponse)
-	err := c.cc.Invoke(ctx, "/realworld.UserService/Update", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/realworld.UserService/UpdateProfile", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userServiceClient) UpdatePassword(ctx context.Context, in *UpdatePasswordRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, "/realworld.UserService/UpdatePassword", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -116,7 +126,8 @@ type UserServiceServer interface {
 	Login(context.Context, *LoginRequest) (*UserResponse, error)
 	Create(context.Context, *CreateUserRequest) (*UserResponse, error)
 	GetCurrent(context.Context, *GetCurrentUserRequest) (*UserResponse, error)
-	Update(context.Context, *UpdateUserRequest) (*UserResponse, error)
+	UpdateProfile(context.Context, *UpdateProfileRequest) (*UserResponse, error)
+	UpdatePassword(context.Context, *UpdatePasswordRequest) (*emptypb.Empty, error)
 	GetProfile(context.Context, *GetProfileRequest) (*Profile, error)
 	FollowUser(context.Context, *FollowUserRequest) (*Profile, error)
 	UnfollowUser(context.Context, *FollowUserRequest) (*Profile, error)
@@ -137,8 +148,11 @@ func (UnimplementedUserServiceServer) Create(context.Context, *CreateUserRequest
 func (UnimplementedUserServiceServer) GetCurrent(context.Context, *GetCurrentUserRequest) (*UserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetCurrent not implemented")
 }
-func (UnimplementedUserServiceServer) Update(context.Context, *UpdateUserRequest) (*UserResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Update not implemented")
+func (UnimplementedUserServiceServer) UpdateProfile(context.Context, *UpdateProfileRequest) (*UserResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateProfile not implemented")
+}
+func (UnimplementedUserServiceServer) UpdatePassword(context.Context, *UpdatePasswordRequest) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdatePassword not implemented")
 }
 func (UnimplementedUserServiceServer) GetProfile(context.Context, *GetProfileRequest) (*Profile, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetProfile not implemented")
@@ -219,20 +233,38 @@ func _UserService_GetCurrent_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
-func _UserService_Update_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateUserRequest)
+func _UserService_UpdateProfile_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateProfileRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(UserServiceServer).Update(ctx, in)
+		return srv.(UserServiceServer).UpdateProfile(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/realworld.UserService/Update",
+		FullMethod: "/realworld.UserService/UpdateProfile",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserServiceServer).Update(ctx, req.(*UpdateUserRequest))
+		return srv.(UserServiceServer).UpdateProfile(ctx, req.(*UpdateProfileRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserService_UpdatePassword_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdatePasswordRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).UpdatePassword(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/realworld.UserService/UpdatePassword",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).UpdatePassword(ctx, req.(*UpdatePasswordRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -329,8 +361,12 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _UserService_GetCurrent_Handler,
 		},
 		{
-			MethodName: "Update",
-			Handler:    _UserService_Update_Handler,
+			MethodName: "UpdateProfile",
+			Handler:    _UserService_UpdateProfile_Handler,
+		},
+		{
+			MethodName: "UpdatePassword",
+			Handler:    _UserService_UpdatePassword_Handler,
 		},
 		{
 			MethodName: "GetProfile",

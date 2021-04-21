@@ -15,13 +15,17 @@ const User$json = const {
     const {'1': 'token', '3': 1, '4': 1, '5': 9, '10': 'token'},
     const {'1': 'username', '3': 2, '4': 1, '5': 9, '10': 'username'},
     const {'1': 'email', '3': 3, '4': 1, '5': 9, '10': 'email'},
-    const {'1': 'bio', '3': 4, '4': 1, '5': 9, '10': 'bio'},
-    const {'1': 'image', '3': 5, '4': 1, '5': 9, '10': 'image'},
+    const {'1': 'bio', '3': 4, '4': 1, '5': 9, '9': 0, '10': 'bio', '17': true},
+    const {'1': 'image', '3': 5, '4': 1, '5': 9, '9': 1, '10': 'image', '17': true},
+  ],
+  '8': const [
+    const {'1': '_bio'},
+    const {'1': '_image'},
   ],
 };
 
 /// Descriptor for `User`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List userDescriptor = $convert.base64Decode('CgRVc2VyEhQKBXRva2VuGAEgASgJUgV0b2tlbhIaCgh1c2VybmFtZRgCIAEoCVIIdXNlcm5hbWUSFAoFZW1haWwYAyABKAlSBWVtYWlsEhAKA2JpbxgEIAEoCVIDYmlvEhQKBWltYWdlGAUgASgJUgVpbWFnZQ==');
+final $typed_data.Uint8List userDescriptor = $convert.base64Decode('CgRVc2VyEhQKBXRva2VuGAEgASgJUgV0b2tlbhIaCgh1c2VybmFtZRgCIAEoCVIIdXNlcm5hbWUSFAoFZW1haWwYAyABKAlSBWVtYWlsEhUKA2JpbxgEIAEoCUgAUgNiaW+IAQESGQoFaW1hZ2UYBSABKAlIAVIFaW1hZ2WIAQFCBgoEX2Jpb0IICgZfaW1hZ2U=');
 @$core.Deprecated('Use loginRequestDescriptor instead')
 const LoginRequest$json = const {
   '1': 'LoginRequest',
@@ -52,16 +56,38 @@ const GetCurrentUserRequest$json = const {
 
 /// Descriptor for `GetCurrentUserRequest`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List getCurrentUserRequestDescriptor = $convert.base64Decode('ChVHZXRDdXJyZW50VXNlclJlcXVlc3Q=');
-@$core.Deprecated('Use updateUserRequestDescriptor instead')
-const UpdateUserRequest$json = const {
-  '1': 'UpdateUserRequest',
+@$core.Deprecated('Use updateProfileRequestDescriptor instead')
+const UpdateProfileRequest$json = const {
+  '1': 'UpdateProfileRequest',
   '2': const [
-    const {'1': 'user', '3': 1, '4': 1, '5': 11, '6': '.realworld.User', '8': const {}, '10': 'user'},
+    const {'1': 'username', '3': 2, '4': 1, '5': 9, '9': 0, '10': 'username', '17': true},
+    const {'1': 'email', '3': 3, '4': 1, '5': 9, '9': 1, '10': 'email', '17': true},
+    const {'1': 'bio', '3': 4, '4': 1, '5': 9, '9': 2, '10': 'bio', '17': true},
+    const {'1': 'image', '3': 5, '4': 1, '5': 9, '9': 3, '10': 'image', '17': true},
+  ],
+  '8': const [
+    const {'1': '_username'},
+    const {'1': '_email'},
+    const {'1': '_bio'},
+    const {'1': '_image'},
   ],
 };
 
-/// Descriptor for `UpdateUserRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List updateUserRequestDescriptor = $convert.base64Decode('ChFVcGRhdGVVc2VyUmVxdWVzdBIoCgR1c2VyGAEgASgLMg8ucmVhbHdvcmxkLlVzZXJCA+BBAlIEdXNlcg==');
+/// Descriptor for `UpdateProfileRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List updateProfileRequestDescriptor = $convert.base64Decode('ChRVcGRhdGVQcm9maWxlUmVxdWVzdBIfCgh1c2VybmFtZRgCIAEoCUgAUgh1c2VybmFtZYgBARIZCgVlbWFpbBgDIAEoCUgBUgVlbWFpbIgBARIVCgNiaW8YBCABKAlIAlIDYmlviAEBEhkKBWltYWdlGAUgASgJSANSBWltYWdliAEBQgsKCV91c2VybmFtZUIICgZfZW1haWxCBgoEX2Jpb0IICgZfaW1hZ2U=');
+@$core.Deprecated('Use updatePasswordRequestDescriptor instead')
+const UpdatePasswordRequest$json = const {
+  '1': 'UpdatePasswordRequest',
+  '2': const [
+    const {'1': 'password', '3': 1, '4': 1, '5': 9, '9': 0, '10': 'password', '17': true},
+  ],
+  '8': const [
+    const {'1': '_password'},
+  ],
+};
+
+/// Descriptor for `UpdatePasswordRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List updatePasswordRequestDescriptor = $convert.base64Decode('ChVVcGRhdGVQYXNzd29yZFJlcXVlc3QSHwoIcGFzc3dvcmQYASABKAlIAFIIcGFzc3dvcmSIAQFCCwoJX3Bhc3N3b3Jk');
 @$core.Deprecated('Use getProfileRequestDescriptor instead')
 const GetProfileRequest$json = const {
   '1': 'GetProfileRequest',
@@ -86,12 +112,12 @@ final $typed_data.Uint8List followUserRequestDescriptor = $convert.base64Decode(
 const DeleteUserRequest$json = const {
   '1': 'DeleteUserRequest',
   '2': const [
-    const {'1': 'username', '3': 1, '4': 1, '5': 9, '10': 'username'},
+    const {'1': 'username', '3': 1, '4': 1, '5': 9, '8': const {}, '10': 'username'},
   ],
 };
 
 /// Descriptor for `DeleteUserRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List deleteUserRequestDescriptor = $convert.base64Decode('ChFEZWxldGVVc2VyUmVxdWVzdBIaCgh1c2VybmFtZRgBIAEoCVIIdXNlcm5hbWU=');
+final $typed_data.Uint8List deleteUserRequestDescriptor = $convert.base64Decode('ChFEZWxldGVVc2VyUmVxdWVzdBIfCgh1c2VybmFtZRgBIAEoCUID4EECUgh1c2VybmFtZQ==');
 @$core.Deprecated('Use userResponseDescriptor instead')
 const UserResponse$json = const {
   '1': 'UserResponse',

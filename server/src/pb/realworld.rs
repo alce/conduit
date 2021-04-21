@@ -2,10 +2,10 @@
 pub struct Profile {
     #[prost(string, tag = "1")]
     pub username: ::prost::alloc::string::String,
-    #[prost(string, tag = "2")]
-    pub bio: ::prost::alloc::string::String,
-    #[prost(string, tag = "3")]
-    pub image: ::prost::alloc::string::String,
+    #[prost(string, optional, tag = "2")]
+    pub bio: ::core::option::Option<::prost::alloc::string::String>,
+    #[prost(string, optional, tag = "3")]
+    pub image: ::core::option::Option<::prost::alloc::string::String>,
     #[prost(bool, tag = "4")]
     pub following: bool,
 }
@@ -24,24 +24,13 @@ pub struct Article {
     #[prost(bool, tag = "6")]
     pub favorited: bool,
     #[prost(message, optional, tag = "7")]
-    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
+    pub created_at: ::core::option::Option<::prost_types::Timestamp>,
     #[prost(message, optional, tag = "8")]
-    pub update_time: ::core::option::Option<::prost_types::Timestamp>,
+    pub updated_at: ::core::option::Option<::prost_types::Timestamp>,
     #[prost(int32, tag = "9")]
     pub favorites_count: i32,
     #[prost(message, optional, tag = "10")]
     pub author: ::core::option::Option<Profile>,
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ArticleArgs {
-    #[prost(string, tag = "1")]
-    pub title: ::prost::alloc::string::String,
-    #[prost(string, tag = "2")]
-    pub description: ::prost::alloc::string::String,
-    #[prost(string, tag = "3")]
-    pub body: ::prost::alloc::string::String,
-    #[prost(string, repeated, tag = "4")]
-    pub tag_list: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Comment {
@@ -50,37 +39,49 @@ pub struct Comment {
     #[prost(string, tag = "2")]
     pub body: ::prost::alloc::string::String,
     #[prost(message, optional, tag = "3")]
-    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
+    pub created_at: ::core::option::Option<::prost_types::Timestamp>,
     #[prost(message, optional, tag = "4")]
-    pub update_time: ::core::option::Option<::prost_types::Timestamp>,
+    pub updated_at: ::core::option::Option<::prost_types::Timestamp>,
     #[prost(message, optional, tag = "5")]
     pub author: ::core::option::Option<Profile>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListArticlesRequest {
-    #[prost(int32, tag = "1")]
-    pub limit: i32,
-    #[prost(int32, tag = "2")]
-    pub offset: i32,
+    #[prost(int32, optional, tag = "1")]
+    pub limit: ::core::option::Option<i32>,
+    #[prost(int32, optional, tag = "2")]
+    pub offset: ::core::option::Option<i32>,
+    #[prost(string, optional, tag = "3")]
+    pub tag: ::core::option::Option<::prost::alloc::string::String>,
+    #[prost(string, optional, tag = "4")]
+    pub author: ::core::option::Option<::prost::alloc::string::String>,
+    #[prost(string, optional, tag = "5")]
+    pub favorited: ::core::option::Option<::prost::alloc::string::String>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetFeedRequest {
-    #[prost(int32, tag = "1")]
-    pub limit: i32,
-    #[prost(int32, tag = "2")]
-    pub offset: i32,
+    #[prost(int32, optional, tag = "1")]
+    pub limit: ::core::option::Option<i32>,
+    #[prost(int32, optional, tag = "2")]
+    pub offset: ::core::option::Option<i32>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ArticleList {
     #[prost(message, repeated, tag = "1")]
     pub articles: ::prost::alloc::vec::Vec<Article>,
     #[prost(int32, tag = "2")]
-    pub article_count: i32,
+    pub articles_count: i32,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateArticleRequest {
-    #[prost(message, optional, tag = "1")]
-    pub article: ::core::option::Option<ArticleArgs>,
+    #[prost(string, tag = "1")]
+    pub title: ::prost::alloc::string::String,
+    #[prost(string, tag = "2")]
+    pub description: ::prost::alloc::string::String,
+    #[prost(string, tag = "3")]
+    pub body: ::prost::alloc::string::String,
+    #[prost(string, repeated, tag = "4")]
+    pub tag_list: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DeleteArticleRequest {
@@ -96,8 +97,12 @@ pub struct GetArticleRequest {
 pub struct UpdateArticleRequest {
     #[prost(string, tag = "1")]
     pub slug: ::prost::alloc::string::String,
-    #[prost(message, optional, tag = "2")]
-    pub article: ::core::option::Option<ArticleArgs>,
+    #[prost(string, optional, tag = "2")]
+    pub title: ::core::option::Option<::prost::alloc::string::String>,
+    #[prost(string, optional, tag = "3")]
+    pub description: ::core::option::Option<::prost::alloc::string::String>,
+    #[prost(string, optional, tag = "4")]
+    pub body: ::core::option::Option<::prost::alloc::string::String>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct FavoriteArticleRequest {
@@ -646,10 +651,10 @@ pub struct User {
     pub username: ::prost::alloc::string::String,
     #[prost(string, tag = "3")]
     pub email: ::prost::alloc::string::String,
-    #[prost(string, tag = "4")]
-    pub bio: ::prost::alloc::string::String,
-    #[prost(string, tag = "5")]
-    pub image: ::prost::alloc::string::String,
+    #[prost(string, optional, tag = "4")]
+    pub bio: ::core::option::Option<::prost::alloc::string::String>,
+    #[prost(string, optional, tag = "5")]
+    pub image: ::core::option::Option<::prost::alloc::string::String>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct LoginRequest {
@@ -670,9 +675,20 @@ pub struct CreateUserRequest {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetCurrentUserRequest {}
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct UpdateUserRequest {
-    #[prost(message, optional, tag = "1")]
-    pub user: ::core::option::Option<User>,
+pub struct UpdateProfileRequest {
+    #[prost(string, optional, tag = "2")]
+    pub username: ::core::option::Option<::prost::alloc::string::String>,
+    #[prost(string, optional, tag = "3")]
+    pub email: ::core::option::Option<::prost::alloc::string::String>,
+    #[prost(string, optional, tag = "4")]
+    pub bio: ::core::option::Option<::prost::alloc::string::String>,
+    #[prost(string, optional, tag = "5")]
+    pub image: ::core::option::Option<::prost::alloc::string::String>,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct UpdatePasswordRequest {
+    #[prost(string, optional, tag = "1")]
+    pub password: ::core::option::Option<::prost::alloc::string::String>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetProfileRequest {
@@ -713,10 +729,14 @@ pub mod user_service_server {
             &self,
             request: tonic::Request<super::GetCurrentUserRequest>,
         ) -> Result<tonic::Response<super::UserResponse>, tonic::Status>;
-        async fn update(
+        async fn update_profile(
             &self,
-            request: tonic::Request<super::UpdateUserRequest>,
+            request: tonic::Request<super::UpdateProfileRequest>,
         ) -> Result<tonic::Response<super::UserResponse>, tonic::Status>;
+        async fn update_password(
+            &self,
+            request: tonic::Request<super::UpdatePasswordRequest>,
+        ) -> Result<tonic::Response<()>, tonic::Status>;
         async fn get_profile(
             &self,
             request: tonic::Request<super::GetProfileRequest>,
@@ -861,18 +881,20 @@ pub mod user_service_server {
                     };
                     Box::pin(fut)
                 }
-                "/realworld.UserService/Update" => {
+                "/realworld.UserService/UpdateProfile" => {
                     #[allow(non_camel_case_types)]
-                    struct UpdateSvc<T: UserService>(pub Arc<T>);
-                    impl<T: UserService> tonic::server::UnaryService<super::UpdateUserRequest> for UpdateSvc<T> {
+                    struct UpdateProfileSvc<T: UserService>(pub Arc<T>);
+                    impl<T: UserService> tonic::server::UnaryService<super::UpdateProfileRequest>
+                        for UpdateProfileSvc<T>
+                    {
                         type Response = super::UserResponse;
                         type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
                         fn call(
                             &mut self,
-                            request: tonic::Request<super::UpdateUserRequest>,
+                            request: tonic::Request<super::UpdateProfileRequest>,
                         ) -> Self::Future {
                             let inner = self.0.clone();
-                            let fut = async move { (*inner).update(request).await };
+                            let fut = async move { (*inner).update_profile(request).await };
                             Box::pin(fut)
                         }
                     }
@@ -880,7 +902,40 @@ pub mod user_service_server {
                     let fut = async move {
                         let interceptor = inner.1.clone();
                         let inner = inner.0;
-                        let method = UpdateSvc(inner);
+                        let method = UpdateProfileSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = if let Some(interceptor) = interceptor {
+                            tonic::server::Grpc::with_interceptor(codec, interceptor)
+                        } else {
+                            tonic::server::Grpc::new(codec)
+                        };
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/realworld.UserService/UpdatePassword" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdatePasswordSvc<T: UserService>(pub Arc<T>);
+                    impl<T: UserService> tonic::server::UnaryService<super::UpdatePasswordRequest>
+                        for UpdatePasswordSvc<T>
+                    {
+                        type Response = ();
+                        type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdatePasswordRequest>,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move { (*inner).update_password(request).await };
+                            Box::pin(fut)
+                        }
+                    }
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let interceptor = inner.1.clone();
+                        let inner = inner.0;
+                        let method = UpdatePasswordSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = if let Some(interceptor) = interceptor {
                             tonic::server::Grpc::with_interceptor(codec, interceptor)

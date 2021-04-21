@@ -42,13 +42,39 @@ class UserService {
     }
   }
 
-  Future<User> getCurrentUser() async {
-    final proto = await _client.getCurrent(GetCurrentUserRequest());
+  Future<User> getCurrentUser({String? token}) async {
+    final proto = await _client.getCurrent(
+      GetCurrentUserRequest(),
+      options: _makeOptions(token),
+    );
+
     return proto.user.toModel();
   }
 
-  Future<User> updateUser() async {
-    throw UnimplementedError();
+  Future<User> updateUser({
+    String? email,
+    String? username,
+    String? password,
+    String? image,
+    String? bio,
+    String? token,
+  }) async {
+    try {
+      final proto = await _client.update(
+        UpdateUserRequest(
+          email: email,
+          username: username,
+          password: password,
+          image: image,
+          bio: bio,
+        ),
+        options: _makeOptions(token),
+      );
+
+      return proto.user.toModel();
+    } on GrpcError catch (e) {
+      throw e.toConduitException();
+    }
   }
 
   Future<Profile> followUser(String username) async {
@@ -71,5 +97,15 @@ class UserService {
 
   Future<void> deleteUser(String username) async {
     await _client.deleteUser(DeleteUserRequest()..username = username);
+  }
+
+  CallOptions? _makeOptions(String? token) {
+    if (token == null) {
+      return null;
+    } else {
+      return CallOptions(metadata: <String, String>{
+        'x-auth-token': token,
+      });
+    }
   }
 }

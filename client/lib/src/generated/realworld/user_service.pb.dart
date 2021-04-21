@@ -277,53 +277,140 @@ class GetCurrentUserRequest extends $pb.GeneratedMessage {
   static GetCurrentUserRequest? _defaultInstance;
 }
 
-class UpdateUserRequest extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'UpdateUserRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'realworld'), createEmptyInstance: create)
-    ..aOM<User>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'user', subBuilder: User.create)
+class UpdateProfileRequest extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'UpdateProfileRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'realworld'), createEmptyInstance: create)
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'username')
+    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'email')
+    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'bio')
+    ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'image')
     ..hasRequiredFields = false
   ;
 
-  UpdateUserRequest._() : super();
-  factory UpdateUserRequest({
-    User? user,
+  UpdateProfileRequest._() : super();
+  factory UpdateProfileRequest({
+    $core.String? username,
+    $core.String? email,
+    $core.String? bio,
+    $core.String? image,
   }) {
     final _result = create();
-    if (user != null) {
-      _result.user = user;
+    if (username != null) {
+      _result.username = username;
+    }
+    if (email != null) {
+      _result.email = email;
+    }
+    if (bio != null) {
+      _result.bio = bio;
+    }
+    if (image != null) {
+      _result.image = image;
     }
     return _result;
   }
-  factory UpdateUserRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory UpdateUserRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  factory UpdateProfileRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory UpdateProfileRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
   'Will be removed in next major version')
-  UpdateUserRequest clone() => UpdateUserRequest()..mergeFromMessage(this);
+  UpdateProfileRequest clone() => UpdateProfileRequest()..mergeFromMessage(this);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  UpdateUserRequest copyWith(void Function(UpdateUserRequest) updates) => super.copyWith((message) => updates(message as UpdateUserRequest)) as UpdateUserRequest; // ignore: deprecated_member_use
+  UpdateProfileRequest copyWith(void Function(UpdateProfileRequest) updates) => super.copyWith((message) => updates(message as UpdateProfileRequest)) as UpdateProfileRequest; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
-  static UpdateUserRequest create() => UpdateUserRequest._();
-  UpdateUserRequest createEmptyInstance() => create();
-  static $pb.PbList<UpdateUserRequest> createRepeated() => $pb.PbList<UpdateUserRequest>();
+  static UpdateProfileRequest create() => UpdateProfileRequest._();
+  UpdateProfileRequest createEmptyInstance() => create();
+  static $pb.PbList<UpdateProfileRequest> createRepeated() => $pb.PbList<UpdateProfileRequest>();
   @$core.pragma('dart2js:noInline')
-  static UpdateUserRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UpdateUserRequest>(create);
-  static UpdateUserRequest? _defaultInstance;
+  static UpdateProfileRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UpdateProfileRequest>(create);
+  static UpdateProfileRequest? _defaultInstance;
+
+  @$pb.TagNumber(2)
+  $core.String get username => $_getSZ(0);
+  @$pb.TagNumber(2)
+  set username($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasUsername() => $_has(0);
+  @$pb.TagNumber(2)
+  void clearUsername() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get email => $_getSZ(1);
+  @$pb.TagNumber(3)
+  set email($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasEmail() => $_has(1);
+  @$pb.TagNumber(3)
+  void clearEmail() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.String get bio => $_getSZ(2);
+  @$pb.TagNumber(4)
+  set bio($core.String v) { $_setString(2, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasBio() => $_has(2);
+  @$pb.TagNumber(4)
+  void clearBio() => clearField(4);
+
+  @$pb.TagNumber(5)
+  $core.String get image => $_getSZ(3);
+  @$pb.TagNumber(5)
+  set image($core.String v) { $_setString(3, v); }
+  @$pb.TagNumber(5)
+  $core.bool hasImage() => $_has(3);
+  @$pb.TagNumber(5)
+  void clearImage() => clearField(5);
+}
+
+class UpdatePasswordRequest extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'UpdatePasswordRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'realworld'), createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'password')
+    ..hasRequiredFields = false
+  ;
+
+  UpdatePasswordRequest._() : super();
+  factory UpdatePasswordRequest({
+    $core.String? password,
+  }) {
+    final _result = create();
+    if (password != null) {
+      _result.password = password;
+    }
+    return _result;
+  }
+  factory UpdatePasswordRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory UpdatePasswordRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  UpdatePasswordRequest clone() => UpdatePasswordRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  UpdatePasswordRequest copyWith(void Function(UpdatePasswordRequest) updates) => super.copyWith((message) => updates(message as UpdatePasswordRequest)) as UpdatePasswordRequest; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static UpdatePasswordRequest create() => UpdatePasswordRequest._();
+  UpdatePasswordRequest createEmptyInstance() => create();
+  static $pb.PbList<UpdatePasswordRequest> createRepeated() => $pb.PbList<UpdatePasswordRequest>();
+  @$core.pragma('dart2js:noInline')
+  static UpdatePasswordRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UpdatePasswordRequest>(create);
+  static UpdatePasswordRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  User get user => $_getN(0);
+  $core.String get password => $_getSZ(0);
   @$pb.TagNumber(1)
-  set user(User v) { setField(1, v); }
+  set password($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
-  $core.bool hasUser() => $_has(0);
+  $core.bool hasPassword() => $_has(0);
   @$pb.TagNumber(1)
-  void clearUser() => clearField(1);
-  @$pb.TagNumber(1)
-  User ensureUser() => $_ensure(0);
+  void clearPassword() => clearField(1);
 }
 
 class GetProfileRequest extends $pb.GeneratedMessage {

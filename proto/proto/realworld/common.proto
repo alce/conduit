@@ -8,7 +8,7 @@ option java_multiple_files = true;
 
 message Profile {
   string username = 1;
-  string bio = 2;
-  string image = 3;
+  optional string bio = 2;
+  optional string image = 3;
   bool following = 4;
 }
