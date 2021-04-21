@@ -60,11 +60,10 @@ class UserService {
     String? token,
   }) async {
     try {
-      final proto = await _client.update(
-        UpdateUserRequest(
+      final proto = await _client.updateProfile(
+        UpdateProfileRequest(
           email: email,
           username: username,
-          password: password,
           image: image,
           bio: bio,
         ),
