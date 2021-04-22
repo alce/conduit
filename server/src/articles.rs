@@ -1,3 +1,5 @@
+use std::sync::Arc;
+
 use tonic::{Request, Response, Status};
 
 use conduit::Conduit;
@@ -9,8 +11,6 @@ use crate::pb::realworld::{
     GetFeedRequest, ListArticlesRequest, ListCommentsRequest, ListTagsRequest, TagList,
     UpdateArticleRequest,
 };
-use crate::status;
-use std::sync::Arc;
 
 pub fn service(conduit: Arc<Conduit>) -> ArticleServiceServer<Articles> {
     ArticleServiceServer::new(Articles { conduit })
@@ -27,7 +27,6 @@ impl ArticleService for Articles {
         &self,
         _req: Request<ListArticlesRequest>,
     ) -> Result<Response<ArticleList>, Status> {
-        let _articles = self.conduit.list_articles().await.map_err(status::new)?;
         todo!()
     }
 

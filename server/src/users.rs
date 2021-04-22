@@ -1,18 +1,20 @@
 use std::convert::TryFrom;
 use std::sync::Arc;
 
-use conduit::users::{CreateUserArgs, LoginArgs, UpdateUserArgs};
+use conduit::users::CreateUserArgs;
 use conduit::Conduit;
 use tonic::{Request, Response, Status};
 
-use crate::pb::realworld::{self, CreateUserRequest, DeleteUserRequest, LoginRequest};
-use crate::status;
 use crate::{
     pb::realworld::user_service_server::{UserService, UserServiceServer},
     pb::realworld::{
-        FollowUserRequest, GetCurrentUserRequest, GetProfileRequest, Profile, UpdateUserRequest,
-        UserResponse,
+        CreateUserRequest, DeleteUserRequest, LoginRequest, UpdatePasswordRequest,
+        UpdateProfileRequest,
     },
+    pb::realworld::{
+        FollowUserRequest, GetCurrentUserRequest, GetProfileRequest, Profile, UserResponse,
+    },
+    status,
 };
 
 pub fn service(conduit: Arc<Conduit>) -> UserServiceServer<Users> {
@@ -26,13 +28,8 @@ pub struct Users {
 
 #[tonic::async_trait]
 impl UserService for Users {
-    async fn login(&self, req: Request<LoginRequest>) -> Result<Response<UserResponse>, Status> {
-        let args = LoginArgs::try_from(req.into_inner()).map_err(status::new)?;
-        let user = self.conduit.login(args).await.map_err(status::new)?;
-
-        Ok(Response::new(UserResponse {
-            user: Some(realworld::User::from(user)),
-        }))
+    async fn login(&self, _req: Request<LoginRequest>) -> Result<Response<UserResponse>, Status> {
+        todo!()
     }
 
     async fn create(
@@ -46,34 +43,32 @@ impl UserService for Users {
             user: Some(user.into()),
         }))
     }
+
     async fn get_current(
         &self,
         _req: Request<GetCurrentUserRequest>,
     ) -> Result<Response<UserResponse>, Status> {
-        let user = self.conduit.current_user().await.map_err(status::new)?;
-        let res = UserResponse {
-            user: Some(user.into()),
-        };
-        Ok(Response::new(res))
+        todo!()
     }
 
-    async fn update(
+    async fn update_profile(
         &self,
-        req: Request<UpdateUserRequest>,
+        _req: Request<UpdateProfileRequest>,
     ) -> Result<Response<UserResponse>, Status> {
-        let args = UpdateUserArgs::try_from(req.into_inner()).map_err(status::new)?;
-        let user = self.conduit.update_user(args).await.unwrap();
+        todo!()
+    }
 
-        Ok(Response::new(UserResponse {
-            user: Some(user.into()),
-        }))
+    async fn update_password(
+        &self,
+        _req: Request<UpdatePasswordRequest>,
+    ) -> Result<Response<()>, Status> {
+        todo!()
     }
 
     async fn get_profile(
         &self,
         _req: Request<GetProfileRequest>,
     ) -> Result<Response<Profile>, Status> {
-        let _profile = self.conduit.get_profile().await.unwrap();
         todo!()
     }
 
@@ -81,7 +76,6 @@ impl UserService for Users {
         &self,
         _req: Request<FollowUserRequest>,
     ) -> Result<Response<Profile>, Status> {
-        let _profile = self.conduit.follow_user().await.unwrap();
         todo!()
     }
 
@@ -89,13 +83,10 @@ impl UserService for Users {
         &self,
         _req: Request<FollowUserRequest>,
     ) -> Result<Response<Profile>, Status> {
-        let _profile = self.conduit.unfollow_user().await.unwrap();
         todo!()
     }
 
     async fn delete_user(&self, _req: Request<DeleteUserRequest>) -> Result<Response<()>, Status> {
-        self.conduit.delete_user().await.unwrap();
-
-        Ok(Response::new(()))
+        todo!()
     }
 }
