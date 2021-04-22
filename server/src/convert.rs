@@ -2,9 +2,9 @@ use std::convert::TryFrom;
 
 use conduit::error::ConduitError;
 use conduit::types::{Email, Password, Username};
-use conduit::users::{self, CreateUserArgs};
+use conduit::users::{CreateUserArgs, User};
 
-use crate::pb::realworld::{CreateUserRequest, User};
+use crate::pb::{self, CreateUserRequest};
 
 impl TryFrom<CreateUserRequest> for CreateUserArgs {
     type Error = ConduitError;
@@ -18,9 +18,9 @@ impl TryFrom<CreateUserRequest> for CreateUserArgs {
     }
 }
 
-impl From<users::User> for User {
-    fn from(user: users::User) -> Self {
-        User {
+impl From<User> for pb::User {
+    fn from(user: User) -> Self {
+        pb::User {
             token: user.token,
             username: user.username,
             email: user.email,

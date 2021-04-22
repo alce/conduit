@@ -6,13 +6,10 @@ use conduit::Conduit;
 use tonic::{Request, Response, Status};
 
 use crate::{
-    pb::realworld::user_service_server::{UserService, UserServiceServer},
-    pb::realworld::{
-        CreateUserRequest, DeleteUserRequest, LoginRequest, UpdatePasswordRequest,
-        UpdateProfileRequest,
-    },
-    pb::realworld::{
-        FollowUserRequest, GetCurrentUserRequest, GetProfileRequest, Profile, UserResponse,
+    pb::{
+        CreateUserRequest, DeleteUserRequest, FollowUserRequest, GetCurrentUserRequest,
+        GetProfileRequest, LoginRequest, Profile, UpdatePasswordRequest, UpdateProfileRequest,
+        UserResponse, UserService, UserServiceServer,
     },
     status,
 };

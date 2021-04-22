@@ -1,15 +1,13 @@
 use std::sync::Arc;
 
+use conduit::Conduit;
 use tonic::{Request, Response, Status};
 
-use conduit::Conduit;
-
-use crate::pb::realworld::article_service_server::{ArticleService, ArticleServiceServer};
-use crate::pb::realworld::{
-    Article, ArticleList, Comment, CommentList, CreateArticleRequest, CreateCommentRequest,
-    DeleteArticleRequest, DeleteCommentRequest, FavoriteArticleRequest, GetArticleRequest,
-    GetFeedRequest, ListArticlesRequest, ListCommentsRequest, ListTagsRequest, TagList,
-    UpdateArticleRequest,
+use crate::pb::{
+    Article, ArticleList, ArticleService, ArticleServiceServer, Comment, CommentList,
+    CreateArticleRequest, CreateCommentRequest, DeleteArticleRequest, DeleteCommentRequest,
+    FavoriteArticleRequest, GetArticleRequest, GetFeedRequest, ListArticlesRequest,
+    ListCommentsRequest, ListTagsRequest, TagList, UpdateArticleRequest,
 };
 
 pub fn service(conduit: Arc<Conduit>) -> ArticleServiceServer<Articles> {
