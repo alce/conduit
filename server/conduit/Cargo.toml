@@ -5,6 +5,8 @@ authors = ["Juan Alvarez <j@yabit.io>"]
 edition = "2018"
 publish = false
 
+[lib]
+doctest = false
 
 [dependencies]
 argon2 = "0.1"
@@ -15,3 +17,4 @@ uuid = { version = "0.8.2", features = ["v4", "serde"] }
 sqlx = { version = "0.5", features = [ "runtime-tokio-rustls", "postgres", "macros", "time", "uuid" ] }
 tokio = { version = "1", features = ["rt-multi-thread"] }
 time = "0.2.26"
+slug = "0.1.4"
