@@ -1,5 +1,10 @@
 use crate::error::{FieldError, FieldErrorKind};
-use std::fmt;
+
+mod token;
+pub use token::Token;
+
+mod password;
+pub use password::Password;
 
 pub type Id = uuid::Uuid;
 
@@ -9,10 +14,10 @@ pub type DateTime = time::OffsetDateTime;
 pub struct Username(String);
 
 impl Username {
-    pub fn new(value: String) -> Result<Self, FieldError> {
+    pub fn new(value: String, resource_name: &str) -> Result<Self, FieldError> {
         if value.is_empty() {
             return Err(FieldError {
-                name: "username".to_string(),
+                name: format!("{}_username", resource_name),
                 kind: FieldErrorKind::Required,
             });
         }
@@ -29,10 +34,10 @@ impl Username {
 pub struct Email(String);
 
 impl Email {
-    pub fn new(value: String) -> Result<Self, FieldError> {
+    pub fn new(value: String, resource_name: &str) -> Result<Self, FieldError> {
         if !value.contains('@') {
             return Err(FieldError {
-                name: "email".to_string(),
+                name: format!("{}_email", resource_name),
                 kind: FieldErrorKind::InvalidFormat,
             });
         }
@@ -45,27 +50,6 @@ impl Email {
     }
 }
 
-pub struct Password(String);
-
-impl Password {
-    pub fn new(value: String) -> Result<Self, FieldError> {
-        if value.len() < 8 {
-            return Err(FieldError {
-                name: "password".to_string(),
-                kind: FieldErrorKind::WeakPassword,
-            });
-        }
-
-        Ok(Password(value))
-    }
-}
-
-impl fmt::Debug for Password {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "len {}", self.0.len())
-    }
-}
-
 impl AsRef<str> for Email {
     fn as_ref(&self) -> &str {
         &self.0
@@ -75,24 +59,5 @@ impl AsRef<str> for Email {
 impl AsRef<str> for Username {
     fn as_ref(&self) -> &str {
         &self.0
-    }
-}
-
-impl AsRef<[u8]> for Password {
-    fn as_ref(&self) -> &[u8] {
-        &self.0.as_bytes()
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn username_cannot_be_empty() {
-        let err = Username::new("".into()).unwrap_err();
-
-        assert_eq!(err.kind, FieldErrorKind::Required);
-        assert_eq!(err.name, "username");
     }
 }
