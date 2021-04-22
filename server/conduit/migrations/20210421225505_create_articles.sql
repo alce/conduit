@@ -1,6 +1,6 @@
 CREATE TABLE  articles (
     article_id      UUID PRIMARY KEY,
-    slug            TEXT NOT NULL UNIQUE,
+    slug            TEXT NOT NULL CONSTRAINT article_slug UNIQUE,
     title           TEXT NOT NULL,
     body            TEXT NOT NULL,
     description     TEXT NOT NULL,

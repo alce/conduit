@@ -66,13 +66,11 @@ String _errorMessageForCode(int code) {
 
   switch (code) {
     case StatusCode.invalidArgument:
-      // final errors = <String, String>{};
-      // print('DETAILS: $details');
       return 'Validation failed';
     case StatusCode.notFound:
       return 'Resource not found';
     case StatusCode.alreadyExists:
-      return 'Taken';
+      return 'Resource exists';
     case StatusCode.permissionDenied:
       return 'Permission denied';
     case StatusCode.unauthenticated:
@@ -91,12 +89,26 @@ String _errorMessageForCode(int code) {
     case StatusCode.unavailable:
     case StatusCode.dataLoss:
     default:
-      return 'Internal Error';
+      return 'Server Error';
   }
 }
 
 extension ToConduit on GrpcError {
   model.ConduitException toConduitException() {
-    return model.ConduitException(_errorMessageForCode(code));
+    Map<String, String>? fieldErrors;
+
+    if (details != null) {
+      for (final detail in details!) {
+        if (detail is BadRequest) {
+          fieldErrors = {};
+          for (final error in detail.fieldViolations) {
+            fieldErrors[error.getField(1) as String] =
+                error.getField(2) as String;
+          }
+        }
+      }
+    }
+
+    return model.ConduitException(_errorMessageForCode(code), fieldErrors);
   }
 }

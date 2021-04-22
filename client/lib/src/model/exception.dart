@@ -5,5 +5,5 @@ class ConduitException implements Exception {
   final Map<String, String>? fieldErrors;
 
   @override
-  String toString() => 'ConduitException($message)';
+  String toString() => 'ConduitException($message, $fieldErrors)';
 }

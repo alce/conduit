@@ -1,10 +1,15 @@
-use argon2::password_hash::{HashError, HasherError, VerifyError};
+use std::fmt;
 
 #[derive(Debug)]
 pub enum ConduitError {
-    Validation(Vec<FieldError>),
+    Validation(FieldError),
     Unauthorized,
-    Internal,
+    Unauthenticated,
+    RecordNotFound,
+    ResourceExists(String),
+    //
+    Database(String),
+    Internal(String),
 }
 
 #[derive(Debug)]
@@ -17,37 +22,44 @@ pub struct FieldError {
 pub enum FieldErrorKind {
     Required,
     InvalidFormat,
+    InvalidValue,
     WeakPassword,
+    ResourceExists,
 }
 
-impl From<FieldError> for ConduitError {
-    fn from(e: FieldError) -> Self {
-        ConduitError::Validation(vec![e])
+impl fmt::Display for FieldErrorKind {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let msg = match self {
+            FieldErrorKind::Required => "REQUIRED",
+            FieldErrorKind::WeakPassword => "WEAK_PASSWORD",
+            FieldErrorKind::InvalidFormat => "INVALID_FORMAT",
+            FieldErrorKind::InvalidValue => "INVALID_VALUE",
+            FieldErrorKind::ResourceExists => "RESOURCE_EXISTS",
+        };
+
+        write!(f, "{}", msg)
     }
 }
 
 impl From<sqlx::Error> for ConduitError {
-    fn from(e: sqlx::Error) -> Self {
-        dbg!(&e);
-        todo!("sqlx error")
-    }
-}
+    fn from(e: sqlx::Error) -> ConduitError {
+        const CHECK_VIOLATION: &str = "23514";
+        const UNIQUE_VIOLATION: &str = "23505";
 
-impl From<HasherError> for ConduitError {
-    fn from(_: HasherError) -> Self {
-        todo!("hasher error")
-    }
-}
-
-impl From<HashError> for ConduitError {
-    fn from(_: HashError) -> Self {
-        todo!("hash error")
-    }
-}
-
-impl From<VerifyError> for ConduitError {
-    fn from(_: VerifyError) -> Self {
-        todo!("verify error")
+        match e {
+            sqlx::Error::RowNotFound => ConduitError::RecordNotFound,
+            sqlx::Error::Database(error) => match error.code().as_deref() {
+                Some(CHECK_VIOLATION) => ConduitError::Validation(FieldError {
+                    name: error.constraint().unwrap_or("Unknown field").into(),
+                    kind: FieldErrorKind::InvalidValue,
+                }),
+                Some(UNIQUE_VIOLATION) => ConduitError::ResourceExists(
+                    error.constraint().unwrap_or("Unknown field").into(),
+                ),
+                _ => ConduitError::Database(error.message().into()),
+            },
+            _ => ConduitError::Database(e.to_string()),
+        }
     }
 }
 

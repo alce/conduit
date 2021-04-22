@@ -10,18 +10,14 @@ class UserService {
   final UserServiceClient _client;
 
   Future<User> login({required String email, required String password}) async {
-    if (email.isEmpty || password.isEmpty) {
-      throw ConduitException('Wrong email or password');
-    }
-
     final req = LoginRequest()
       ..email = email
       ..password = password;
 
     try {
       return (await _client.login(req)).user.toModel();
-    } on GrpcError catch (_) {
-      throw ConduitException('Wrong email or password');
+    } on GrpcError catch (e) {
+      throw e.toConduitException();
     }
   }
 
