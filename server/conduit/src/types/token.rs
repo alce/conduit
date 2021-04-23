@@ -44,3 +44,9 @@ impl Token {
         self.0
     }
 }
+
+impl From<&str> for Token {
+    fn from(s: &str) -> Self {
+        Token(String::from(s))
+    }
+}

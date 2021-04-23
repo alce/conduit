@@ -1,18 +1,18 @@
 use std::convert::TryFrom;
 use std::sync::Arc;
 
-use conduit::users::CreateUserArgs;
+use conduit::types::{Password, Token};
+use conduit::users::{CreateUserArgs, LoginArgs, Profile, UpdateProfileArgs, User};
 use conduit::Conduit;
+use tonic::metadata::MetadataMap;
 use tonic::{Request, Response, Status};
 
-use crate::{
-    pb::{
-        CreateUserRequest, DeleteUserRequest, FollowUserRequest, GetCurrentUserRequest,
-        GetProfileRequest, LoginRequest, Profile, UpdatePasswordRequest, UpdateProfileRequest,
-        UserResponse, UserService, UserServiceServer,
-    },
-    status,
+use crate::pb::{
+    self as proto, CreateUserRequest, DeleteUserRequest, FollowUserRequest, GetCurrentUserRequest,
+    GetProfileRequest, LoginRequest, ProfileResponse, UpdatePasswordRequest, UpdateProfileRequest,
+    UserResponse, UserService, UserServiceServer,
 };
+use crate::status::StatusExt;
 
 pub fn service(conduit: Arc<Conduit>) -> UserServiceServer<Users> {
     UserServiceServer::new(Users { conduit })
@@ -23,67 +23,145 @@ pub struct Users {
     conduit: Arc<Conduit>,
 }
 
+fn user_response(user: (User, Token)) -> Response<UserResponse> {
+    Response::new(UserResponse {
+        user: Some(proto::User::from(user)),
+    })
+}
+
+fn profile_response(profile: Profile) -> Response<ProfileResponse> {
+    Response::new(ProfileResponse {
+        profile: Some(proto::Profile::from(profile)),
+    })
+}
+
+const AUTH_TOKEN_HEADER: &str = "x-auth-token";
+
+fn get_token(meta: &MetadataMap) -> Result<Token, Status> {
+    let token = meta
+        .get(AUTH_TOKEN_HEADER)
+        .ok_or_else(|| Status::unauthenticated("token not found"))?;
+
+    token
+        .to_str()
+        .map_err(|_| Status::unauthenticated("malformed token"))
+        .map(Token::from)
+}
+
 #[tonic::async_trait]
 impl UserService for Users {
-    async fn login(&self, _req: Request<LoginRequest>) -> Result<Response<UserResponse>, Status> {
-        todo!()
+    async fn login(&self, req: Request<LoginRequest>) -> Result<Response<UserResponse>, Status> {
+        let args = LoginArgs::try_from(req.into_inner()).map_err(Status::bad_request)?;
+
+        self.conduit
+            .login(args)
+            .await
+            .map(user_response)
+            .map_err(Status::from_conduit_error)
     }
 
     async fn create(
         &self,
         req: Request<CreateUserRequest>,
     ) -> Result<Response<UserResponse>, Status> {
-        let args = CreateUserArgs::try_from(req.into_inner()).map_err(status::new)?;
-        let user = self.conduit.signup(args).await.map_err(status::new)?;
+        let args = CreateUserArgs::try_from(req.into_inner()).map_err(Status::bad_request)?;
 
-        Ok(Response::new(UserResponse {
-            user: Some(user.into()),
-        }))
+        self.conduit
+            .signup(args)
+            .await
+            .map(user_response)
+            .map_err(Status::from_conduit_error)
     }
 
     async fn get_current(
         &self,
-        _req: Request<GetCurrentUserRequest>,
+        req: Request<GetCurrentUserRequest>,
     ) -> Result<Response<UserResponse>, Status> {
-        todo!()
+        let token = get_token(req.metadata())?;
+
+        self.conduit
+            .current_user(token)
+            .await
+            .map(user_response)
+            .map_err(Status::from_conduit_error)
     }
 
     async fn update_profile(
         &self,
-        _req: Request<UpdateProfileRequest>,
+        req: Request<UpdateProfileRequest>,
     ) -> Result<Response<UserResponse>, Status> {
-        todo!()
+        let token = get_token(req.metadata())?;
+        let args = UpdateProfileArgs::try_from(req.into_inner()).map_err(Status::bad_request)?;
+
+        self.conduit
+            .update_user(args, token)
+            .await
+            .map(user_response)
+            .map_err(Status::from_conduit_error)
     }
 
     async fn update_password(
         &self,
-        _req: Request<UpdatePasswordRequest>,
+        req: Request<UpdatePasswordRequest>,
     ) -> Result<Response<()>, Status> {
-        todo!()
+        let token = get_token(req.metadata())?;
+        let password =
+            Password::new(req.into_inner().password, "user").map_err(Status::bad_request)?;
+
+        self.conduit
+            .update_password(password, token)
+            .await
+            .map_err(Status::from_conduit_error)?;
+
+        Ok(Response::new(()))
     }
 
     async fn get_profile(
         &self,
-        _req: Request<GetProfileRequest>,
-    ) -> Result<Response<Profile>, Status> {
-        todo!()
+        req: Request<GetProfileRequest>,
+    ) -> Result<Response<ProfileResponse>, Status> {
+        let token = get_token(req.metadata()).ok();
+
+        self.conduit
+            .get_profile(&req.get_ref().username, token)
+            .await
+            .map(profile_response)
+            .map_err(Status::from_conduit_error)
     }
 
     async fn follow_user(
         &self,
-        _req: Request<FollowUserRequest>,
-    ) -> Result<Response<Profile>, Status> {
-        todo!()
+        req: Request<FollowUserRequest>,
+    ) -> Result<Response<ProfileResponse>, Status> {
+        let token = get_token(req.metadata())?;
+
+        self.conduit
+            .follow_user(&req.get_ref().username, token)
+            .await
+            .map(profile_response)
+            .map_err(Status::from_conduit_error)
     }
 
     async fn unfollow_user(
         &self,
-        _req: Request<FollowUserRequest>,
-    ) -> Result<Response<Profile>, Status> {
-        todo!()
+        req: Request<FollowUserRequest>,
+    ) -> Result<Response<ProfileResponse>, Status> {
+        let token = get_token(req.metadata())?;
+
+        self.conduit
+            .unfollow_user(&req.get_ref().username, token)
+            .await
+            .map(profile_response)
+            .map_err(Status::from_conduit_error)
     }
 
-    async fn delete_user(&self, _req: Request<DeleteUserRequest>) -> Result<Response<()>, Status> {
-        todo!()
+    // REMOVE
+    async fn delete_user(&self, req: Request<DeleteUserRequest>) -> Result<Response<()>, Status> {
+        self.conduit
+            .delete_user(&req.get_ref().username)
+            .await
+            .map_err(Status::from_conduit_error)?;
+
+        Ok(Response::new(()))
     }
 }
