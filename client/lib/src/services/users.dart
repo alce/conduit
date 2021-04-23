@@ -39,12 +39,16 @@ class UserService {
   }
 
   Future<User> getCurrentUser({String? token}) async {
-    final proto = await _client.getCurrent(
-      GetCurrentUserRequest(),
-      options: _makeOptions(token),
-    );
+    try {
+      final proto = await _client.getCurrent(
+        GetCurrentUserRequest(),
+        options: _makeOptions(token),
+      );
 
-    return proto.user.toModel();
+      return proto.user.toModel();
+    } on GrpcError catch (e) {
+      throw e.toConduitException();
+    }
   }
 
   Future<User> updateProfile({
@@ -72,25 +76,39 @@ class UserService {
   }
 
   Future<Profile> followUser(String username) async {
-    final req = FollowUserRequest()..username = username;
-    final proto = await _client.followUser(req);
-    return proto.profile.toModel();
+    try {
+      final req = FollowUserRequest()..username = username;
+      return (await _client.followUser(req)).profile.toModel();
+    } on GrpcError catch (e) {
+      throw e.toConduitException();
+    }
   }
 
   Future<Profile> unFollowUser(String username) async {
-    final req = FollowUserRequest()..username = username;
-    final proto = await _client.unfollowUser(req);
-    return proto.profile.toModel();
+    try {
+      final req = FollowUserRequest()..username = username;
+      return (await _client.unfollowUser(req)).profile.toModel();
+    } on GrpcError catch (e) {
+      throw e.toConduitException();
+    }
   }
 
   Future<Profile> getProfile(String username) async {
-    final req = GetProfileRequest()..username = username;
-    final proto = await _client.getProfile(req);
-    return proto.profile.toModel();
+    try {
+      final req = GetProfileRequest()..username = username;
+      final proto = await _client.getProfile(req);
+      return proto.profile.toModel();
+    } on GrpcError catch (e) {
+      throw e.toConduitException();
+    }
   }
 
   Future<void> deleteUser(String username) async {
-    await _client.deleteUser(DeleteUserRequest()..username = username);
+    try {
+      await _client.deleteUser(DeleteUserRequest()..username = username);
+    } on GrpcError catch (e) {
+      throw e.toConduitException();
+    }
   }
 
   CallOptions? _makeOptions(String? token) {

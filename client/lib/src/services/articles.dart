@@ -16,30 +16,41 @@ class ArticleService {
     int limit = 20,
     int offset = 0,
   }) async {
-    final req = pb.ListArticlesRequest()
-      ..limit = limit
-      ..offset = offset;
+    try {
+      final req = pb.ListArticlesRequest()
+        ..limit = limit
+        ..offset = offset;
 
-    final list = await _client.list(req);
-    return ResourceList(list.articles.map(toArticle).toList());
+      final list = await _client.list(req);
+      return ResourceList(list.articles.map(toArticle).toList());
+    } on GrpcError catch (e) {
+      throw e.toConduitException();
+    }
   }
 
   Future<ResourceList<Article>> getArticleFeed({
     int limit = 20,
     int offset = 0,
   }) async {
-    final req = pb.GetFeedRequest()
-      ..limit = limit
-      ..offset = offset;
+    try {
+      final req = pb.GetFeedRequest()
+        ..limit = limit
+        ..offset = offset;
 
-    final list = await _client.getFeed(req);
-    return ResourceList(list.articles.map(toArticle).toList());
+      final list = await _client.getFeed(req);
+      return ResourceList(list.articles.map(toArticle).toList());
+    } on GrpcError catch (e) {
+      throw e.toConduitException();
+    }
   }
 
   Future<Article> getArticle(String slug) async {
-    final req = pb.GetArticleRequest()..slug = slug;
-    final proto = await _client.get(req);
-    return proto.toModel();
+    try {
+      final req = pb.GetArticleRequest()..slug = slug;
+      return (await _client.get(req)).toModel();
+    } on GrpcError catch (e) {
+      throw e.toConduitException();
+    }
   }
 
   Future<Article> createArticle({
@@ -49,14 +60,18 @@ class ArticleService {
     List<String> tags = const [],
     String? token,
   }) async {
-    final req = pb.CreateArticleRequest()
-      ..title = title
-      ..description = description
-      ..body = body
-      ..tagList.addAll(tags);
+    try {
+      final req = pb.CreateArticleRequest()
+        ..title = title
+        ..description = description
+        ..body = body
+        ..tagList.addAll(tags);
 
-    final proto = await _client.create(req, options: _makeOptions(token));
-    return proto.toModel();
+      final proto = await _client.create(req, options: _makeOptions(token));
+      return proto.toModel();
+    } on GrpcError catch (e) {
+      throw e.toConduitException();
+    }
   }
 
   Future<Article> updateArticle({
@@ -66,52 +81,77 @@ class ArticleService {
     String? body,
     String? token,
   }) async {
-    final req = pb.UpdateArticleRequest(
-      slug: slug,
-      title: title,
-      description: description,
-      body: body,
-    );
+    try {
+      final req = pb.UpdateArticleRequest(
+        slug: slug,
+        title: title,
+        description: description,
+        body: body,
+      );
 
-    final proto = await _client.update(req, options: _makeOptions(token));
-    return proto.toModel();
+      final proto = await _client.update(req, options: _makeOptions(token));
+      return proto.toModel();
+    } on GrpcError catch (e) {
+      throw e.toConduitException();
+    }
   }
 
   Future<void> deleteArticle(String slug) async {
-    final req = pb.DeleteArticleRequest()..slug = slug;
-    await _client.delete(req);
+    try {
+      final req = pb.DeleteArticleRequest()..slug = slug;
+      await _client.delete(req);
+    } on GrpcError catch (e) {
+      throw e.toConduitException();
+    }
   }
 
   Future<Article> favoriteArticle(String slug) async {
-    final req = pb.FavoriteArticleRequest()..slug = slug;
-    final proto = await _client.favoriteArticle(req);
-    return proto.toModel();
+    try {
+      final req = pb.FavoriteArticleRequest()..slug = slug;
+      return (await _client.favoriteArticle(req)).toModel();
+    } on GrpcError catch (e) {
+      throw e.toConduitException();
+    }
   }
 
   Future<Article> unFavoriteArticle(String slug) async {
-    final req = pb.FavoriteArticleRequest()..slug = slug;
-    final proto = await _client.unFavoriteArticle(req);
-    return proto.toModel();
+    try {
+      final req = pb.FavoriteArticleRequest()..slug = slug;
+      return (await _client.unFavoriteArticle(req)).toModel();
+    } on GrpcError catch (e) {
+      throw e.toConduitException();
+    }
   }
 
   Future<Comment> createComment(String articleSlug, String body) async {
-    final req = pb.CreateCommentRequest()
-      ..slug = articleSlug
-      ..body = body;
+    try {
+      final req = pb.CreateCommentRequest()
+        ..slug = articleSlug
+        ..body = body;
 
-    final proto = await _client.createComment(req);
-    return proto.toModel();
+      return (await _client.createComment(req)).toModel();
+    } on GrpcError catch (e) {
+      throw e.toConduitException();
+    }
   }
 
   Future<ResourceList<Comment>> listComments(String slug) async {
-    final req = pb.ListCommentsRequest()..slug = slug;
-    final list = await _client.listComments(req);
-    return ResourceList(list.comments.map(toComment).toList());
+    try {
+      final req = pb.ListCommentsRequest()..slug = slug;
+      final list = await _client.listComments(req);
+      return ResourceList(list.comments.map(toComment).toList());
+    } on GrpcError catch (e) {
+      throw e.toConduitException();
+    }
   }
 
   Future<ResourceList<String>> listTags() async {
-    final list = await _client.listTags(pb.ListTagsRequest());
-    return ResourceList(list.tags);
+    try {
+      final list = await _client.listTags(pb.ListTagsRequest());
+      return ResourceList(list.tags);
+    } on GrpcError catch (e) {
+      throw e.toConduitException();
+    }
   }
 
   CallOptions? _makeOptions(String? token) {
