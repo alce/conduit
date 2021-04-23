@@ -404,8 +404,8 @@ pub struct UpdateProfileRequest {
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UpdatePasswordRequest {
-    #[prost(string, optional, tag = "1")]
-    pub password: ::core::option::Option<::prost::alloc::string::String>,
+    #[prost(string, tag = "1")]
+    pub password: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetProfileRequest {

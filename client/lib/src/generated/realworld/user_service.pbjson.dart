@@ -79,15 +79,12 @@ final $typed_data.Uint8List updateProfileRequestDescriptor = $convert.base64Deco
 const UpdatePasswordRequest$json = const {
   '1': 'UpdatePasswordRequest',
   '2': const [
-    const {'1': 'password', '3': 1, '4': 1, '5': 9, '9': 0, '10': 'password', '17': true},
-  ],
-  '8': const [
-    const {'1': '_password'},
+    const {'1': 'password', '3': 1, '4': 1, '5': 9, '8': const {}, '10': 'password'},
   ],
 };
 
 /// Descriptor for `UpdatePasswordRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List updatePasswordRequestDescriptor = $convert.base64Decode('ChVVcGRhdGVQYXNzd29yZFJlcXVlc3QSHwoIcGFzc3dvcmQYASABKAlIAFIIcGFzc3dvcmSIAQFCCwoJX3Bhc3N3b3Jk');
+final $typed_data.Uint8List updatePasswordRequestDescriptor = $convert.base64Decode('ChVVcGRhdGVQYXNzd29yZFJlcXVlc3QSHwoIcGFzc3dvcmQYASABKAlCA+BBAlIIcGFzc3dvcmQ=');
 @$core.Deprecated('Use getProfileRequestDescriptor instead')
 const GetProfileRequest$json = const {
   '1': 'GetProfileRequest',
