@@ -47,19 +47,19 @@ service UserService {
     };
   }
 
-  rpc GetProfile (GetProfileRequest) returns (Profile) {
+  rpc GetProfile (GetProfileRequest) returns (ProfileResponse) {
     option (google.api.http) = {
       get: "/profiles/{username}"
     };
   }
 
-  rpc FollowUser (FollowUserRequest) returns (Profile) {
+  rpc FollowUser (FollowUserRequest) returns (ProfileResponse) {
     option (google.api.http) = {
       post: "/profiles/{username}/follow"
     };
   }
 
-  rpc UnfollowUser (FollowUserRequest) returns (Profile) {
+  rpc UnfollowUser (FollowUserRequest) returns (ProfileResponse) {
     option (google.api.http) = {
       delete: "/profiles/{username}/follow"
     };
@@ -114,4 +114,8 @@ message DeleteUserRequest {
 
 message UserResponse {
   User user = 1;
+}
+
+message ProfileResponse {
+  Profile profile = 1;
 }

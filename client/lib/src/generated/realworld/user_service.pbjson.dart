@@ -128,3 +128,13 @@ const UserResponse$json = const {
 
 /// Descriptor for `UserResponse`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List userResponseDescriptor = $convert.base64Decode('CgxVc2VyUmVzcG9uc2USIwoEdXNlchgBIAEoCzIPLnJlYWx3b3JsZC5Vc2VyUgR1c2Vy');
+@$core.Deprecated('Use profileResponseDescriptor instead')
+const ProfileResponse$json = const {
+  '1': 'ProfileResponse',
+  '2': const [
+    const {'1': 'profile', '3': 1, '4': 1, '5': 11, '6': '.realworld.Profile', '10': 'profile'},
+  ],
+};
+
+/// Descriptor for `ProfileResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List profileResponseDescriptor = $convert.base64Decode('Cg9Qcm9maWxlUmVzcG9uc2USLAoHcHJvZmlsZRgBIAEoCzISLnJlYWx3b3JsZC5Qcm9maWxlUgdwcm9maWxl');

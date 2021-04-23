@@ -12,7 +12,6 @@ import 'dart:core' as $core;
 import 'package:grpc/service_api.dart' as $grpc;
 import 'user_service.pb.dart' as $2;
 import '../google/protobuf/empty.pb.dart' as $1;
-import 'common.pb.dart' as $3;
 export 'user_service.pb.dart';
 
 class UserServiceClient extends $grpc.Client {
@@ -41,20 +40,23 @@ class UserServiceClient extends $grpc.Client {
           ($2.UpdatePasswordRequest value) => value.writeToBuffer(),
           ($core.List<$core.int> value) => $1.Empty.fromBuffer(value));
   static final _$getProfile =
-      $grpc.ClientMethod<$2.GetProfileRequest, $3.Profile>(
+      $grpc.ClientMethod<$2.GetProfileRequest, $2.ProfileResponse>(
           '/realworld.UserService/GetProfile',
           ($2.GetProfileRequest value) => value.writeToBuffer(),
-          ($core.List<$core.int> value) => $3.Profile.fromBuffer(value));
+          ($core.List<$core.int> value) =>
+              $2.ProfileResponse.fromBuffer(value));
   static final _$followUser =
-      $grpc.ClientMethod<$2.FollowUserRequest, $3.Profile>(
+      $grpc.ClientMethod<$2.FollowUserRequest, $2.ProfileResponse>(
           '/realworld.UserService/FollowUser',
           ($2.FollowUserRequest value) => value.writeToBuffer(),
-          ($core.List<$core.int> value) => $3.Profile.fromBuffer(value));
+          ($core.List<$core.int> value) =>
+              $2.ProfileResponse.fromBuffer(value));
   static final _$unfollowUser =
-      $grpc.ClientMethod<$2.FollowUserRequest, $3.Profile>(
+      $grpc.ClientMethod<$2.FollowUserRequest, $2.ProfileResponse>(
           '/realworld.UserService/UnfollowUser',
           ($2.FollowUserRequest value) => value.writeToBuffer(),
-          ($core.List<$core.int> value) => $3.Profile.fromBuffer(value));
+          ($core.List<$core.int> value) =>
+              $2.ProfileResponse.fromBuffer(value));
   static final _$deleteUser =
       $grpc.ClientMethod<$2.DeleteUserRequest, $1.Empty>(
           '/realworld.UserService/DeleteUser',
@@ -94,17 +96,20 @@ class UserServiceClient extends $grpc.Client {
     return $createUnaryCall(_$updatePassword, request, options: options);
   }
 
-  $grpc.ResponseFuture<$3.Profile> getProfile($2.GetProfileRequest request,
+  $grpc.ResponseFuture<$2.ProfileResponse> getProfile(
+      $2.GetProfileRequest request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$getProfile, request, options: options);
   }
 
-  $grpc.ResponseFuture<$3.Profile> followUser($2.FollowUserRequest request,
+  $grpc.ResponseFuture<$2.ProfileResponse> followUser(
+      $2.FollowUserRequest request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$followUser, request, options: options);
   }
 
-  $grpc.ResponseFuture<$3.Profile> unfollowUser($2.FollowUserRequest request,
+  $grpc.ResponseFuture<$2.ProfileResponse> unfollowUser(
+      $2.FollowUserRequest request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$unfollowUser, request, options: options);
   }
@@ -157,27 +162,27 @@ abstract class UserServiceBase extends $grpc.Service {
         ($core.List<$core.int> value) =>
             $2.UpdatePasswordRequest.fromBuffer(value),
         ($1.Empty value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$2.GetProfileRequest, $3.Profile>(
+    $addMethod($grpc.ServiceMethod<$2.GetProfileRequest, $2.ProfileResponse>(
         'GetProfile',
         getProfile_Pre,
         false,
         false,
         ($core.List<$core.int> value) => $2.GetProfileRequest.fromBuffer(value),
-        ($3.Profile value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$2.FollowUserRequest, $3.Profile>(
+        ($2.ProfileResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$2.FollowUserRequest, $2.ProfileResponse>(
         'FollowUser',
         followUser_Pre,
         false,
         false,
         ($core.List<$core.int> value) => $2.FollowUserRequest.fromBuffer(value),
-        ($3.Profile value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$2.FollowUserRequest, $3.Profile>(
+        ($2.ProfileResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$2.FollowUserRequest, $2.ProfileResponse>(
         'UnfollowUser',
         unfollowUser_Pre,
         false,
         false,
         ($core.List<$core.int> value) => $2.FollowUserRequest.fromBuffer(value),
-        ($3.Profile value) => value.writeToBuffer()));
+        ($2.ProfileResponse value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$2.DeleteUserRequest, $1.Empty>(
         'DeleteUser',
         deleteUser_Pre,
@@ -212,17 +217,17 @@ abstract class UserServiceBase extends $grpc.Service {
     return updatePassword(call, await request);
   }
 
-  $async.Future<$3.Profile> getProfile_Pre($grpc.ServiceCall call,
+  $async.Future<$2.ProfileResponse> getProfile_Pre($grpc.ServiceCall call,
       $async.Future<$2.GetProfileRequest> request) async {
     return getProfile(call, await request);
   }
 
-  $async.Future<$3.Profile> followUser_Pre($grpc.ServiceCall call,
+  $async.Future<$2.ProfileResponse> followUser_Pre($grpc.ServiceCall call,
       $async.Future<$2.FollowUserRequest> request) async {
     return followUser(call, await request);
   }
 
-  $async.Future<$3.Profile> unfollowUser_Pre($grpc.ServiceCall call,
+  $async.Future<$2.ProfileResponse> unfollowUser_Pre($grpc.ServiceCall call,
       $async.Future<$2.FollowUserRequest> request) async {
     return unfollowUser(call, await request);
   }
@@ -242,11 +247,11 @@ abstract class UserServiceBase extends $grpc.Service {
       $grpc.ServiceCall call, $2.UpdateProfileRequest request);
   $async.Future<$1.Empty> updatePassword(
       $grpc.ServiceCall call, $2.UpdatePasswordRequest request);
-  $async.Future<$3.Profile> getProfile(
+  $async.Future<$2.ProfileResponse> getProfile(
       $grpc.ServiceCall call, $2.GetProfileRequest request);
-  $async.Future<$3.Profile> followUser(
+  $async.Future<$2.ProfileResponse> followUser(
       $grpc.ServiceCall call, $2.FollowUserRequest request);
-  $async.Future<$3.Profile> unfollowUser(
+  $async.Future<$2.ProfileResponse> unfollowUser(
       $grpc.ServiceCall call, $2.FollowUserRequest request);
   $async.Future<$1.Empty> deleteUser(
       $grpc.ServiceCall call, $2.DeleteUserRequest request);

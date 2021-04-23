@@ -24,9 +24,9 @@ type UserServiceClient interface {
 	GetCurrent(ctx context.Context, in *GetCurrentUserRequest, opts ...grpc.CallOption) (*UserResponse, error)
 	UpdateProfile(ctx context.Context, in *UpdateProfileRequest, opts ...grpc.CallOption) (*UserResponse, error)
 	UpdatePassword(ctx context.Context, in *UpdatePasswordRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
-	GetProfile(ctx context.Context, in *GetProfileRequest, opts ...grpc.CallOption) (*Profile, error)
-	FollowUser(ctx context.Context, in *FollowUserRequest, opts ...grpc.CallOption) (*Profile, error)
-	UnfollowUser(ctx context.Context, in *FollowUserRequest, opts ...grpc.CallOption) (*Profile, error)
+	GetProfile(ctx context.Context, in *GetProfileRequest, opts ...grpc.CallOption) (*ProfileResponse, error)
+	FollowUser(ctx context.Context, in *FollowUserRequest, opts ...grpc.CallOption) (*ProfileResponse, error)
+	UnfollowUser(ctx context.Context, in *FollowUserRequest, opts ...grpc.CallOption) (*ProfileResponse, error)
 	DeleteUser(ctx context.Context, in *DeleteUserRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
@@ -83,8 +83,8 @@ func (c *userServiceClient) UpdatePassword(ctx context.Context, in *UpdatePasswo
 	return out, nil
 }
 
-func (c *userServiceClient) GetProfile(ctx context.Context, in *GetProfileRequest, opts ...grpc.CallOption) (*Profile, error) {
-	out := new(Profile)
+func (c *userServiceClient) GetProfile(ctx context.Context, in *GetProfileRequest, opts ...grpc.CallOption) (*ProfileResponse, error) {
+	out := new(ProfileResponse)
 	err := c.cc.Invoke(ctx, "/realworld.UserService/GetProfile", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -92,8 +92,8 @@ func (c *userServiceClient) GetProfile(ctx context.Context, in *GetProfileReques
 	return out, nil
 }
 
-func (c *userServiceClient) FollowUser(ctx context.Context, in *FollowUserRequest, opts ...grpc.CallOption) (*Profile, error) {
-	out := new(Profile)
+func (c *userServiceClient) FollowUser(ctx context.Context, in *FollowUserRequest, opts ...grpc.CallOption) (*ProfileResponse, error) {
+	out := new(ProfileResponse)
 	err := c.cc.Invoke(ctx, "/realworld.UserService/FollowUser", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -101,8 +101,8 @@ func (c *userServiceClient) FollowUser(ctx context.Context, in *FollowUserReques
 	return out, nil
 }
 
-func (c *userServiceClient) UnfollowUser(ctx context.Context, in *FollowUserRequest, opts ...grpc.CallOption) (*Profile, error) {
-	out := new(Profile)
+func (c *userServiceClient) UnfollowUser(ctx context.Context, in *FollowUserRequest, opts ...grpc.CallOption) (*ProfileResponse, error) {
+	out := new(ProfileResponse)
 	err := c.cc.Invoke(ctx, "/realworld.UserService/UnfollowUser", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -128,9 +128,9 @@ type UserServiceServer interface {
 	GetCurrent(context.Context, *GetCurrentUserRequest) (*UserResponse, error)
 	UpdateProfile(context.Context, *UpdateProfileRequest) (*UserResponse, error)
 	UpdatePassword(context.Context, *UpdatePasswordRequest) (*emptypb.Empty, error)
-	GetProfile(context.Context, *GetProfileRequest) (*Profile, error)
-	FollowUser(context.Context, *FollowUserRequest) (*Profile, error)
-	UnfollowUser(context.Context, *FollowUserRequest) (*Profile, error)
+	GetProfile(context.Context, *GetProfileRequest) (*ProfileResponse, error)
+	FollowUser(context.Context, *FollowUserRequest) (*ProfileResponse, error)
+	UnfollowUser(context.Context, *FollowUserRequest) (*ProfileResponse, error)
 	DeleteUser(context.Context, *DeleteUserRequest) (*emptypb.Empty, error)
 	mustEmbedUnimplementedUserServiceServer()
 }
@@ -154,13 +154,13 @@ func (UnimplementedUserServiceServer) UpdateProfile(context.Context, *UpdateProf
 func (UnimplementedUserServiceServer) UpdatePassword(context.Context, *UpdatePasswordRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdatePassword not implemented")
 }
-func (UnimplementedUserServiceServer) GetProfile(context.Context, *GetProfileRequest) (*Profile, error) {
+func (UnimplementedUserServiceServer) GetProfile(context.Context, *GetProfileRequest) (*ProfileResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetProfile not implemented")
 }
-func (UnimplementedUserServiceServer) FollowUser(context.Context, *FollowUserRequest) (*Profile, error) {
+func (UnimplementedUserServiceServer) FollowUser(context.Context, *FollowUserRequest) (*ProfileResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method FollowUser not implemented")
 }
-func (UnimplementedUserServiceServer) UnfollowUser(context.Context, *FollowUserRequest) (*Profile, error) {
+func (UnimplementedUserServiceServer) UnfollowUser(context.Context, *FollowUserRequest) (*ProfileResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UnfollowUser not implemented")
 }
 func (UnimplementedUserServiceServer) DeleteUser(context.Context, *DeleteUserRequest) (*emptypb.Empty, error) {

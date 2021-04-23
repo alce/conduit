@@ -47,10 +47,9 @@ class UserService {
     return proto.user.toModel();
   }
 
-  Future<User> updateUser({
+  Future<User> updateProfile({
     String? email,
     String? username,
-    String? password,
     String? image,
     String? bio,
     String? token,
@@ -75,19 +74,19 @@ class UserService {
   Future<Profile> followUser(String username) async {
     final req = FollowUserRequest()..username = username;
     final proto = await _client.followUser(req);
-    return proto.toModel();
+    return proto.profile.toModel();
   }
 
   Future<Profile> unFollowUser(String username) async {
     final req = FollowUserRequest()..username = username;
     final proto = await _client.unfollowUser(req);
-    return proto.toModel();
+    return proto.profile.toModel();
   }
 
   Future<Profile> getProfile(String username) async {
     final req = GetProfileRequest()..username = username;
     final proto = await _client.getProfile(req);
-    return proto.toModel();
+    return proto.profile.toModel();
   }
 
   Future<void> deleteUser(String username) async {

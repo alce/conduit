@@ -9,8 +9,8 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import '../google/protobuf/timestamp.pb.dart' as $4;
-import 'common.pb.dart' as $3;
+import '../google/protobuf/timestamp.pb.dart' as $3;
+import 'common.pb.dart' as $4;
 
 class Article extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Article', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'realworld'), createEmptyInstance: create)
@@ -20,10 +20,10 @@ class Article extends $pb.GeneratedMessage {
     ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'body')
     ..pPS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'tagList')
     ..aOB(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'favorited')
-    ..aOM<$4.Timestamp>(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createdAt', subBuilder: $4.Timestamp.create)
-    ..aOM<$4.Timestamp>(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'updatedAt', subBuilder: $4.Timestamp.create)
+    ..aOM<$3.Timestamp>(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createdAt', subBuilder: $3.Timestamp.create)
+    ..aOM<$3.Timestamp>(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'updatedAt', subBuilder: $3.Timestamp.create)
     ..a<$core.int>(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'favoritesCount', $pb.PbFieldType.O3)
-    ..aOM<$3.Profile>(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'author', subBuilder: $3.Profile.create)
+    ..aOM<$4.Profile>(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'author', subBuilder: $4.Profile.create)
     ..hasRequiredFields = false
   ;
 
@@ -35,10 +35,10 @@ class Article extends $pb.GeneratedMessage {
     $core.String? body,
     $core.Iterable<$core.String>? tagList,
     $core.bool? favorited,
-    $4.Timestamp? createdAt,
-    $4.Timestamp? updatedAt,
+    $3.Timestamp? createdAt,
+    $3.Timestamp? updatedAt,
     $core.int? favoritesCount,
-    $3.Profile? author,
+    $4.Profile? author,
   }) {
     final _result = create();
     if (slug != null) {
@@ -143,26 +143,26 @@ class Article extends $pb.GeneratedMessage {
   void clearFavorited() => clearField(6);
 
   @$pb.TagNumber(7)
-  $4.Timestamp get createdAt => $_getN(6);
+  $3.Timestamp get createdAt => $_getN(6);
   @$pb.TagNumber(7)
-  set createdAt($4.Timestamp v) { setField(7, v); }
+  set createdAt($3.Timestamp v) { setField(7, v); }
   @$pb.TagNumber(7)
   $core.bool hasCreatedAt() => $_has(6);
   @$pb.TagNumber(7)
   void clearCreatedAt() => clearField(7);
   @$pb.TagNumber(7)
-  $4.Timestamp ensureCreatedAt() => $_ensure(6);
+  $3.Timestamp ensureCreatedAt() => $_ensure(6);
 
   @$pb.TagNumber(8)
-  $4.Timestamp get updatedAt => $_getN(7);
+  $3.Timestamp get updatedAt => $_getN(7);
   @$pb.TagNumber(8)
-  set updatedAt($4.Timestamp v) { setField(8, v); }
+  set updatedAt($3.Timestamp v) { setField(8, v); }
   @$pb.TagNumber(8)
   $core.bool hasUpdatedAt() => $_has(7);
   @$pb.TagNumber(8)
   void clearUpdatedAt() => clearField(8);
   @$pb.TagNumber(8)
-  $4.Timestamp ensureUpdatedAt() => $_ensure(7);
+  $3.Timestamp ensureUpdatedAt() => $_ensure(7);
 
   @$pb.TagNumber(9)
   $core.int get favoritesCount => $_getIZ(8);
@@ -174,24 +174,24 @@ class Article extends $pb.GeneratedMessage {
   void clearFavoritesCount() => clearField(9);
 
   @$pb.TagNumber(10)
-  $3.Profile get author => $_getN(9);
+  $4.Profile get author => $_getN(9);
   @$pb.TagNumber(10)
-  set author($3.Profile v) { setField(10, v); }
+  set author($4.Profile v) { setField(10, v); }
   @$pb.TagNumber(10)
   $core.bool hasAuthor() => $_has(9);
   @$pb.TagNumber(10)
   void clearAuthor() => clearField(10);
   @$pb.TagNumber(10)
-  $3.Profile ensureAuthor() => $_ensure(9);
+  $4.Profile ensureAuthor() => $_ensure(9);
 }
 
 class Comment extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Comment', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'realworld'), createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'body')
-    ..aOM<$4.Timestamp>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createdAt', subBuilder: $4.Timestamp.create)
-    ..aOM<$4.Timestamp>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'updatedAt', subBuilder: $4.Timestamp.create)
-    ..aOM<$3.Profile>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'author', subBuilder: $3.Profile.create)
+    ..aOM<$3.Timestamp>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createdAt', subBuilder: $3.Timestamp.create)
+    ..aOM<$3.Timestamp>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'updatedAt', subBuilder: $3.Timestamp.create)
+    ..aOM<$4.Profile>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'author', subBuilder: $4.Profile.create)
     ..hasRequiredFields = false
   ;
 
@@ -199,9 +199,9 @@ class Comment extends $pb.GeneratedMessage {
   factory Comment({
     $core.String? id,
     $core.String? body,
-    $4.Timestamp? createdAt,
-    $4.Timestamp? updatedAt,
-    $3.Profile? author,
+    $3.Timestamp? createdAt,
+    $3.Timestamp? updatedAt,
+    $4.Profile? author,
   }) {
     final _result = create();
     if (id != null) {
@@ -261,37 +261,37 @@ class Comment extends $pb.GeneratedMessage {
   void clearBody() => clearField(2);
 
   @$pb.TagNumber(3)
-  $4.Timestamp get createdAt => $_getN(2);
+  $3.Timestamp get createdAt => $_getN(2);
   @$pb.TagNumber(3)
-  set createdAt($4.Timestamp v) { setField(3, v); }
+  set createdAt($3.Timestamp v) { setField(3, v); }
   @$pb.TagNumber(3)
   $core.bool hasCreatedAt() => $_has(2);
   @$pb.TagNumber(3)
   void clearCreatedAt() => clearField(3);
   @$pb.TagNumber(3)
-  $4.Timestamp ensureCreatedAt() => $_ensure(2);
+  $3.Timestamp ensureCreatedAt() => $_ensure(2);
 
   @$pb.TagNumber(4)
-  $4.Timestamp get updatedAt => $_getN(3);
+  $3.Timestamp get updatedAt => $_getN(3);
   @$pb.TagNumber(4)
-  set updatedAt($4.Timestamp v) { setField(4, v); }
+  set updatedAt($3.Timestamp v) { setField(4, v); }
   @$pb.TagNumber(4)
   $core.bool hasUpdatedAt() => $_has(3);
   @$pb.TagNumber(4)
   void clearUpdatedAt() => clearField(4);
   @$pb.TagNumber(4)
-  $4.Timestamp ensureUpdatedAt() => $_ensure(3);
+  $3.Timestamp ensureUpdatedAt() => $_ensure(3);
 
   @$pb.TagNumber(5)
-  $3.Profile get author => $_getN(4);
+  $4.Profile get author => $_getN(4);
   @$pb.TagNumber(5)
-  set author($3.Profile v) { setField(5, v); }
+  set author($4.Profile v) { setField(5, v); }
   @$pb.TagNumber(5)
   $core.bool hasAuthor() => $_has(4);
   @$pb.TagNumber(5)
   void clearAuthor() => clearField(5);
   @$pb.TagNumber(5)
-  $3.Profile ensureAuthor() => $_ensure(4);
+  $4.Profile ensureAuthor() => $_ensure(4);
 }
 
 class ListArticlesRequest extends $pb.GeneratedMessage {

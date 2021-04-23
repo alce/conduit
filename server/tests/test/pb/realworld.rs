@@ -427,6 +427,11 @@ pub struct UserResponse {
     #[prost(message, optional, tag = "1")]
     pub user: ::core::option::Option<User>,
 }
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ProfileResponse {
+    #[prost(message, optional, tag = "1")]
+    pub profile: ::core::option::Option<Profile>,
+}
 #[doc = r" Generated client implementations."]
 pub mod user_service_client {
     #![allow(unused_variables, dead_code, missing_docs)]
@@ -534,7 +539,7 @@ pub mod user_service_client {
         pub async fn get_profile(
             &mut self,
             request: impl tonic::IntoRequest<super::GetProfileRequest>,
-        ) -> Result<tonic::Response<super::Profile>, tonic::Status> {
+        ) -> Result<tonic::Response<super::ProfileResponse>, tonic::Status> {
             self.inner.ready().await.map_err(|e| {
                 tonic::Status::new(
                     tonic::Code::Unknown,
@@ -548,7 +553,7 @@ pub mod user_service_client {
         pub async fn follow_user(
             &mut self,
             request: impl tonic::IntoRequest<super::FollowUserRequest>,
-        ) -> Result<tonic::Response<super::Profile>, tonic::Status> {
+        ) -> Result<tonic::Response<super::ProfileResponse>, tonic::Status> {
             self.inner.ready().await.map_err(|e| {
                 tonic::Status::new(
                     tonic::Code::Unknown,
@@ -562,7 +567,7 @@ pub mod user_service_client {
         pub async fn unfollow_user(
             &mut self,
             request: impl tonic::IntoRequest<super::FollowUserRequest>,
-        ) -> Result<tonic::Response<super::Profile>, tonic::Status> {
+        ) -> Result<tonic::Response<super::ProfileResponse>, tonic::Status> {
             self.inner.ready().await.map_err(|e| {
                 tonic::Status::new(
                     tonic::Code::Unknown,

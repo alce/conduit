@@ -710,6 +710,11 @@ pub struct UserResponse {
     #[prost(message, optional, tag = "1")]
     pub user: ::core::option::Option<User>,
 }
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ProfileResponse {
+    #[prost(message, optional, tag = "1")]
+    pub profile: ::core::option::Option<Profile>,
+}
 #[doc = r" Generated server implementations."]
 pub mod user_service_server {
     #![allow(unused_variables, dead_code, missing_docs)]
@@ -740,15 +745,15 @@ pub mod user_service_server {
         async fn get_profile(
             &self,
             request: tonic::Request<super::GetProfileRequest>,
-        ) -> Result<tonic::Response<super::Profile>, tonic::Status>;
+        ) -> Result<tonic::Response<super::ProfileResponse>, tonic::Status>;
         async fn follow_user(
             &self,
             request: tonic::Request<super::FollowUserRequest>,
-        ) -> Result<tonic::Response<super::Profile>, tonic::Status>;
+        ) -> Result<tonic::Response<super::ProfileResponse>, tonic::Status>;
         async fn unfollow_user(
             &self,
             request: tonic::Request<super::FollowUserRequest>,
-        ) -> Result<tonic::Response<super::Profile>, tonic::Status>;
+        ) -> Result<tonic::Response<super::ProfileResponse>, tonic::Status>;
         async fn delete_user(
             &self,
             request: tonic::Request<super::DeleteUserRequest>,
@@ -951,7 +956,7 @@ pub mod user_service_server {
                     #[allow(non_camel_case_types)]
                     struct GetProfileSvc<T: UserService>(pub Arc<T>);
                     impl<T: UserService> tonic::server::UnaryService<super::GetProfileRequest> for GetProfileSvc<T> {
-                        type Response = super::Profile;
+                        type Response = super::ProfileResponse;
                         type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
                         fn call(
                             &mut self,
@@ -982,7 +987,7 @@ pub mod user_service_server {
                     #[allow(non_camel_case_types)]
                     struct FollowUserSvc<T: UserService>(pub Arc<T>);
                     impl<T: UserService> tonic::server::UnaryService<super::FollowUserRequest> for FollowUserSvc<T> {
-                        type Response = super::Profile;
+                        type Response = super::ProfileResponse;
                         type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
                         fn call(
                             &mut self,
@@ -1013,7 +1018,7 @@ pub mod user_service_server {
                     #[allow(non_camel_case_types)]
                     struct UnfollowUserSvc<T: UserService>(pub Arc<T>);
                     impl<T: UserService> tonic::server::UnaryService<super::FollowUserRequest> for UnfollowUserSvc<T> {
-                        type Response = super::Profile;
+                        type Response = super::ProfileResponse;
                         type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
                         fn call(
                             &mut self,
