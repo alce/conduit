@@ -26,20 +26,20 @@ service ArticleService {
     };
   }
 
-  rpc Get (GetArticleRequest) returns (Article) {
+  rpc Get (GetArticleRequest) returns (ArticleResponse) {
     option (google.api.http) = {
       get: "/articles/{slug}"
     };
   }
 
-  rpc Create (CreateArticleRequest) returns (Article) {
+  rpc Create (CreateArticleRequest) returns (ArticleResponse) {
     option (google.api.http) = {
       post: "/articles"
       body: "*"
     };
   }
 
-  rpc Update (UpdateArticleRequest) returns (Article) {
+  rpc Update (UpdateArticleRequest) returns (ArticleResponse) {
     option (google.api.http) = {
       put: "/articles/{slug}"
       body: "*"
@@ -52,7 +52,7 @@ service ArticleService {
     };
   }
 
-  rpc CreateComment (CreateCommentRequest) returns (Comment) {
+  rpc CreateComment (CreateCommentRequest) returns (CommentResponse) {
     option (google.api.http) = {
       post: "/articles/{slug}/comments"
     };
@@ -70,13 +70,13 @@ service ArticleService {
     };
   }
 
-  rpc FavoriteArticle (FavoriteArticleRequest) returns (Article) {
+  rpc FavoriteArticle (FavoriteArticleRequest) returns (ArticleResponse) {
     option (google.api.http) = {
       post: "/articles/{slug}/favorite"
     };
   }
 
-  rpc UnFavoriteArticle (FavoriteArticleRequest) returns (Article) {
+  rpc UnfavoriteArticle (FavoriteArticleRequest) returns (ArticleResponse) {
     option (google.api.http) = {
       delete: "/articles/{slug}/favorite"
     };
@@ -126,6 +126,14 @@ message GetFeedRequest {
 message ArticleList {
   repeated Article articles = 1;
   int32 articles_count = 2;
+}
+
+message ArticleResponse {
+  Article article = 1;
+}
+
+message CommentResponse {
+  Comment comment = 1;
 }
 
 message CreateArticleRequest {

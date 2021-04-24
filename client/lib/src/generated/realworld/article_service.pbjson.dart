@@ -88,6 +88,26 @@ const ArticleList$json = const {
 
 /// Descriptor for `ArticleList`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List articleListDescriptor = $convert.base64Decode('CgtBcnRpY2xlTGlzdBIuCghhcnRpY2xlcxgBIAMoCzISLnJlYWx3b3JsZC5BcnRpY2xlUghhcnRpY2xlcxIlCg5hcnRpY2xlc19jb3VudBgCIAEoBVINYXJ0aWNsZXNDb3VudA==');
+@$core.Deprecated('Use articleResponseDescriptor instead')
+const ArticleResponse$json = const {
+  '1': 'ArticleResponse',
+  '2': const [
+    const {'1': 'article', '3': 1, '4': 1, '5': 11, '6': '.realworld.Article', '10': 'article'},
+  ],
+};
+
+/// Descriptor for `ArticleResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List articleResponseDescriptor = $convert.base64Decode('Cg9BcnRpY2xlUmVzcG9uc2USLAoHYXJ0aWNsZRgBIAEoCzISLnJlYWx3b3JsZC5BcnRpY2xlUgdhcnRpY2xl');
+@$core.Deprecated('Use commentResponseDescriptor instead')
+const CommentResponse$json = const {
+  '1': 'CommentResponse',
+  '2': const [
+    const {'1': 'comment', '3': 1, '4': 1, '5': 11, '6': '.realworld.Comment', '10': 'comment'},
+  ],
+};
+
+/// Descriptor for `CommentResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List commentResponseDescriptor = $convert.base64Decode('Cg9Db21tZW50UmVzcG9uc2USLAoHY29tbWVudBgBIAEoCzISLnJlYWx3b3JsZC5Db21tZW50Ugdjb21tZW50');
 @$core.Deprecated('Use createArticleRequestDescriptor instead')
 const CreateArticleRequest$json = const {
   '1': 'CreateArticleRequest',

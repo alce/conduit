@@ -73,6 +73,16 @@ pub struct ArticleList {
     pub articles_count: i32,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ArticleResponse {
+    #[prost(message, optional, tag = "1")]
+    pub article: ::core::option::Option<Article>,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CommentResponse {
+    #[prost(message, optional, tag = "1")]
+    pub comment: ::core::option::Option<Comment>,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateArticleRequest {
     #[prost(string, tag = "1")]
     pub title: ::prost::alloc::string::String,
@@ -204,7 +214,7 @@ pub mod article_service_client {
         pub async fn get(
             &mut self,
             request: impl tonic::IntoRequest<super::GetArticleRequest>,
-        ) -> Result<tonic::Response<super::Article>, tonic::Status> {
+        ) -> Result<tonic::Response<super::ArticleResponse>, tonic::Status> {
             self.inner.ready().await.map_err(|e| {
                 tonic::Status::new(
                     tonic::Code::Unknown,
@@ -218,7 +228,7 @@ pub mod article_service_client {
         pub async fn create(
             &mut self,
             request: impl tonic::IntoRequest<super::CreateArticleRequest>,
-        ) -> Result<tonic::Response<super::Article>, tonic::Status> {
+        ) -> Result<tonic::Response<super::ArticleResponse>, tonic::Status> {
             self.inner.ready().await.map_err(|e| {
                 tonic::Status::new(
                     tonic::Code::Unknown,
@@ -232,7 +242,7 @@ pub mod article_service_client {
         pub async fn update(
             &mut self,
             request: impl tonic::IntoRequest<super::UpdateArticleRequest>,
-        ) -> Result<tonic::Response<super::Article>, tonic::Status> {
+        ) -> Result<tonic::Response<super::ArticleResponse>, tonic::Status> {
             self.inner.ready().await.map_err(|e| {
                 tonic::Status::new(
                     tonic::Code::Unknown,
@@ -260,7 +270,7 @@ pub mod article_service_client {
         pub async fn create_comment(
             &mut self,
             request: impl tonic::IntoRequest<super::CreateCommentRequest>,
-        ) -> Result<tonic::Response<super::Comment>, tonic::Status> {
+        ) -> Result<tonic::Response<super::CommentResponse>, tonic::Status> {
             self.inner.ready().await.map_err(|e| {
                 tonic::Status::new(
                     tonic::Code::Unknown,
@@ -305,7 +315,7 @@ pub mod article_service_client {
         pub async fn favorite_article(
             &mut self,
             request: impl tonic::IntoRequest<super::FavoriteArticleRequest>,
-        ) -> Result<tonic::Response<super::Article>, tonic::Status> {
+        ) -> Result<tonic::Response<super::ArticleResponse>, tonic::Status> {
             self.inner.ready().await.map_err(|e| {
                 tonic::Status::new(
                     tonic::Code::Unknown,
@@ -317,10 +327,10 @@ pub mod article_service_client {
                 http::uri::PathAndQuery::from_static("/realworld.ArticleService/FavoriteArticle");
             self.inner.unary(request.into_request(), path, codec).await
         }
-        pub async fn un_favorite_article(
+        pub async fn unfavorite_article(
             &mut self,
             request: impl tonic::IntoRequest<super::FavoriteArticleRequest>,
-        ) -> Result<tonic::Response<super::Article>, tonic::Status> {
+        ) -> Result<tonic::Response<super::ArticleResponse>, tonic::Status> {
             self.inner.ready().await.map_err(|e| {
                 tonic::Status::new(
                     tonic::Code::Unknown,
@@ -329,7 +339,7 @@ pub mod article_service_client {
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path =
-                http::uri::PathAndQuery::from_static("/realworld.ArticleService/UnFavoriteArticle");
+                http::uri::PathAndQuery::from_static("/realworld.ArticleService/UnfavoriteArticle");
             self.inner.unary(request.into_request(), path, codec).await
         }
         pub async fn list_tags(

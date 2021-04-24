@@ -47,7 +47,7 @@ class ArticleService {
   Future<Article> getArticle(String slug) async {
     try {
       final req = pb.GetArticleRequest()..slug = slug;
-      return (await _client.get(req)).toModel();
+      return (await _client.get(req)).article.toModel();
     } on GrpcError catch (e) {
       throw e.toConduitException();
     }
@@ -68,7 +68,7 @@ class ArticleService {
         ..tagList.addAll(tags);
 
       final proto = await _client.create(req, options: _makeOptions(token));
-      return proto.toModel();
+      return proto.article.toModel();
     } on GrpcError catch (e) {
       throw e.toConduitException();
     }
@@ -90,7 +90,7 @@ class ArticleService {
       );
 
       final proto = await _client.update(req, options: _makeOptions(token));
-      return proto.toModel();
+      return proto.article.toModel();
     } on GrpcError catch (e) {
       throw e.toConduitException();
     }
@@ -108,16 +108,16 @@ class ArticleService {
   Future<Article> favoriteArticle(String slug) async {
     try {
       final req = pb.FavoriteArticleRequest()..slug = slug;
-      return (await _client.favoriteArticle(req)).toModel();
+      return (await _client.favoriteArticle(req)).article.toModel();
     } on GrpcError catch (e) {
       throw e.toConduitException();
     }
   }
 
-  Future<Article> unFavoriteArticle(String slug) async {
+  Future<Article> unfavoriteArticle(String slug) async {
     try {
       final req = pb.FavoriteArticleRequest()..slug = slug;
-      return (await _client.unFavoriteArticle(req)).toModel();
+      return (await _client.unfavoriteArticle(req)).article.toModel();
     } on GrpcError catch (e) {
       throw e.toConduitException();
     }
@@ -129,7 +129,7 @@ class ArticleService {
         ..slug = articleSlug
         ..body = body;
 
-      return (await _client.createComment(req)).toModel();
+      return (await _client.createComment(req)).comment.toModel();
     } on GrpcError catch (e) {
       throw e.toConduitException();
     }

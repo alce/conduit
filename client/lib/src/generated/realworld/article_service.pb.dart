@@ -513,6 +513,104 @@ class ArticleList extends $pb.GeneratedMessage {
   void clearArticlesCount() => clearField(2);
 }
 
+class ArticleResponse extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ArticleResponse', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'realworld'), createEmptyInstance: create)
+    ..aOM<Article>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'article', subBuilder: Article.create)
+    ..hasRequiredFields = false
+  ;
+
+  ArticleResponse._() : super();
+  factory ArticleResponse({
+    Article? article,
+  }) {
+    final _result = create();
+    if (article != null) {
+      _result.article = article;
+    }
+    return _result;
+  }
+  factory ArticleResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory ArticleResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  ArticleResponse clone() => ArticleResponse()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  ArticleResponse copyWith(void Function(ArticleResponse) updates) => super.copyWith((message) => updates(message as ArticleResponse)) as ArticleResponse; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static ArticleResponse create() => ArticleResponse._();
+  ArticleResponse createEmptyInstance() => create();
+  static $pb.PbList<ArticleResponse> createRepeated() => $pb.PbList<ArticleResponse>();
+  @$core.pragma('dart2js:noInline')
+  static ArticleResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ArticleResponse>(create);
+  static ArticleResponse? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  Article get article => $_getN(0);
+  @$pb.TagNumber(1)
+  set article(Article v) { setField(1, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasArticle() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearArticle() => clearField(1);
+  @$pb.TagNumber(1)
+  Article ensureArticle() => $_ensure(0);
+}
+
+class CommentResponse extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'CommentResponse', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'realworld'), createEmptyInstance: create)
+    ..aOM<Comment>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'comment', subBuilder: Comment.create)
+    ..hasRequiredFields = false
+  ;
+
+  CommentResponse._() : super();
+  factory CommentResponse({
+    Comment? comment,
+  }) {
+    final _result = create();
+    if (comment != null) {
+      _result.comment = comment;
+    }
+    return _result;
+  }
+  factory CommentResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory CommentResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  CommentResponse clone() => CommentResponse()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  CommentResponse copyWith(void Function(CommentResponse) updates) => super.copyWith((message) => updates(message as CommentResponse)) as CommentResponse; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static CommentResponse create() => CommentResponse._();
+  CommentResponse createEmptyInstance() => create();
+  static $pb.PbList<CommentResponse> createRepeated() => $pb.PbList<CommentResponse>();
+  @$core.pragma('dart2js:noInline')
+  static CommentResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CommentResponse>(create);
+  static CommentResponse? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  Comment get comment => $_getN(0);
+  @$pb.TagNumber(1)
+  set comment(Comment v) { setField(1, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasComment() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearComment() => clearField(1);
+  @$pb.TagNumber(1)
+  Comment ensureComment() => $_ensure(0);
+}
+
 class CreateArticleRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'CreateArticleRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'realworld'), createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'title')

@@ -73,6 +73,16 @@ pub struct ArticleList {
     pub articles_count: i32,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ArticleResponse {
+    #[prost(message, optional, tag = "1")]
+    pub article: ::core::option::Option<Article>,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CommentResponse {
+    #[prost(message, optional, tag = "1")]
+    pub comment: ::core::option::Option<Comment>,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateArticleRequest {
     #[prost(string, tag = "1")]
     pub title: ::prost::alloc::string::String,
@@ -158,15 +168,15 @@ pub mod article_service_server {
         async fn get(
             &self,
             request: tonic::Request<super::GetArticleRequest>,
-        ) -> Result<tonic::Response<super::Article>, tonic::Status>;
+        ) -> Result<tonic::Response<super::ArticleResponse>, tonic::Status>;
         async fn create(
             &self,
             request: tonic::Request<super::CreateArticleRequest>,
-        ) -> Result<tonic::Response<super::Article>, tonic::Status>;
+        ) -> Result<tonic::Response<super::ArticleResponse>, tonic::Status>;
         async fn update(
             &self,
             request: tonic::Request<super::UpdateArticleRequest>,
-        ) -> Result<tonic::Response<super::Article>, tonic::Status>;
+        ) -> Result<tonic::Response<super::ArticleResponse>, tonic::Status>;
         async fn delete(
             &self,
             request: tonic::Request<super::DeleteArticleRequest>,
@@ -174,7 +184,7 @@ pub mod article_service_server {
         async fn create_comment(
             &self,
             request: tonic::Request<super::CreateCommentRequest>,
-        ) -> Result<tonic::Response<super::Comment>, tonic::Status>;
+        ) -> Result<tonic::Response<super::CommentResponse>, tonic::Status>;
         async fn list_comments(
             &self,
             request: tonic::Request<super::ListCommentsRequest>,
@@ -186,11 +196,11 @@ pub mod article_service_server {
         async fn favorite_article(
             &self,
             request: tonic::Request<super::FavoriteArticleRequest>,
-        ) -> Result<tonic::Response<super::Article>, tonic::Status>;
-        async fn un_favorite_article(
+        ) -> Result<tonic::Response<super::ArticleResponse>, tonic::Status>;
+        async fn unfavorite_article(
             &self,
             request: tonic::Request<super::FavoriteArticleRequest>,
-        ) -> Result<tonic::Response<super::Article>, tonic::Status>;
+        ) -> Result<tonic::Response<super::ArticleResponse>, tonic::Status>;
         async fn list_tags(
             &self,
             request: tonic::Request<super::ListTagsRequest>,
@@ -294,7 +304,7 @@ pub mod article_service_server {
                     #[allow(non_camel_case_types)]
                     struct GetSvc<T: ArticleService>(pub Arc<T>);
                     impl<T: ArticleService> tonic::server::UnaryService<super::GetArticleRequest> for GetSvc<T> {
-                        type Response = super::Article;
+                        type Response = super::ArticleResponse;
                         type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
                         fn call(
                             &mut self,
@@ -325,7 +335,7 @@ pub mod article_service_server {
                     #[allow(non_camel_case_types)]
                     struct CreateSvc<T: ArticleService>(pub Arc<T>);
                     impl<T: ArticleService> tonic::server::UnaryService<super::CreateArticleRequest> for CreateSvc<T> {
-                        type Response = super::Article;
+                        type Response = super::ArticleResponse;
                         type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
                         fn call(
                             &mut self,
@@ -356,7 +366,7 @@ pub mod article_service_server {
                     #[allow(non_camel_case_types)]
                     struct UpdateSvc<T: ArticleService>(pub Arc<T>);
                     impl<T: ArticleService> tonic::server::UnaryService<super::UpdateArticleRequest> for UpdateSvc<T> {
-                        type Response = super::Article;
+                        type Response = super::ArticleResponse;
                         type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
                         fn call(
                             &mut self,
@@ -420,7 +430,7 @@ pub mod article_service_server {
                     impl<T: ArticleService> tonic::server::UnaryService<super::CreateCommentRequest>
                         for CreateCommentSvc<T>
                     {
-                        type Response = super::Comment;
+                        type Response = super::CommentResponse;
                         type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
                         fn call(
                             &mut self,
@@ -520,7 +530,7 @@ pub mod article_service_server {
                         tonic::server::UnaryService<super::FavoriteArticleRequest>
                         for FavoriteArticleSvc<T>
                     {
-                        type Response = super::Article;
+                        type Response = super::ArticleResponse;
                         type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
                         fn call(
                             &mut self,
@@ -547,21 +557,21 @@ pub mod article_service_server {
                     };
                     Box::pin(fut)
                 }
-                "/realworld.ArticleService/UnFavoriteArticle" => {
+                "/realworld.ArticleService/UnfavoriteArticle" => {
                     #[allow(non_camel_case_types)]
-                    struct UnFavoriteArticleSvc<T: ArticleService>(pub Arc<T>);
+                    struct UnfavoriteArticleSvc<T: ArticleService>(pub Arc<T>);
                     impl<T: ArticleService>
                         tonic::server::UnaryService<super::FavoriteArticleRequest>
-                        for UnFavoriteArticleSvc<T>
+                        for UnfavoriteArticleSvc<T>
                     {
-                        type Response = super::Article;
+                        type Response = super::ArticleResponse;
                         type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
                         fn call(
                             &mut self,
                             request: tonic::Request<super::FavoriteArticleRequest>,
                         ) -> Self::Future {
                             let inner = self.0.clone();
-                            let fut = async move { (*inner).un_favorite_article(request).await };
+                            let fut = async move { (*inner).unfavorite_article(request).await };
                             Box::pin(fut)
                         }
                     }
@@ -569,7 +579,7 @@ pub mod article_service_server {
                     let fut = async move {
                         let interceptor = inner.1.clone();
                         let inner = inner.0;
-                        let method = UnFavoriteArticleSvc(inner);
+                        let method = UnfavoriteArticleSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = if let Some(interceptor) = interceptor {
                             tonic::server::Grpc::with_interceptor(codec, interceptor)

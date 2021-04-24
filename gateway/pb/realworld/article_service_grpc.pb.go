@@ -21,15 +21,15 @@ const _ = grpc.SupportPackageIsVersion7
 type ArticleServiceClient interface {
 	List(ctx context.Context, in *ListArticlesRequest, opts ...grpc.CallOption) (*ArticleList, error)
 	GetFeed(ctx context.Context, in *GetFeedRequest, opts ...grpc.CallOption) (*ArticleList, error)
-	Get(ctx context.Context, in *GetArticleRequest, opts ...grpc.CallOption) (*Article, error)
-	Create(ctx context.Context, in *CreateArticleRequest, opts ...grpc.CallOption) (*Article, error)
-	Update(ctx context.Context, in *UpdateArticleRequest, opts ...grpc.CallOption) (*Article, error)
+	Get(ctx context.Context, in *GetArticleRequest, opts ...grpc.CallOption) (*ArticleResponse, error)
+	Create(ctx context.Context, in *CreateArticleRequest, opts ...grpc.CallOption) (*ArticleResponse, error)
+	Update(ctx context.Context, in *UpdateArticleRequest, opts ...grpc.CallOption) (*ArticleResponse, error)
 	Delete(ctx context.Context, in *DeleteArticleRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
-	CreateComment(ctx context.Context, in *CreateCommentRequest, opts ...grpc.CallOption) (*Comment, error)
+	CreateComment(ctx context.Context, in *CreateCommentRequest, opts ...grpc.CallOption) (*CommentResponse, error)
 	ListComments(ctx context.Context, in *ListCommentsRequest, opts ...grpc.CallOption) (*CommentList, error)
 	DeleteComment(ctx context.Context, in *DeleteCommentRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
-	FavoriteArticle(ctx context.Context, in *FavoriteArticleRequest, opts ...grpc.CallOption) (*Article, error)
-	UnFavoriteArticle(ctx context.Context, in *FavoriteArticleRequest, opts ...grpc.CallOption) (*Article, error)
+	FavoriteArticle(ctx context.Context, in *FavoriteArticleRequest, opts ...grpc.CallOption) (*ArticleResponse, error)
+	UnfavoriteArticle(ctx context.Context, in *FavoriteArticleRequest, opts ...grpc.CallOption) (*ArticleResponse, error)
 	ListTags(ctx context.Context, in *ListTagsRequest, opts ...grpc.CallOption) (*TagList, error)
 }
 
@@ -59,8 +59,8 @@ func (c *articleServiceClient) GetFeed(ctx context.Context, in *GetFeedRequest, 
 	return out, nil
 }
 
-func (c *articleServiceClient) Get(ctx context.Context, in *GetArticleRequest, opts ...grpc.CallOption) (*Article, error) {
-	out := new(Article)
+func (c *articleServiceClient) Get(ctx context.Context, in *GetArticleRequest, opts ...grpc.CallOption) (*ArticleResponse, error) {
+	out := new(ArticleResponse)
 	err := c.cc.Invoke(ctx, "/realworld.ArticleService/Get", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -68,8 +68,8 @@ func (c *articleServiceClient) Get(ctx context.Context, in *GetArticleRequest, o
 	return out, nil
 }
 
-func (c *articleServiceClient) Create(ctx context.Context, in *CreateArticleRequest, opts ...grpc.CallOption) (*Article, error) {
-	out := new(Article)
+func (c *articleServiceClient) Create(ctx context.Context, in *CreateArticleRequest, opts ...grpc.CallOption) (*ArticleResponse, error) {
+	out := new(ArticleResponse)
 	err := c.cc.Invoke(ctx, "/realworld.ArticleService/Create", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -77,8 +77,8 @@ func (c *articleServiceClient) Create(ctx context.Context, in *CreateArticleRequ
 	return out, nil
 }
 
-func (c *articleServiceClient) Update(ctx context.Context, in *UpdateArticleRequest, opts ...grpc.CallOption) (*Article, error) {
-	out := new(Article)
+func (c *articleServiceClient) Update(ctx context.Context, in *UpdateArticleRequest, opts ...grpc.CallOption) (*ArticleResponse, error) {
+	out := new(ArticleResponse)
 	err := c.cc.Invoke(ctx, "/realworld.ArticleService/Update", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -95,8 +95,8 @@ func (c *articleServiceClient) Delete(ctx context.Context, in *DeleteArticleRequ
 	return out, nil
 }
 
-func (c *articleServiceClient) CreateComment(ctx context.Context, in *CreateCommentRequest, opts ...grpc.CallOption) (*Comment, error) {
-	out := new(Comment)
+func (c *articleServiceClient) CreateComment(ctx context.Context, in *CreateCommentRequest, opts ...grpc.CallOption) (*CommentResponse, error) {
+	out := new(CommentResponse)
 	err := c.cc.Invoke(ctx, "/realworld.ArticleService/CreateComment", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -122,8 +122,8 @@ func (c *articleServiceClient) DeleteComment(ctx context.Context, in *DeleteComm
 	return out, nil
 }
 
-func (c *articleServiceClient) FavoriteArticle(ctx context.Context, in *FavoriteArticleRequest, opts ...grpc.CallOption) (*Article, error) {
-	out := new(Article)
+func (c *articleServiceClient) FavoriteArticle(ctx context.Context, in *FavoriteArticleRequest, opts ...grpc.CallOption) (*ArticleResponse, error) {
+	out := new(ArticleResponse)
 	err := c.cc.Invoke(ctx, "/realworld.ArticleService/FavoriteArticle", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -131,9 +131,9 @@ func (c *articleServiceClient) FavoriteArticle(ctx context.Context, in *Favorite
 	return out, nil
 }
 
-func (c *articleServiceClient) UnFavoriteArticle(ctx context.Context, in *FavoriteArticleRequest, opts ...grpc.CallOption) (*Article, error) {
-	out := new(Article)
-	err := c.cc.Invoke(ctx, "/realworld.ArticleService/UnFavoriteArticle", in, out, opts...)
+func (c *articleServiceClient) UnfavoriteArticle(ctx context.Context, in *FavoriteArticleRequest, opts ...grpc.CallOption) (*ArticleResponse, error) {
+	out := new(ArticleResponse)
+	err := c.cc.Invoke(ctx, "/realworld.ArticleService/UnfavoriteArticle", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -155,15 +155,15 @@ func (c *articleServiceClient) ListTags(ctx context.Context, in *ListTagsRequest
 type ArticleServiceServer interface {
 	List(context.Context, *ListArticlesRequest) (*ArticleList, error)
 	GetFeed(context.Context, *GetFeedRequest) (*ArticleList, error)
-	Get(context.Context, *GetArticleRequest) (*Article, error)
-	Create(context.Context, *CreateArticleRequest) (*Article, error)
-	Update(context.Context, *UpdateArticleRequest) (*Article, error)
+	Get(context.Context, *GetArticleRequest) (*ArticleResponse, error)
+	Create(context.Context, *CreateArticleRequest) (*ArticleResponse, error)
+	Update(context.Context, *UpdateArticleRequest) (*ArticleResponse, error)
 	Delete(context.Context, *DeleteArticleRequest) (*emptypb.Empty, error)
-	CreateComment(context.Context, *CreateCommentRequest) (*Comment, error)
+	CreateComment(context.Context, *CreateCommentRequest) (*CommentResponse, error)
 	ListComments(context.Context, *ListCommentsRequest) (*CommentList, error)
 	DeleteComment(context.Context, *DeleteCommentRequest) (*emptypb.Empty, error)
-	FavoriteArticle(context.Context, *FavoriteArticleRequest) (*Article, error)
-	UnFavoriteArticle(context.Context, *FavoriteArticleRequest) (*Article, error)
+	FavoriteArticle(context.Context, *FavoriteArticleRequest) (*ArticleResponse, error)
+	UnfavoriteArticle(context.Context, *FavoriteArticleRequest) (*ArticleResponse, error)
 	ListTags(context.Context, *ListTagsRequest) (*TagList, error)
 	mustEmbedUnimplementedArticleServiceServer()
 }
@@ -178,19 +178,19 @@ func (UnimplementedArticleServiceServer) List(context.Context, *ListArticlesRequ
 func (UnimplementedArticleServiceServer) GetFeed(context.Context, *GetFeedRequest) (*ArticleList, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetFeed not implemented")
 }
-func (UnimplementedArticleServiceServer) Get(context.Context, *GetArticleRequest) (*Article, error) {
+func (UnimplementedArticleServiceServer) Get(context.Context, *GetArticleRequest) (*ArticleResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Get not implemented")
 }
-func (UnimplementedArticleServiceServer) Create(context.Context, *CreateArticleRequest) (*Article, error) {
+func (UnimplementedArticleServiceServer) Create(context.Context, *CreateArticleRequest) (*ArticleResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Create not implemented")
 }
-func (UnimplementedArticleServiceServer) Update(context.Context, *UpdateArticleRequest) (*Article, error) {
+func (UnimplementedArticleServiceServer) Update(context.Context, *UpdateArticleRequest) (*ArticleResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Update not implemented")
 }
 func (UnimplementedArticleServiceServer) Delete(context.Context, *DeleteArticleRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Delete not implemented")
 }
-func (UnimplementedArticleServiceServer) CreateComment(context.Context, *CreateCommentRequest) (*Comment, error) {
+func (UnimplementedArticleServiceServer) CreateComment(context.Context, *CreateCommentRequest) (*CommentResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateComment not implemented")
 }
 func (UnimplementedArticleServiceServer) ListComments(context.Context, *ListCommentsRequest) (*CommentList, error) {
@@ -199,11 +199,11 @@ func (UnimplementedArticleServiceServer) ListComments(context.Context, *ListComm
 func (UnimplementedArticleServiceServer) DeleteComment(context.Context, *DeleteCommentRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteComment not implemented")
 }
-func (UnimplementedArticleServiceServer) FavoriteArticle(context.Context, *FavoriteArticleRequest) (*Article, error) {
+func (UnimplementedArticleServiceServer) FavoriteArticle(context.Context, *FavoriteArticleRequest) (*ArticleResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method FavoriteArticle not implemented")
 }
-func (UnimplementedArticleServiceServer) UnFavoriteArticle(context.Context, *FavoriteArticleRequest) (*Article, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UnFavoriteArticle not implemented")
+func (UnimplementedArticleServiceServer) UnfavoriteArticle(context.Context, *FavoriteArticleRequest) (*ArticleResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UnfavoriteArticle not implemented")
 }
 func (UnimplementedArticleServiceServer) ListTags(context.Context, *ListTagsRequest) (*TagList, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListTags not implemented")
@@ -401,20 +401,20 @@ func _ArticleService_FavoriteArticle_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ArticleService_UnFavoriteArticle_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _ArticleService_UnfavoriteArticle_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(FavoriteArticleRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ArticleServiceServer).UnFavoriteArticle(ctx, in)
+		return srv.(ArticleServiceServer).UnfavoriteArticle(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/realworld.ArticleService/UnFavoriteArticle",
+		FullMethod: "/realworld.ArticleService/UnfavoriteArticle",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ArticleServiceServer).UnFavoriteArticle(ctx, req.(*FavoriteArticleRequest))
+		return srv.(ArticleServiceServer).UnfavoriteArticle(ctx, req.(*FavoriteArticleRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -485,8 +485,8 @@ var ArticleService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _ArticleService_FavoriteArticle_Handler,
 		},
 		{
-			MethodName: "UnFavoriteArticle",
-			Handler:    _ArticleService_UnFavoriteArticle_Handler,
+			MethodName: "UnfavoriteArticle",
+			Handler:    _ArticleService_UnfavoriteArticle_Handler,
 		},
 		{
 			MethodName: "ListTags",
