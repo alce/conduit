@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'screens/home.dart';
 import 'screens/login.dart';
@@ -6,7 +7,7 @@ import 'screens/signup.dart';
 import 'theme.dart';
 
 void main() {
-  runApp(Conduit());
+  runApp(ProviderScope(child: Conduit()));
 }
 
 class Conduit extends StatelessWidget {
