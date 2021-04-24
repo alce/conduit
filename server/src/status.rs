@@ -1,4 +1,4 @@
-use tonic::Status;
+use tonic::{Code, Status};
 
 use conduit::error::{ConduitError, FieldError, FieldErrorKind};
 
@@ -24,7 +24,8 @@ impl StatusExt for Status {
                 };
                 Status::bad_request(error)
             }
-            ConduitError::Database(_) | ConduitError::Internal(_) => {
+            ConduitError::Database(e) | ConduitError::Internal(e) => {
+                println!("{:?}", e);
                 Status::internal("Server error")
             }
         }
@@ -56,10 +57,6 @@ impl StatusExt for Status {
         buf.clear();
         status.encode(&mut buf).expect("encode rpc::Status");
 
-        Status::with_details(
-            tonic::Code::InvalidArgument,
-            "One or ore arguments are invalid",
-            Bytes::from(buf),
-        )
+        Status::with_details(Code::InvalidArgument, "Validation Failed", Bytes::from(buf))
     }
 }

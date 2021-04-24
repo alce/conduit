@@ -11,6 +11,7 @@ dependencies:
     path: '../client'
   flutter:
     sdk: flutter
+  flutter_riverpod: ^0.14.0+1
 
 dev_dependencies:
   flutter_test:
@@ -18,3 +19,14 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  fonts:
+    - family: Titillium
+      fonts:
+        - asset: fonts/TitilliumWeb-Regular.ttf
+        - asset: fonts/TitilliumWeb-Bold.ttf
+          weight: 700
+    - family: Source Sans Pro
+      fonts:
+        - asset: fonts/SourceSansPro-Regular.ttf
+        - asset: fonts/SourceSansPro-Bold.ttf
+          weight: 700

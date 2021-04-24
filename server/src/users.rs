@@ -4,48 +4,35 @@ use std::sync::Arc;
 use conduit::types::{Password, Token};
 use conduit::users::{CreateUserArgs, LoginArgs, Profile, UpdateProfileArgs, User};
 use conduit::Conduit;
-use tonic::metadata::MetadataMap;
 use tonic::{Request, Response, Status};
 
+use super::get_token;
 use crate::pb::{
-    self as proto, CreateUserRequest, DeleteUserRequest, FollowUserRequest, GetCurrentUserRequest,
+    self, CreateUserRequest, DeleteUserRequest, FollowUserRequest, GetCurrentUserRequest,
     GetProfileRequest, LoginRequest, ProfileResponse, UpdatePasswordRequest, UpdateProfileRequest,
     UserResponse, UserService, UserServiceServer,
 };
 use crate::status::StatusExt;
-
-pub fn service(conduit: Arc<Conduit>) -> UserServiceServer<Users> {
-    UserServiceServer::new(Users { conduit })
-}
 
 #[derive(Debug)]
 pub struct Users {
     conduit: Arc<Conduit>,
 }
 
+pub fn service(conduit: Arc<Conduit>) -> UserServiceServer<Users> {
+    UserServiceServer::new(Users { conduit })
+}
+
 fn user_response(user: (User, Token)) -> Response<UserResponse> {
     Response::new(UserResponse {
-        user: Some(proto::User::from(user)),
+        user: Some(pb::User::from(user)),
     })
 }
 
 fn profile_response(profile: Profile) -> Response<ProfileResponse> {
     Response::new(ProfileResponse {
-        profile: Some(proto::Profile::from(profile)),
+        profile: Some(pb::Profile::from(profile)),
     })
-}
-
-const AUTH_TOKEN_HEADER: &str = "x-auth-token";
-
-fn get_token(meta: &MetadataMap) -> Result<Token, Status> {
-    let token = meta
-        .get(AUTH_TOKEN_HEADER)
-        .ok_or_else(|| Status::unauthenticated("token not found"))?;
-
-    token
-        .to_str()
-        .map_err(|_| Status::unauthenticated("malformed token"))
-        .map(Token::from)
 }
 
 #[tonic::async_trait]
@@ -111,9 +98,8 @@ impl UserService for Users {
         self.conduit
             .update_password(password, token)
             .await
-            .map_err(Status::from_conduit_error)?;
-
-        Ok(Response::new(()))
+            .map(Response::new)
+            .map_err(Status::from_conduit_error)
     }
 
     async fn get_profile(
@@ -160,8 +146,7 @@ impl UserService for Users {
         self.conduit
             .delete_user(&req.get_ref().username)
             .await
-            .map_err(Status::from_conduit_error)?;
-
-        Ok(Response::new(()))
+            .map(Response::new)
+            .map_err(Status::from_conduit_error)
     }
 }
