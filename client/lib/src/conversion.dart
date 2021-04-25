@@ -9,6 +9,8 @@ model.Article toArticle(Article a) => a.toModel();
 
 model.Comment toComment(Comment c) => c.toModel();
 
+model.ArticleHead toArticleHead(ArticleHead a) => a.toModel();
+
 extension ProtoToUser on User {
   model.User toModel() {
     return model.User(
@@ -21,6 +23,20 @@ extension ProtoToUser on User {
   }
 }
 
+extension ProtoToArticleHead on ArticleHead {
+  model.ArticleHead toModel() {
+    return model.ArticleHead(
+      slug: slug,
+      title: title,
+      description: description,
+      tags: tagList,
+      createdAt: DateTime.now(),
+      favoritesCount: favoritesCount,
+      authorUsername: author,
+    );
+  }
+}
+
 extension ProtoToArticle on Article {
   model.Article toModel() {
     return model.Article(
@@ -29,6 +45,7 @@ extension ProtoToArticle on Article {
       description: description,
       body: body,
       tags: tagList,
+      //  TODO: convert datetimes
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
       favorited: favorited,
@@ -54,10 +71,24 @@ extension ProtoToComment on Comment {
     return model.Comment(
       id: id,
       author: author.toModel(),
+      //  TODO: convert datetimes
       createTime: DateTime.now(),
       updateTime: DateTime.now(),
       body: body,
     );
+  }
+}
+
+FilterKind filterToProto(model.ArticleFilterKind kind) {
+  switch (kind) {
+    case model.ArticleFilterKind.none:
+      return FilterKind.NONE;
+    case model.ArticleFilterKind.tag:
+      return FilterKind.TAG;
+    case model.ArticleFilterKind.author:
+      return FilterKind.AUTHOR;
+    case model.ArticleFilterKind.favoritedBy:
+      return FilterKind.FAVORITED_BY;
   }
 }
 
@@ -77,19 +108,8 @@ String _errorMessageForCode(int code) {
       return 'Authentication required';
     case StatusCode.unimplemented:
       return 'Unimplemented';
-
-    case StatusCode.cancelled:
-    case StatusCode.unknown:
-    case StatusCode.deadlineExceeded:
-    case StatusCode.resourceExhausted:
-    case StatusCode.failedPrecondition:
-    case StatusCode.aborted:
-    case StatusCode.outOfRange:
-    case StatusCode.internal:
-    case StatusCode.unavailable:
-    case StatusCode.dataLoss:
     default:
-      return 'Server Error';
+      return 'Server Error [$code]';
   }
 }
 

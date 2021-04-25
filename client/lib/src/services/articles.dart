@@ -4,7 +4,6 @@ import '../conversion.dart';
 import '../generated/realworld/article_service.pbgrpc.dart' as pb;
 import '../model/article.dart';
 import '../model/comment.dart';
-import '../model/resource_list.dart';
 
 class ArticleService {
   ArticleService(ClientChannelBase channel)
@@ -12,23 +11,30 @@ class ArticleService {
 
   final pb.ArticleServiceClient _client;
 
-  Future<ResourceList<Article>> listArticles({
-    int limit = 20,
-    int offset = 0,
-  }) async {
-    try {
-      final req = pb.ListArticlesRequest()
-        ..limit = limit
-        ..offset = offset;
+  Future<ArticleList> listArticles(ArticlesFilter filter) async {
+    assert(filter.page > 0, 'pagination must start at 1');
+    const pageSize = 20;
 
-      final list = await _client.list(req);
-      return ResourceList(list.articles.map(toArticle).toList());
+    final req = pb.ListArticlesRequest(
+      limit: pageSize,
+      offset: pageSize * (filter.page - 1),
+      filterKind: filterToProto(filter.kind),
+      filterValue: filter.value,
+    );
+
+    try {
+      final res = await _client.list(req);
+      return ArticleList(
+        res.articles.map(toArticleHead).toList(),
+        totalCount: res.totalCount,
+        pageSize: res.pageSize,
+      );
     } on GrpcError catch (e) {
       throw e.toConduitException();
     }
   }
 
-  Future<ResourceList<Article>> getArticleFeed({
+  Future<ArticleList> getArticleFeed({
     int limit = 20,
     int offset = 0,
   }) async {
@@ -37,8 +43,9 @@ class ArticleService {
         ..limit = limit
         ..offset = offset;
 
-      final list = await _client.getFeed(req);
-      return ResourceList(list.articles.map(toArticle).toList());
+      final res = await _client.getFeed(req);
+      return ArticleList(res.articles.map(toArticleHead).toList(),
+          totalCount: res.totalCount, pageSize: res.pageSize);
     } on GrpcError catch (e) {
       throw e.toConduitException();
     }
@@ -135,20 +142,19 @@ class ArticleService {
     }
   }
 
-  Future<ResourceList<Comment>> listComments(String slug) async {
+  Future<List<Comment>> listComments(String slug) async {
     try {
       final req = pb.ListCommentsRequest()..slug = slug;
-      final list = await _client.listComments(req);
-      return ResourceList(list.comments.map(toComment).toList());
+      final res = await _client.listComments(req);
+      return res.comments.map(toComment).toList();
     } on GrpcError catch (e) {
       throw e.toConduitException();
     }
   }
 
-  Future<ResourceList<String>> listTags() async {
+  Future<List<String>> listTags() async {
     try {
-      final list = await _client.listTags(pb.ListTagsRequest());
-      return ResourceList(list.tags);
+      return (await _client.listTags(pb.ListTagsRequest())).tags;
     } on GrpcError catch (e) {
       throw e.toConduitException();
     }

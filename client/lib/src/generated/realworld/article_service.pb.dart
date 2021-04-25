@@ -12,6 +12,137 @@ import 'package:protobuf/protobuf.dart' as $pb;
 import '../google/protobuf/timestamp.pb.dart' as $3;
 import 'common.pb.dart' as $4;
 
+import 'article_service.pbenum.dart';
+
+export 'article_service.pbenum.dart';
+
+class ArticleHead extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ArticleHead', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'realworld'), createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'slug')
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'title')
+    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'description')
+    ..pPS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'tagList')
+    ..aOM<$3.Timestamp>(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createdAt', subBuilder: $3.Timestamp.create)
+    ..a<$core.int>(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'favoritesCount', $pb.PbFieldType.O3)
+    ..aOS(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'author')
+    ..hasRequiredFields = false
+  ;
+
+  ArticleHead._() : super();
+  factory ArticleHead({
+    $core.String? slug,
+    $core.String? title,
+    $core.String? description,
+    $core.Iterable<$core.String>? tagList,
+    $3.Timestamp? createdAt,
+    $core.int? favoritesCount,
+    $core.String? author,
+  }) {
+    final _result = create();
+    if (slug != null) {
+      _result.slug = slug;
+    }
+    if (title != null) {
+      _result.title = title;
+    }
+    if (description != null) {
+      _result.description = description;
+    }
+    if (tagList != null) {
+      _result.tagList.addAll(tagList);
+    }
+    if (createdAt != null) {
+      _result.createdAt = createdAt;
+    }
+    if (favoritesCount != null) {
+      _result.favoritesCount = favoritesCount;
+    }
+    if (author != null) {
+      _result.author = author;
+    }
+    return _result;
+  }
+  factory ArticleHead.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory ArticleHead.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  ArticleHead clone() => ArticleHead()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  ArticleHead copyWith(void Function(ArticleHead) updates) => super.copyWith((message) => updates(message as ArticleHead)) as ArticleHead; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static ArticleHead create() => ArticleHead._();
+  ArticleHead createEmptyInstance() => create();
+  static $pb.PbList<ArticleHead> createRepeated() => $pb.PbList<ArticleHead>();
+  @$core.pragma('dart2js:noInline')
+  static ArticleHead getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ArticleHead>(create);
+  static ArticleHead? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get slug => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set slug($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasSlug() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearSlug() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get title => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set title($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasTitle() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearTitle() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get description => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set description($core.String v) { $_setString(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasDescription() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearDescription() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.List<$core.String> get tagList => $_getList(3);
+
+  @$pb.TagNumber(7)
+  $3.Timestamp get createdAt => $_getN(4);
+  @$pb.TagNumber(7)
+  set createdAt($3.Timestamp v) { setField(7, v); }
+  @$pb.TagNumber(7)
+  $core.bool hasCreatedAt() => $_has(4);
+  @$pb.TagNumber(7)
+  void clearCreatedAt() => clearField(7);
+  @$pb.TagNumber(7)
+  $3.Timestamp ensureCreatedAt() => $_ensure(4);
+
+  @$pb.TagNumber(9)
+  $core.int get favoritesCount => $_getIZ(5);
+  @$pb.TagNumber(9)
+  set favoritesCount($core.int v) { $_setSignedInt32(5, v); }
+  @$pb.TagNumber(9)
+  $core.bool hasFavoritesCount() => $_has(5);
+  @$pb.TagNumber(9)
+  void clearFavoritesCount() => clearField(9);
+
+  @$pb.TagNumber(10)
+  $core.String get author => $_getSZ(6);
+  @$pb.TagNumber(10)
+  set author($core.String v) { $_setString(6, v); }
+  @$pb.TagNumber(10)
+  $core.bool hasAuthor() => $_has(6);
+  @$pb.TagNumber(10)
+  void clearAuthor() => clearField(10);
+}
+
 class Article extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Article', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'realworld'), createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'slug')
@@ -296,37 +427,32 @@ class Comment extends $pb.GeneratedMessage {
 
 class ListArticlesRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ListArticlesRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'realworld'), createEmptyInstance: create)
-    ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'limit', $pb.PbFieldType.O3)
-    ..a<$core.int>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'offset', $pb.PbFieldType.O3)
-    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'tag')
-    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'author')
-    ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'favorited')
+    ..e<FilterKind>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'filterKind', $pb.PbFieldType.OE, defaultOrMaker: FilterKind.NONE, valueOf: FilterKind.valueOf, enumValues: FilterKind.values)
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'filterValue')
+    ..a<$core.int>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'limit', $pb.PbFieldType.O3)
+    ..a<$core.int>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'offset', $pb.PbFieldType.O3)
     ..hasRequiredFields = false
   ;
 
   ListArticlesRequest._() : super();
   factory ListArticlesRequest({
+    FilterKind? filterKind,
+    $core.String? filterValue,
     $core.int? limit,
     $core.int? offset,
-    $core.String? tag,
-    $core.String? author,
-    $core.String? favorited,
   }) {
     final _result = create();
+    if (filterKind != null) {
+      _result.filterKind = filterKind;
+    }
+    if (filterValue != null) {
+      _result.filterValue = filterValue;
+    }
     if (limit != null) {
       _result.limit = limit;
     }
     if (offset != null) {
       _result.offset = offset;
-    }
-    if (tag != null) {
-      _result.tag = tag;
-    }
-    if (author != null) {
-      _result.author = author;
-    }
-    if (favorited != null) {
-      _result.favorited = favorited;
     }
     return _result;
   }
@@ -352,49 +478,40 @@ class ListArticlesRequest extends $pb.GeneratedMessage {
   static ListArticlesRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.int get limit => $_getIZ(0);
+  FilterKind get filterKind => $_getN(0);
   @$pb.TagNumber(1)
-  set limit($core.int v) { $_setSignedInt32(0, v); }
+  set filterKind(FilterKind v) { setField(1, v); }
   @$pb.TagNumber(1)
-  $core.bool hasLimit() => $_has(0);
+  $core.bool hasFilterKind() => $_has(0);
   @$pb.TagNumber(1)
-  void clearLimit() => clearField(1);
+  void clearFilterKind() => clearField(1);
 
   @$pb.TagNumber(2)
-  $core.int get offset => $_getIZ(1);
+  $core.String get filterValue => $_getSZ(1);
   @$pb.TagNumber(2)
-  set offset($core.int v) { $_setSignedInt32(1, v); }
+  set filterValue($core.String v) { $_setString(1, v); }
   @$pb.TagNumber(2)
-  $core.bool hasOffset() => $_has(1);
+  $core.bool hasFilterValue() => $_has(1);
   @$pb.TagNumber(2)
-  void clearOffset() => clearField(2);
+  void clearFilterValue() => clearField(2);
 
   @$pb.TagNumber(3)
-  $core.String get tag => $_getSZ(2);
+  $core.int get limit => $_getIZ(2);
   @$pb.TagNumber(3)
-  set tag($core.String v) { $_setString(2, v); }
+  set limit($core.int v) { $_setSignedInt32(2, v); }
   @$pb.TagNumber(3)
-  $core.bool hasTag() => $_has(2);
+  $core.bool hasLimit() => $_has(2);
   @$pb.TagNumber(3)
-  void clearTag() => clearField(3);
+  void clearLimit() => clearField(3);
 
   @$pb.TagNumber(4)
-  $core.String get author => $_getSZ(3);
+  $core.int get offset => $_getIZ(3);
   @$pb.TagNumber(4)
-  set author($core.String v) { $_setString(3, v); }
+  set offset($core.int v) { $_setSignedInt32(3, v); }
   @$pb.TagNumber(4)
-  $core.bool hasAuthor() => $_has(3);
+  $core.bool hasOffset() => $_has(3);
   @$pb.TagNumber(4)
-  void clearAuthor() => clearField(4);
-
-  @$pb.TagNumber(5)
-  $core.String get favorited => $_getSZ(4);
-  @$pb.TagNumber(5)
-  set favorited($core.String v) { $_setString(4, v); }
-  @$pb.TagNumber(5)
-  $core.bool hasFavorited() => $_has(4);
-  @$pb.TagNumber(5)
-  void clearFavorited() => clearField(5);
+  void clearOffset() => clearField(4);
 }
 
 class GetFeedRequest extends $pb.GeneratedMessage {
@@ -460,22 +577,27 @@ class GetFeedRequest extends $pb.GeneratedMessage {
 
 class ArticleList extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ArticleList', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'realworld'), createEmptyInstance: create)
-    ..pc<Article>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'articles', $pb.PbFieldType.PM, subBuilder: Article.create)
-    ..a<$core.int>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'articlesCount', $pb.PbFieldType.O3)
+    ..pc<ArticleHead>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'articles', $pb.PbFieldType.PM, subBuilder: ArticleHead.create)
+    ..a<$core.int>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'totalCount', $pb.PbFieldType.O3)
+    ..a<$core.int>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'pageSize', $pb.PbFieldType.O3)
     ..hasRequiredFields = false
   ;
 
   ArticleList._() : super();
   factory ArticleList({
-    $core.Iterable<Article>? articles,
-    $core.int? articlesCount,
+    $core.Iterable<ArticleHead>? articles,
+    $core.int? totalCount,
+    $core.int? pageSize,
   }) {
     final _result = create();
     if (articles != null) {
       _result.articles.addAll(articles);
     }
-    if (articlesCount != null) {
-      _result.articlesCount = articlesCount;
+    if (totalCount != null) {
+      _result.totalCount = totalCount;
+    }
+    if (pageSize != null) {
+      _result.pageSize = pageSize;
     }
     return _result;
   }
@@ -501,16 +623,25 @@ class ArticleList extends $pb.GeneratedMessage {
   static ArticleList? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.List<Article> get articles => $_getList(0);
+  $core.List<ArticleHead> get articles => $_getList(0);
 
   @$pb.TagNumber(2)
-  $core.int get articlesCount => $_getIZ(1);
+  $core.int get totalCount => $_getIZ(1);
   @$pb.TagNumber(2)
-  set articlesCount($core.int v) { $_setSignedInt32(1, v); }
+  set totalCount($core.int v) { $_setSignedInt32(1, v); }
   @$pb.TagNumber(2)
-  $core.bool hasArticlesCount() => $_has(1);
+  $core.bool hasTotalCount() => $_has(1);
   @$pb.TagNumber(2)
-  void clearArticlesCount() => clearField(2);
+  void clearTotalCount() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.int get pageSize => $_getIZ(2);
+  @$pb.TagNumber(3)
+  set pageSize($core.int v) { $_setSignedInt32(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasPageSize() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearPageSize() => clearField(3);
 }
 
 class ArticleResponse extends $pb.GeneratedMessage {

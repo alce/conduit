@@ -89,6 +89,16 @@ service ArticleService {
   }
 }
 
+message ArticleHead {
+  string slug = 1;
+  string title = 2;
+  string description = 3;
+  repeated string tag_list = 4;
+  google.protobuf.Timestamp created_at = 7;
+  int32 favorites_count = 9;
+  string author = 10;
+}
+
 message Article {
   string slug = 1;
   string title = 2;
@@ -110,12 +120,18 @@ message Comment {
   Profile author = 5;
 }
 
+enum FilterKind {
+  NONE = 0;
+  TAG = 1;
+  AUTHOR = 2;
+  FAVORITED_BY = 3;
+}
+
 message ListArticlesRequest {
-  optional int32 limit = 1;
-  optional int32 offset = 2;
-  optional string tag = 3;
-  optional string author = 4;
-  optional string favorited = 5;
+  FilterKind filter_kind = 1;
+  optional string filter_value = 2;
+  optional int32 limit = 3;
+  optional int32 offset = 4;
 }
 
 message GetFeedRequest {
@@ -124,8 +140,9 @@ message GetFeedRequest {
 }
 
 message ArticleList {
-  repeated Article articles = 1;
-  int32 articles_count = 2;
+  repeated ArticleHead articles = 1;
+  int32 total_count = 2;
+  int32 page_size = 3;
 }
 
 message ArticleResponse {

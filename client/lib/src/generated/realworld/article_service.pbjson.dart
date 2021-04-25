@@ -8,6 +8,35 @@
 import 'dart:core' as $core;
 import 'dart:convert' as $convert;
 import 'dart:typed_data' as $typed_data;
+@$core.Deprecated('Use filterKindDescriptor instead')
+const FilterKind$json = const {
+  '1': 'FilterKind',
+  '2': const [
+    const {'1': 'NONE', '2': 0},
+    const {'1': 'TAG', '2': 1},
+    const {'1': 'AUTHOR', '2': 2},
+    const {'1': 'FAVORITED_BY', '2': 3},
+  ],
+};
+
+/// Descriptor for `FilterKind`. Decode as a `google.protobuf.EnumDescriptorProto`.
+final $typed_data.Uint8List filterKindDescriptor = $convert.base64Decode('CgpGaWx0ZXJLaW5kEggKBE5PTkUQABIHCgNUQUcQARIKCgZBVVRIT1IQAhIQCgxGQVZPUklURURfQlkQAw==');
+@$core.Deprecated('Use articleHeadDescriptor instead')
+const ArticleHead$json = const {
+  '1': 'ArticleHead',
+  '2': const [
+    const {'1': 'slug', '3': 1, '4': 1, '5': 9, '10': 'slug'},
+    const {'1': 'title', '3': 2, '4': 1, '5': 9, '10': 'title'},
+    const {'1': 'description', '3': 3, '4': 1, '5': 9, '10': 'description'},
+    const {'1': 'tag_list', '3': 4, '4': 3, '5': 9, '10': 'tagList'},
+    const {'1': 'created_at', '3': 7, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'createdAt'},
+    const {'1': 'favorites_count', '3': 9, '4': 1, '5': 5, '10': 'favoritesCount'},
+    const {'1': 'author', '3': 10, '4': 1, '5': 9, '10': 'author'},
+  ],
+};
+
+/// Descriptor for `ArticleHead`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List articleHeadDescriptor = $convert.base64Decode('CgtBcnRpY2xlSGVhZBISCgRzbHVnGAEgASgJUgRzbHVnEhQKBXRpdGxlGAIgASgJUgV0aXRsZRIgCgtkZXNjcmlwdGlvbhgDIAEoCVILZGVzY3JpcHRpb24SGQoIdGFnX2xpc3QYBCADKAlSB3RhZ0xpc3QSOQoKY3JlYXRlZF9hdBgHIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXBSCWNyZWF0ZWRBdBInCg9mYXZvcml0ZXNfY291bnQYCSABKAVSDmZhdm9yaXRlc0NvdW50EhYKBmF1dGhvchgKIAEoCVIGYXV0aG9y');
 @$core.Deprecated('Use articleDescriptor instead')
 const Article$json = const {
   '1': 'Article',
@@ -45,23 +74,20 @@ final $typed_data.Uint8List commentDescriptor = $convert.base64Decode('CgdDb21tZ
 const ListArticlesRequest$json = const {
   '1': 'ListArticlesRequest',
   '2': const [
-    const {'1': 'limit', '3': 1, '4': 1, '5': 5, '9': 0, '10': 'limit', '17': true},
-    const {'1': 'offset', '3': 2, '4': 1, '5': 5, '9': 1, '10': 'offset', '17': true},
-    const {'1': 'tag', '3': 3, '4': 1, '5': 9, '9': 2, '10': 'tag', '17': true},
-    const {'1': 'author', '3': 4, '4': 1, '5': 9, '9': 3, '10': 'author', '17': true},
-    const {'1': 'favorited', '3': 5, '4': 1, '5': 9, '9': 4, '10': 'favorited', '17': true},
+    const {'1': 'filter_kind', '3': 1, '4': 1, '5': 14, '6': '.realworld.FilterKind', '10': 'filterKind'},
+    const {'1': 'filter_value', '3': 2, '4': 1, '5': 9, '9': 0, '10': 'filterValue', '17': true},
+    const {'1': 'limit', '3': 3, '4': 1, '5': 5, '9': 1, '10': 'limit', '17': true},
+    const {'1': 'offset', '3': 4, '4': 1, '5': 5, '9': 2, '10': 'offset', '17': true},
   ],
   '8': const [
+    const {'1': '_filter_value'},
     const {'1': '_limit'},
     const {'1': '_offset'},
-    const {'1': '_tag'},
-    const {'1': '_author'},
-    const {'1': '_favorited'},
   ],
 };
 
 /// Descriptor for `ListArticlesRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List listArticlesRequestDescriptor = $convert.base64Decode('ChNMaXN0QXJ0aWNsZXNSZXF1ZXN0EhkKBWxpbWl0GAEgASgFSABSBWxpbWl0iAEBEhsKBm9mZnNldBgCIAEoBUgBUgZvZmZzZXSIAQESFQoDdGFnGAMgASgJSAJSA3RhZ4gBARIbCgZhdXRob3IYBCABKAlIA1IGYXV0aG9yiAEBEiEKCWZhdm9yaXRlZBgFIAEoCUgEUglmYXZvcml0ZWSIAQFCCAoGX2xpbWl0QgkKB19vZmZzZXRCBgoEX3RhZ0IJCgdfYXV0aG9yQgwKCl9mYXZvcml0ZWQ=');
+final $typed_data.Uint8List listArticlesRequestDescriptor = $convert.base64Decode('ChNMaXN0QXJ0aWNsZXNSZXF1ZXN0EjYKC2ZpbHRlcl9raW5kGAEgASgOMhUucmVhbHdvcmxkLkZpbHRlcktpbmRSCmZpbHRlcktpbmQSJgoMZmlsdGVyX3ZhbHVlGAIgASgJSABSC2ZpbHRlclZhbHVliAEBEhkKBWxpbWl0GAMgASgFSAFSBWxpbWl0iAEBEhsKBm9mZnNldBgEIAEoBUgCUgZvZmZzZXSIAQFCDwoNX2ZpbHRlcl92YWx1ZUIICgZfbGltaXRCCQoHX29mZnNldA==');
 @$core.Deprecated('Use getFeedRequestDescriptor instead')
 const GetFeedRequest$json = const {
   '1': 'GetFeedRequest',
@@ -81,13 +107,14 @@ final $typed_data.Uint8List getFeedRequestDescriptor = $convert.base64Decode('Cg
 const ArticleList$json = const {
   '1': 'ArticleList',
   '2': const [
-    const {'1': 'articles', '3': 1, '4': 3, '5': 11, '6': '.realworld.Article', '10': 'articles'},
-    const {'1': 'articles_count', '3': 2, '4': 1, '5': 5, '10': 'articlesCount'},
+    const {'1': 'articles', '3': 1, '4': 3, '5': 11, '6': '.realworld.ArticleHead', '10': 'articles'},
+    const {'1': 'total_count', '3': 2, '4': 1, '5': 5, '10': 'totalCount'},
+    const {'1': 'page_size', '3': 3, '4': 1, '5': 5, '10': 'pageSize'},
   ],
 };
 
 /// Descriptor for `ArticleList`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List articleListDescriptor = $convert.base64Decode('CgtBcnRpY2xlTGlzdBIuCghhcnRpY2xlcxgBIAMoCzISLnJlYWx3b3JsZC5BcnRpY2xlUghhcnRpY2xlcxIlCg5hcnRpY2xlc19jb3VudBgCIAEoBVINYXJ0aWNsZXNDb3VudA==');
+final $typed_data.Uint8List articleListDescriptor = $convert.base64Decode('CgtBcnRpY2xlTGlzdBIyCghhcnRpY2xlcxgBIAMoCzIWLnJlYWx3b3JsZC5BcnRpY2xlSGVhZFIIYXJ0aWNsZXMSHwoLdG90YWxfY291bnQYAiABKAVSCnRvdGFsQ291bnQSGwoJcGFnZV9zaXplGAMgASgFUghwYWdlU2l6ZQ==');
 @$core.Deprecated('Use articleResponseDescriptor instead')
 const ArticleResponse$json = const {
   '1': 'ArticleResponse',

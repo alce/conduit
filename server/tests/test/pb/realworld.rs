@@ -10,6 +10,23 @@ pub struct Profile {
     pub following: bool,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ArticleHead {
+    #[prost(string, tag = "1")]
+    pub slug: ::prost::alloc::string::String,
+    #[prost(string, tag = "2")]
+    pub title: ::prost::alloc::string::String,
+    #[prost(string, tag = "3")]
+    pub description: ::prost::alloc::string::String,
+    #[prost(string, repeated, tag = "4")]
+    pub tag_list: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    #[prost(message, optional, tag = "7")]
+    pub created_at: ::core::option::Option<::prost_types::Timestamp>,
+    #[prost(int32, tag = "9")]
+    pub favorites_count: i32,
+    #[prost(string, tag = "10")]
+    pub author: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Article {
     #[prost(string, tag = "1")]
     pub slug: ::prost::alloc::string::String,
@@ -47,16 +64,14 @@ pub struct Comment {
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListArticlesRequest {
-    #[prost(int32, optional, tag = "1")]
+    #[prost(enumeration = "FilterKind", tag = "1")]
+    pub filter_kind: i32,
+    #[prost(string, optional, tag = "2")]
+    pub filter_value: ::core::option::Option<::prost::alloc::string::String>,
+    #[prost(int32, optional, tag = "3")]
     pub limit: ::core::option::Option<i32>,
-    #[prost(int32, optional, tag = "2")]
+    #[prost(int32, optional, tag = "4")]
     pub offset: ::core::option::Option<i32>,
-    #[prost(string, optional, tag = "3")]
-    pub tag: ::core::option::Option<::prost::alloc::string::String>,
-    #[prost(string, optional, tag = "4")]
-    pub author: ::core::option::Option<::prost::alloc::string::String>,
-    #[prost(string, optional, tag = "5")]
-    pub favorited: ::core::option::Option<::prost::alloc::string::String>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetFeedRequest {
@@ -68,9 +83,11 @@ pub struct GetFeedRequest {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ArticleList {
     #[prost(message, repeated, tag = "1")]
-    pub articles: ::prost::alloc::vec::Vec<Article>,
+    pub articles: ::prost::alloc::vec::Vec<ArticleHead>,
     #[prost(int32, tag = "2")]
-    pub articles_count: i32,
+    pub total_count: i32,
+    #[prost(int32, tag = "3")]
+    pub page_size: i32,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ArticleResponse {
@@ -149,6 +166,14 @@ pub struct ListTagsRequest {}
 pub struct TagList {
     #[prost(string, repeated, tag = "1")]
     pub tags: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+pub enum FilterKind {
+    None = 0,
+    Tag = 1,
+    Author = 2,
+    FavoritedBy = 3,
 }
 #[doc = r" Generated client implementations."]
 pub mod article_service_client {
