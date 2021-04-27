@@ -1,5 +1,4 @@
-use crate::types::Id;
-use crate::users::UpdateProfileArgs;
+use crate::types::{Email, Id, Password, Username};
 
 #[derive(Debug)]
 pub struct User {
@@ -17,6 +16,26 @@ pub struct Profile {
     pub bio: Option<String>,
     pub image: Option<String>,
     pub following: bool,
+}
+
+#[derive(Debug)]
+pub struct CreateUserArgs {
+    pub username: Username,
+    pub email: Email,
+    pub password: Password,
+}
+
+#[derive(Debug)]
+pub struct UpdateProfileArgs {
+    pub username: Option<Username>,
+    pub email: Option<Email>,
+    pub bio: Option<String>,
+    pub image: Option<String>,
+}
+
+pub struct LoginArgs {
+    pub email: Email,
+    pub password: Password,
 }
 
 impl User {
