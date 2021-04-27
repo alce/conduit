@@ -5,7 +5,7 @@ import '../../conduit_client.dart';
 import 'profile.dart';
 
 @immutable
-class ArticleHead {
+class ArticleHead extends Equatable {
   const ArticleHead({
     required this.slug,
     required this.title,
@@ -23,6 +23,9 @@ class ArticleHead {
   final DateTime createdAt;
   final int favoritesCount;
   final String authorUsername;
+
+  @override
+  List<Object?> get props => [slug, favoritesCount];
 }
 
 @immutable
@@ -52,7 +55,7 @@ class Article extends Equatable {
   final Profile author;
 
   @override
-  List<Object?> get props => [slug];
+  List<Object?> get props => [slug, favoritesCount];
 }
 
 @immutable
@@ -68,7 +71,7 @@ class ArticleList {
   String toString() => '(count: $totalCount, size: $pageSize [$articles])';
 }
 
-enum ArticleFilterKind {
+enum FilterKind {
   none,
   author,
   favoritedBy,
@@ -80,22 +83,22 @@ class ArticlesFilter {
   const ArticlesFilter._(this.kind, this.value, this.page);
 
   const ArticlesFilter.none()
-      : kind = ArticleFilterKind.none,
+      : kind = FilterKind.none,
         value = null,
         page = 1;
 
   ArticlesFilter withAuthor(String author) =>
-      ArticlesFilter._(ArticleFilterKind.author, author, 1);
+      ArticlesFilter._(FilterKind.author, author, 1);
 
   ArticlesFilter withTag(String tag) =>
-      ArticlesFilter._(ArticleFilterKind.tag, tag, 1);
+      ArticlesFilter._(FilterKind.tag, tag, 1);
 
   ArticlesFilter withFavoritedBy(String author) =>
-      ArticlesFilter._(ArticleFilterKind.favoritedBy, author, 1);
+      ArticlesFilter._(FilterKind.favoritedBy, author, 1);
 
   ArticlesFilter withPage(int page) => ArticlesFilter._(kind, value, page);
 
-  final ArticleFilterKind kind;
+  final FilterKind kind;
   final String? value;
   final int page;
 }

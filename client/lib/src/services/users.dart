@@ -5,7 +5,9 @@ import '../conversion.dart';
 import '../generated/realworld/user_service.pbgrpc.dart' hide User;
 
 class UserService {
-  UserService(ClientChannelBase channel) : _client = UserServiceClient(channel);
+  UserService(ClientChannelBase channel, Map<String, String> metadata)
+      : _client = UserServiceClient(channel,
+            options: CallOptions(metadata: metadata));
 
   final UserServiceClient _client;
 
@@ -38,7 +40,7 @@ class UserService {
     }
   }
 
-  Future<User> getCurrentUser({String? token}) async {
+  Future<User> getCurrentUser(String? token) async {
     try {
       final proto = await _client.getCurrent(
         GetCurrentUserRequest(),

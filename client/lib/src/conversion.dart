@@ -79,15 +79,15 @@ extension ProtoToComment on Comment {
   }
 }
 
-FilterKind filterToProto(model.ArticleFilterKind kind) {
+FilterKind filterToProto(model.FilterKind kind) {
   switch (kind) {
-    case model.ArticleFilterKind.none:
+    case model.FilterKind.none:
       return FilterKind.NONE;
-    case model.ArticleFilterKind.tag:
+    case model.FilterKind.tag:
       return FilterKind.TAG;
-    case model.ArticleFilterKind.author:
+    case model.FilterKind.author:
       return FilterKind.AUTHOR;
-    case model.ArticleFilterKind.favoritedBy:
+    case model.FilterKind.favoritedBy:
       return FilterKind.FAVORITED_BY;
   }
 }

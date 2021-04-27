@@ -6,8 +6,9 @@ import '../model/article.dart';
 import '../model/comment.dart';
 
 class ArticleService {
-  ArticleService(ClientChannelBase channel)
-      : _client = pb.ArticleServiceClient(channel);
+  ArticleService(ClientChannelBase channel, Map<String, String> metadata)
+      : _client = pb.ArticleServiceClient(channel,
+            options: CallOptions(metadata: metadata));
 
   final pb.ArticleServiceClient _client;
 
