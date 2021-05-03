@@ -1,6 +1,6 @@
 import 'package:grpc/grpc_connection_interface.dart';
 
-import 'channel/channel.dart';
+import 'channel.dart' if (dart.library.js) 'channel_web.dart';
 import 'services/articles.dart';
 import 'services/users.dart';
 
