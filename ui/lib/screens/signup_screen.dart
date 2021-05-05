@@ -3,12 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../model/auth_state.dart';
 import '../providers.dart';
+import '../routing/routes.dart';
 import '../widgets/nav_bar.dart';
-import 'login_screen.dart';
 
 class SignUpScreen extends StatelessWidget {
-  static const routeName = '/register';
-
   @override
   Widget build(BuildContext cx) {
     return Scaffold(
@@ -23,8 +21,8 @@ class SignUpScreen extends StatelessWidget {
                 children: [
                   Text('Sign Up', style: TextStyle(fontSize: 40)),
                   TextButton(
-                    onPressed: () => Navigator.of(cx)
-                        .pushReplacementNamed(LogInScreen.routeName),
+                    onPressed: () =>
+                        cx.read(routingProvider).currentRoute = LoginRoute(),
                     child: Text(
                       'Have an account?',
                       style: TextStyle(fontSize: 17),

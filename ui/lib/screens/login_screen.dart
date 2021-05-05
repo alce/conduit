@@ -3,12 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../model/auth_state.dart';
 import '../providers.dart';
+import '../routing/routes.dart';
 import '../widgets/nav_bar.dart';
-import 'signup_screen.dart';
 
 class LogInScreen extends StatelessWidget {
-  static const routeName = '/login';
-
   @override
   Widget build(BuildContext cx) {
     return Scaffold(
@@ -23,8 +21,8 @@ class LogInScreen extends StatelessWidget {
                 children: [
                   Text('Sign In', style: TextStyle(fontSize: 40)),
                   TextButton(
-                    onPressed: () => Navigator.of(cx)
-                        .pushReplacementNamed(SignUpScreen.routeName),
+                    onPressed: () =>
+                        cx.read(routingProvider).currentRoute = SignupRoute(),
                     child: Text(
                       'Need an account?',
                       style: TextStyle(fontSize: 17),
@@ -55,7 +53,7 @@ class _LoginFormState extends State<_LoginForm> {
     await cx.read(auth.notifier).login(
           email: _email,
           password: _password,
-          onSuccess: () => Navigator.of(cx).pushNamed('/'),
+          onSuccess: () => cx.read(routingProvider).currentRoute = HomeRoute(),
         );
   }
 

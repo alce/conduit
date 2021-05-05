@@ -3,12 +3,33 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'model/auth.dart';
 import 'model/auth_state.dart';
+import 'routing/state.dart';
 
-final currentUser = StateProvider<User?>((_) => null);
+final currentUserProvider = StateProvider<User?>((_) => null);
 
-final conduitClient = Provider<ConduitClient>((ref) {
+final tagsProvider = FutureProvider<List<String>>((ref) {
+  return ref.read(_conduitClient).articles.listTags();
+});
+
+final articlesProvider = FutureProvider<ArticleList>((ref) {
+  return ref
+      .watch(_conduitClient)
+      .articles
+      .listArticles(ref.watch(articlesFilterProvider));
+});
+
+final articleProvider = FutureProvider.family<Article, String>((ref, slug) {
+  return ref.watch(_conduitClient).articles.getArticle(slug);
+});
+
+final articlesFilterProvider =
+    StateNotifierProvider<ArticlesFilterNotifier, ArticlesFilter>(
+  (_) => ArticlesFilterNotifier(),
+);
+
+final _conduitClient = Provider<ConduitClient>((ref) {
   final metadata = <String, String>{};
-  final user = ref.watch(currentUser).state;
+  final user = ref.watch(currentUserProvider).state;
 
   if (user != null) {
     metadata['x-auth-token'] = user.token;
@@ -17,16 +38,27 @@ final conduitClient = Provider<ConduitClient>((ref) {
   return ConduitClient(Uri.parse('http://localhost:8080'), metadata);
 });
 
-final articles = FutureProvider<ArticleList>((ref) {
-  final filter = ref.watch(articlesFilter).state;
-  return ref.watch(conduitClient).articles.listArticles(filter);
-});
+final routingProvider = ChangeNotifierProvider((ref) => RoutingState(ref.read));
 
-final tags = FutureProvider<List<String>>((ref) {
-  return ref.watch(conduitClient).articles.listTags();
-});
+class ArticlesFilterNotifier extends StateNotifier<ArticlesFilter> {
+  ArticlesFilterNotifier() : super(ArticlesFilter.none());
 
-final articlesFilter = StateProvider((_) => ArticlesFilter.none());
+  void none() => state = ArticlesFilter.none();
+
+  void withTag(String tag) => state = ArticlesFilter(FilterKind.tag, tag, 1);
+
+  void withAuthor(String author) =>
+      state = ArticlesFilter(FilterKind.author, author, 1);
+
+  void withPage(int page) =>
+      state = ArticlesFilter(state.kind, state.value, page);
+
+  void favoritedBy(String author) =>
+      state = ArticlesFilter(FilterKind.favoritedBy, author, 1);
+}
 
 final auth = StateNotifierProvider<Auth, AuthState>(
-    (ref) => Auth(ref.read(conduitClient), ref.read));
+    (ref) => Auth(ref.read(_conduitClient), ref.read));
+
+// final articlesModel = ChangeNotifierProvider(
+//     (ref) => ArticlesModel(ref.read(_conduitClient), ref.read));

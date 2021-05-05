@@ -98,8 +98,7 @@ class UserService {
   Future<Profile> getProfile(String username) async {
     try {
       final req = GetProfileRequest()..username = username;
-      final proto = await _client.getProfile(req);
-      return proto.profile.toModel();
+      return (await _client.getProfile(req)).profile.toModel();
     } on GrpcError catch (e) {
       throw e.toConduitException();
     }

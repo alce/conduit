@@ -5,22 +5,21 @@ import '../providers.dart';
 import '../theme.dart';
 
 class SimpleChip extends StatelessWidget {
-  const SimpleChip(this._label, {this.inverted = false, Key? key})
-      : super(key: key);
+  const SimpleChip({
+    required this.label,
+    required this.inverted,
+    Key? key,
+  }) : super(key: key);
 
   final bool inverted;
-
-  final String _label;
+  final String label;
 
   @override
   Widget build(BuildContext cx) {
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
-        onTap: () {
-          final filter = cx.read(articlesFilter);
-          filter.state = filter.state.withTag(_label);
-        },
+        onTap: () => cx.read(articlesFilterProvider.notifier).withTag(label),
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 7, vertical: 3),
           decoration: BoxDecoration(
@@ -29,7 +28,7 @@ class SimpleChip extends StatelessWidget {
             color: inverted ? null : tagChipBackground,
           ),
           child: Text(
-            _label,
+            label,
             style: TextStyle(color: inverted ? lightGray : Colors.white),
           ),
         ),

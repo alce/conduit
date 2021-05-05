@@ -56,6 +56,18 @@ class Article extends Equatable {
 
   @override
   List<Object?> get props => [slug, favoritesCount];
+
+  ArticleHead head() {
+    return ArticleHead(
+      slug: slug,
+      title: title,
+      description: description,
+      tags: tags,
+      createdAt: createdAt,
+      favoritesCount: favoritesCount,
+      authorUsername: author.username,
+    );
+  }
 }
 
 @immutable
@@ -80,23 +92,12 @@ enum FilterKind {
 
 @immutable
 class ArticlesFilter {
-  const ArticlesFilter._(this.kind, this.value, this.page);
+  const ArticlesFilter(this.kind, this.value, this.page);
 
   const ArticlesFilter.none()
       : kind = FilterKind.none,
         value = null,
         page = 1;
-
-  ArticlesFilter withAuthor(String author) =>
-      ArticlesFilter._(FilterKind.author, author, 1);
-
-  ArticlesFilter withTag(String tag) =>
-      ArticlesFilter._(FilterKind.tag, tag, 1);
-
-  ArticlesFilter withFavoritedBy(String author) =>
-      ArticlesFilter._(FilterKind.favoritedBy, author, 1);
-
-  ArticlesFilter withPage(int page) => ArticlesFilter._(kind, value, page);
 
   final FilterKind kind;
   final String? value;

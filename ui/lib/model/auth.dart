@@ -29,10 +29,7 @@ class Auth extends StateNotifier<AuthState> {
         password: password,
       );
 
-      await _storeToken(user.token);
-      _read(currentUser).state = user;
-      state = Authenticated();
-      onSuccess?.call();
+      await _setAuthenticatedState(user, onSuccess);
     } on ConduitException catch (e) {
       if (e.fieldErrors != null) {
         state = AuthValidationError(e.fieldErrors!);
@@ -51,10 +48,7 @@ class Auth extends StateNotifier<AuthState> {
 
     try {
       final user = await _client.users.login(email: email, password: password);
-      await _storeToken(user.token);
-      _read(currentUser).state = user;
-      state = Authenticated();
-      onSuccess?.call();
+      await _setAuthenticatedState(user, onSuccess);
     } on ConduitException catch (_) {
       state = AuthError('Invalid username or password');
     }
@@ -69,8 +63,7 @@ class Auth extends StateNotifier<AuthState> {
 
     try {
       final user = await _client.users.getCurrentUser(token);
-      _read(currentUser).state = user;
-      state = Authenticated();
+      await _setAuthenticatedState(user);
     } on ConduitException catch (e) {
       state = AuthError(e.toString());
     }
@@ -78,8 +71,17 @@ class Auth extends StateNotifier<AuthState> {
 
   Future<void> logout() async {
     await _clearToken();
-    _read(currentUser).state = null;
+    _read(currentUserProvider).state = null;
     state = Unauthenticated();
+  }
+
+  Future<void> _setAuthenticatedState(User user,
+      [VoidCallback? onSuccess]) async {
+    await _storeToken(user.token);
+    _read(currentUserProvider).state = user;
+    _read(articlesFilterProvider.notifier).favoritedBy(user.username);
+    state = Authenticated();
+    onSuccess?.call();
   }
 
   Future<String?> _loadToken() async {
