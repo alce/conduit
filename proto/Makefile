@@ -23,8 +23,17 @@ gateway:
 		proto/google/protobuf/*.proto \
 		proto/google/rpc/*.proto \
 
+goserve:
+	@protoc -Iproto \
+		--go_out ../goserve/pb \
+		--go_opt paths=source_relative \
+		--go-grpc_out ../goserve/pb --go-grpc_opt paths=source_relative \
+		proto/realworld/*.proto \
+		proto/google/protobuf/*.proto \
+		proto/google/rpc/*.proto \
+
 clean:
 	@rm -r ../client/lib/src/generated
 	@rm ../server/src/pb/realworld.rs
 
-.PHONY: rust dart go
+.PHONY: rust dart go goserve
