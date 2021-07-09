@@ -15,12 +15,11 @@ members = [
 doctest = false
 
 [dependencies]
-prost = "0.7.0"
-prost-types = "0.7.0"
+prost = "0.8.0"
+prost-types = "0.8.0"
 tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
-#tonic = "0.4.1"
+tonic = { version = "0.5.0", features = ["tls"] }
+tonic-web = "0.1.0"
 conduit = { path = "conduit" }
-tonic = { git = "https://github.com/alce/tonic.git", features = ["tls"], branch = "grpc-web" }
-tonic-web = { git = "https://github.com/alce/tonic.git", branch = "grpc-web" }
-tokio-stream = { version = "0.1.5", features = ["net"] }
+tokio-stream = { version = "0.1.7", features = ["net"] }
 bytes = "1.0.1"
